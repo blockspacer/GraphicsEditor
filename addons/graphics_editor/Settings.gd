@@ -26,4 +26,4 @@ func _on_CheckButton_toggled(button_pressed):
 	canvas_outline.visible = button_pressed
 
 func _on_Ok_pressed():
-	self.hide()
+	hide()

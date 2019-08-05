@@ -5,7 +5,7 @@ var image = Image.new()
 var image_texture = ImageTexture.new()
 
 func _ready():
-	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func setup(region_size):
 	image.create(region_size, region_size, true, Image.FORMAT_RGBA8)
@@ -21,7 +21,7 @@ func set_cell(x, y, color):
 	update_chunk()
 
 func _on_VisibilityNotifier2D_screen_entered():
-	self.visible = true
+	visible = true
 
 func _on_VisibilityNotifier2D_screen_exited():
-	self.visible = false
+	visible = false
