@@ -8,8 +8,9 @@ var end_time
 
 func _ready():
 	#start_time = OS.get_ticks_msec()
-	get_node("CanvasOutlineToggle/CheckButton").pressed = canvas_outline.visible
-	get_node("CanvasOutlineColor/ColorPickerButton").color = canvas_outline.color
+	get_node("CanvasOutline/Enabled/CheckButton").pressed = canvas_outline.visible
+	get_node("CanvasOutline/Color/ColorPickerButton").color = canvas_outline.color
+	get_node("CanvasOutline/Width/SpinBox").value = canvas_outline.width
 
 func _process(delta):
 #	if get_parent().paint_canvas_node != null:
@@ -19,11 +20,15 @@ func _process(delta):
 #		set_process(false)
 	pass
 
-func _on_ColorPickerButton_color_changed(color):
-	canvas_outline.color = color
-
 func _on_CheckButton_toggled(button_pressed):
 	canvas_outline.visible = button_pressed
 
+func _on_ColorPickerButton_color_changed(color):
+	canvas_outline.color = color
+
+func _on_SpinBox_value_changed(value):
+	canvas_outline.width = value
+
 func _on_Ok_pressed():
 	hide()
+

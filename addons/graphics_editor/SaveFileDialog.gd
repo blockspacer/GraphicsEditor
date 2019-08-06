@@ -39,7 +39,6 @@ func save_file():
 				var pixel_color = chunk_image.get_pixel(x, y)
 				var global_cell_x = (chunk_x * canvas.region_size) + x
 				var global_cell_y = (chunk_y * canvas.region_size) + y
-				image.lock()
 				image.set_pixel(global_cell_x, global_cell_y, pixel_color)
 	image.unlock()
 	image.save_png(file_path)

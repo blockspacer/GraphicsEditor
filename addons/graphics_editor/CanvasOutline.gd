@@ -2,12 +2,13 @@ tool
 extends Control
 
 export var color = Color()
+export var width = 3
 
 func _ready():
 	pass
 
 func _draw():
-	draw_outline_box(rect_size, color, 3)
+	draw_outline_box(rect_size, color, width)
 
 func draw_outline_box(size, color, width):
 		#Top line

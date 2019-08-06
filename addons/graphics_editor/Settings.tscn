@@ -4,59 +4,89 @@
 
 [node name="Settings" type="WindowDialog"]
 margin_top = 20.0
-margin_right = 300.0
-margin_bottom = 120.0
+margin_right = 310.0
+margin_bottom = 180.0
 window_title = "Settings"
 script = ExtResource( 1 )
 
 [node name="Ok" type="Button" parent="."]
-margin_left = 210.0
-margin_top = 70.0
-margin_right = 290.0
-margin_bottom = 90.0
+margin_left = 220.0
+margin_top = 130.0
+margin_right = 300.0
+margin_bottom = 150.0
 text = "Ok"
 
-[node name="CanvasOutlineToggle" type="Control" parent="."]
+[node name="CanvasOutline" type="Control" parent="."]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 290.0
-margin_bottom = 30.0
+margin_right = 300.0
+margin_bottom = 120.0
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="CanvasOutlineToggle"]
+[node name="Label" type="Label" parent="CanvasOutline"]
+margin_right = 100.0
+margin_bottom = 14.0
+text = "Canvas Outline:"
+
+[node name="Enabled" type="Control" parent="CanvasOutline"]
+margin_left = 10.0
+margin_top = 20.0
+margin_right = 290.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasOutline/Enabled"]
 margin_right = 130.0
 margin_bottom = 20.0
-text = "Canvas Outline:"
+text = "Enabled:"
 valign = 1
 
-[node name="CheckButton" type="CheckButton" parent="CanvasOutlineToggle"]
+[node name="CheckButton" type="CheckButton" parent="CanvasOutline/Enabled"]
 margin_left = 210.0
 margin_top = -10.0
 margin_right = 286.0
 margin_bottom = 30.0
 pressed = true
 
-[node name="CanvasOutlineColor" type="Control" parent="."]
+[node name="Color" type="Control" parent="CanvasOutline"]
 margin_left = 10.0
-margin_top = 40.0
+margin_top = 50.0
 margin_right = 290.0
-margin_bottom = 60.0
-__meta__ = {
-"_edit_group_": true
-}
+margin_bottom = 70.0
 
-[node name="Label" type="Label" parent="CanvasOutlineColor"]
+[node name="Label" type="Label" parent="CanvasOutline/Color"]
 margin_right = 130.0
 margin_bottom = 20.0
-text = "Canvas Outline Color:"
+text = "Color:"
 valign = 1
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="CanvasOutlineColor"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="CanvasOutline/Color"]
 margin_left = 170.0
 margin_right = 280.0
 margin_bottom = 20.0
+
+[node name="Width" type="Control" parent="CanvasOutline"]
+margin_left = 10.0
+margin_top = 80.0
+margin_right = 290.0
+margin_bottom = 100.0
+
+[node name="Label" type="Label" parent="CanvasOutline/Width"]
+margin_right = 130.0
+margin_bottom = 20.0
+rect_rotation = -0.00812905
+text = "Width:"
+valign = 1
+
+[node name="SpinBox" type="SpinBox" parent="CanvasOutline/Width"]
+margin_left = 210.0
+margin_right = 284.0
+margin_bottom = 24.0
+max_value = 9999.0
+allow_greater = true
+allow_lesser = true
 [connection signal="pressed" from="Ok" to="." method="_on_Ok_pressed"]
-[connection signal="toggled" from="CanvasOutlineToggle/CheckButton" to="." method="_on_CheckButton_toggled"]
-[connection signal="color_changed" from="CanvasOutlineColor/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
+[connection signal="toggled" from="CanvasOutline/Enabled/CheckButton" to="." method="_on_CheckButton_toggled"]
+[connection signal="color_changed" from="CanvasOutline/Color/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
+[connection signal="value_changed" from="CanvasOutline/Width/SpinBox" to="." method="_on_SpinBox_value_changed"]
