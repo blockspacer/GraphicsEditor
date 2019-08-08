@@ -1,6 +1,21 @@
 tool
 extends Node
 
+class time_debug:
+	var start_time = 0.0
+	var end_time = 0.0
+	
+	func start():
+		start_time = OS.get_ticks_msec()
+		return start_time
+	
+	func end():
+		end_time = OS.get_ticks_msec()
+		return end_time
+	
+	func get_time_passed():
+		return end_time - start_time
+
 static func color_from_array(color_array):
 	var r = color_array[0]
 	var g = color_array[1]

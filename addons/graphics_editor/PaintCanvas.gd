@@ -283,8 +283,18 @@ func get_pixels_from_line(vec2_1, vec2_2):
 
 #even though the function checks for it, we can't afford adding more functions to the call stack
 #because godot has a limit until it crashes
-var flood_fill_queue = 0
+
 func flood_fill(x, y, target_color, replacement_color):
+	var time_debug = util.time_debug.new()
+	time_debug.start()
+	flood_fill_main(x, y, target_color, replacement_color)
+	time_debug.end()
+	print("Bucket fill time passed: msec: %s | sec: %s" % [time_debug.get_time_passed(), time_debug.get_time_passed() / float(1000)])
+	return
+
+var flood_fill_queue = 0
+func flood_fill_main(x, y, target_color, replacement_color):
+
 	#yield(get_tree().create_timer(1), "timeout")
 	flood_fill_queue += 1
 	if not cell_in_canvas_region(x, y):
@@ -298,21 +308,20 @@ func flood_fill(x, y, target_color, replacement_color):
 		return
 	else:
 		set_pixel_cell(x, y, replacement_color)
-	if flood_fill_queue >= 500:
-		print(flood_fill_queue)
+	if flood_fill_queue >= 200:
 		yield(get_tree().create_timer(0.01), "timeout")
 	#up
 	if get_pixel_cell_color(x, y - 1) == target_color:
-		flood_fill(x, y - 1, target_color, replacement_color)
+		flood_fill_main(x, y - 1, target_color, replacement_color)
 	#down
 	if get_pixel_cell_color(x, y + 1) == target_color:
-		flood_fill(x, y + 1, target_color, replacement_color)
+		flood_fill_main(x, y + 1, target_color, replacement_color)
 	#left
 	if get_pixel_cell_color(x - 1, y) == target_color:
-		flood_fill(x - 1, y, target_color, replacement_color)
+		flood_fill_main(x - 1, y, target_color, replacement_color)
 	#right
 	if get_pixel_cell_color(x + 1, y) == target_color:
-		flood_fill(x + 1, y, target_color, replacement_color)
+		flood_fill_main(x + 1, y, target_color, replacement_color)
 	flood_fill_queue -= 1
 	return
 

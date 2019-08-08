@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/graphics_editor/PaintCanvasContainer.gd" type="Script" id=2]
@@ -7,9 +7,10 @@
 [ext_resource path="res://addons/graphics_editor/CanvasOutline.gd" type="Script" id=5]
 [ext_resource path="res://addons/graphics_editor/Navbar.gd" type="Script" id=6]
 [ext_resource path="res://addons/graphics_editor/MenuButtonExtended.gd" type="Script" id=7]
-[ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=8]
-[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=9]
-[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/graphics_editor/ColorPicker.gd" type="Script" id=8]
+[ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=9]
+[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=10]
+[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=11]
 
 [node name="Editor" type="Control"]
 anchor_right = 1.0
@@ -51,7 +52,7 @@ color = Color( 0.639216, 0.639216, 0.639216, 1 )
 [node name="VisualGrid2" parent="PaintCanvasContainer/PaintCanvas/Grids" instance=ExtResource( 4 )]
 mouse_filter = 2
 color = Color( 1, 1, 1, 1 )
-size = 160.0
+size = 160
 
 [node name="CanvasOutline" type="Control" parent="PaintCanvasContainer/PaintCanvas"]
 anchor_right = 1.0
@@ -126,6 +127,7 @@ text = "Rainbow Tool"
 anchor_right = 1.0
 margin_top = 210.0
 margin_bottom = 240.0
+script = ExtResource( 8 )
 
 [node name="Layers" type="Control" parent="ToolMenu"]
 anchor_right = 1.0
@@ -146,7 +148,7 @@ anchor_bottom = 1.0
 margin_top = -40.0
 
 [node name="TextInfo" type="Control" parent="BottomPanel"]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="SaveFileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -158,9 +160,9 @@ margin_top = -165.0
 margin_right = 340.0
 margin_bottom = 165.0
 filters = PoolStringArray( "*.png ; PNG Images" )
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
-[node name="Settings" parent="." instance=ExtResource( 10 )]
+[node name="Settings" parent="." instance=ExtResource( 11 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -175,6 +177,9 @@ margin_bottom = 150.0
 [connection signal="pressed" from="ToolMenu/Buttons/BucketTool" to="." method="_on_BucketTool_pressed"]
 [connection signal="pressed" from="ToolMenu/Buttons/RainbowTool" to="." method="_on_RainbowTool_pressed"]
 [connection signal="color_changed" from="ToolMenu/Buttons/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
+[connection signal="focus_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_focus_exited"]
+[connection signal="mouse_entered" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_entered"]
+[connection signal="mouse_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_exited"]
 [connection signal="about_to_show" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_about_to_show"]
 [connection signal="confirmed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_confirmed"]
 [connection signal="file_selected" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_file_selected"]
