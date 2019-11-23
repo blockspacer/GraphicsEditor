@@ -30,22 +30,16 @@ static func random_color_alt():
 	var rand = randi() % 6
 	
 	match rand:
-		#red
 		0:
 			return Color.red
-		#blue
 		1:
 			return Color.blue
-		#green
 		2:
 			return Color.green
-		#orange
 		3:
 			return Color.orange
-		#yellow
 		4:
 			return Color.yellow
-		#purple
 		5:
 			return Color.purple
 

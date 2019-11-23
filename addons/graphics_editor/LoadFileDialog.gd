@@ -11,22 +11,20 @@ func _ready():
 	clear_filters()
 	add_filter("*.png ; PNG Images")
 
-func save_file():
-	canvas.image.unlock()
-	canvas.image.save_png(file_path)
-	canvas.image.lock()
+func load_file():
+	canvas.load_image_from_file(file_path)
 
 func _on_LineEdit_text_entered(text):
-	save_file()
+	load_file()
 
-func _on_SaveFileDialog_confirmed():
-	save_file()
+func _on_LoadFileDialog_confirmed():
+	load_file()
 
-func _on_SaveFileDialog_file_selected(path):
+func _on_LoadFileDialog_file_selected(path):
 	file_path = path
 
-func _on_SaveFileDialog_about_to_show():
+func _on_LoadFileDialog_about_to_show():
 	invalidate()
 
-func _on_SaveFileDialog_visibility_changed():
+func _on_LoadFileDialog_visibility_changed():
 	invalidate()

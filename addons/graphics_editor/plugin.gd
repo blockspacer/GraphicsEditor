@@ -1,6 +1,8 @@
 tool
 extends EditorPlugin
 
+#TODO: Make a system for setting scripts as tool scripts when running as an editor plugin
+
 var editor_scene = load("res://addons/graphics_editor/Editor.tscn").instance()
 
 func _enter_tree():

@@ -13,8 +13,8 @@ func _ready():
 func _process(delta):
 	if color_picking and not mouse_on_top:
 		var editor = get_node("/root/Editor")
-		var paint_canvas = get_node("/root/Editor/PaintCanvasContainer/PaintCanvas")
-		var highlighted_color = paint_canvas.get_pixel_cell_color_v(editor.cell_mouse_position)
+		var paint_canvas = get_node("/root/Editor/PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas")
+		var highlighted_color = paint_canvas.get_pixel(editor.cell_mouse_position)
 		if not highlighted_color == null:
 			color = highlighted_color
 

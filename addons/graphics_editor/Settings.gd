@@ -2,9 +2,9 @@ tool
 extends Control
 
 onready var editor = get_parent()
-onready var canvas_outline = get_parent().get_node("PaintCanvasContainer/PaintCanvas/CanvasOutline")
-onready var visual_grid_1 = get_parent().get_node("PaintCanvasContainer/PaintCanvas/Grids/VisualGrid")
-onready var visual_grid_2 = get_parent().get_node("PaintCanvasContainer/PaintCanvas/Grids/VisualGrid2")
+onready var canvas_outline = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/CanvasOutline")
+onready var visual_grid_1 = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids/VisualGrid")
+onready var visual_grid_2 = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids/VisualGrid2")
 
 func _ready():
 	#CanvasOutline settings

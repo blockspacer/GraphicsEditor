@@ -13,9 +13,9 @@ func _draw():
 	var temp_size = size + zoom
 	
 	var wrap_offset = Vector2(wrapf(offset.x, 0, temp_size), wrapf(offset.y, 0, temp_size))
-
-	var ceil_x = ceil(rect_size.x / temp_size) + 0.01
-	var ceil_y = ceil(rect_size.y / temp_size) + 0.01
+	
+	var ceil_x = floor(rect_size.x / temp_size) + 0.01
+	var ceil_y = floor(rect_size.y / temp_size) + 0.01
 	
 	for i in ceil_y:
 		var start_x = Vector2(0, (i * temp_size) + wrap_offset.y)

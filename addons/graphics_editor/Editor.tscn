@@ -1,16 +1,25 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/graphics_editor/PaintCanvasContainer.gd" type="Script" id=2]
-[ext_resource path="res://addons/graphics_editor/PaintCanvas.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/graphics_editor/VisualGrid.tscn" type="PackedScene" id=4]
-[ext_resource path="res://addons/graphics_editor/CanvasOutline.gd" type="Script" id=5]
-[ext_resource path="res://addons/graphics_editor/Navbar.gd" type="Script" id=6]
-[ext_resource path="res://addons/graphics_editor/MenuButtonExtended.gd" type="Script" id=7]
-[ext_resource path="res://addons/graphics_editor/ColorPicker.gd" type="Script" id=8]
-[ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=9]
-[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=10]
-[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/graphics_editor/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://addons/graphics_editor/PaintCanvas.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/graphics_editor/PixelCursorHighlight.gd" type="Script" id=5]
+[ext_resource path="res://addons/graphics_editor/VisualGrid.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/graphics_editor/CanvasOutline.gd" type="Script" id=7]
+[ext_resource path="res://addons/graphics_editor/Navbar.gd" type="Script" id=8]
+[ext_resource path="res://addons/graphics_editor/MenuButtonExtended.gd" type="Script" id=9]
+[ext_resource path="res://addons/graphics_editor/ColorPicker.gd" type="Script" id=10]
+[ext_resource path="res://addons/graphics_editor/Layers.gd" type="Script" id=11]
+[ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=12]
+[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=13]
+[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=14]
+[ext_resource path="res://addons/graphics_editor/NewImage.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/graphics_editor/LoadFileDialog.gd" type="Script" id=16]
+[ext_resource path="res://addons/graphics_editor/ExpandCanvas.tscn" type="PackedScene" id=17]
+[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=18]
+
+[sub_resource type="World" id=1]
 
 [node name="Editor" type="Control"]
 anchor_right = 1.0
@@ -18,8 +27,12 @@ anchor_bottom = 1.0
 rect_min_size = Vector2( 1024, 300 )
 rect_clip_content = true
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PaintCanvasContainer" type="Control" parent="."]
+editor/display_folded = true
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,39 +46,76 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PaintCanvas" parent="PaintCanvasContainer" instance=ExtResource( 3 )]
+[node name="ViewportContainer" type="ViewportContainer" parent="PaintCanvasContainer"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="PaintCanvasContainer/ViewportContainer"]
+size = Vector2( 910, 540 )
+world = SubResource( 1 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="PaintCanvasContainer/ViewportContainer/Viewport"]
+anchor_mode = 0
+current = true
+script = ExtResource( 3 )
+
+[node name="PaintCanvas" parent="PaintCanvasContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1600.0
 margin_bottom = 1600.0
-rect_min_size = Vector2( 1600, 1600 )
 
-[node name="Grids" type="Control" parent="PaintCanvasContainer/PaintCanvas"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="VisualGrid" parent="PaintCanvasContainer/PaintCanvas/Grids" instance=ExtResource( 4 )]
-mouse_filter = 2
-color = Color( 0.639216, 0.639216, 0.639216, 1 )
-
-[node name="VisualGrid2" parent="PaintCanvasContainer/PaintCanvas/Grids" instance=ExtResource( 4 )]
-mouse_filter = 2
-color = Color( 1, 1, 1, 1 )
-size = 160
-
-[node name="CanvasOutline" type="Control" parent="PaintCanvasContainer/PaintCanvas"]
+[node name="PixelCursorHighlight" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grids" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VisualGrid" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids" instance=ExtResource( 6 )]
+mouse_filter = 2
+color = Color( 0.639216, 0.639216, 0.639216, 1 )
+
+[node name="VisualGrid2" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids" instance=ExtResource( 6 )]
+mouse_filter = 2
+color = Color( 1, 1, 1, 1 )
+size = 160.0
+
+[node name="CanvasOutline" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 color = Color( 0, 1, 0, 1 )
+width = 3.0
 
 [node name="Navbar" type="Control" parent="."]
 editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 20.0
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 
 [node name="Panel" type="Panel" parent="Navbar"]
 anchor_right = 1.0
@@ -74,15 +124,21 @@ anchor_bottom = 1.0
 [node name="Buttons" type="Control" parent="Navbar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="File" type="MenuButton" parent="Navbar/Buttons"]
 margin_right = 90.0
 margin_bottom = 20.0
 text = "File"
 flat = false
-items = [ "Save", null, 0, false, false, -1, 0, null, "", false, "Quit", null, 0, false, false, -1, 0, null, "", false ]
+items = [ "New", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false, "Quit", null, 0, false, false, 3, 0, null, "", false ]
 switch_on_hover = true
-script = ExtResource( 7 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Editor" type="MenuButton" parent="Navbar/Buttons"]
 margin_left = 90.0
@@ -90,55 +146,119 @@ margin_right = 180.0
 margin_bottom = 20.0
 text = "Editor"
 flat = false
-items = [ "Settings", null, 0, false, false, -1, 0, null, "", false, "Reset Canvas Position", null, 0, false, false, -1, 0, null, "", false, "Toggle Grid", null, 0, false, false, -1, 0, null, "", false ]
+items = [ "Settings", null, 0, false, false, -1, 0, null, "", false, "Reset Camera Position", null, 0, false, false, -1, 0, null, "", false, "Toggle Grid", null, 0, false, false, -1, 0, null, "", false ]
 switch_on_hover = true
-script = ExtResource( 7 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="MenuButton" parent="Navbar/Buttons"]
+margin_left = 180.0
+margin_right = 270.0
+margin_bottom = 20.0
+text = "Image"
+flat = false
+items = [ "Resize", null, 0, false, false, -1, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 9 )
 
 [node name="ToolMenu" type="Control" parent="."]
+editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -114.0
 margin_top = 20.0
 margin_bottom = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Buttons" type="Control" parent="ToolMenu"]
+editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 310.0
 
 [node name="PaintTool" type="Button" parent="ToolMenu/Buttons"]
 anchor_right = 1.0
 margin_bottom = 70.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Paint Tool"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BucketTool" type="Button" parent="ToolMenu/Buttons"]
 anchor_right = 1.0
 margin_top = 70.0
 margin_bottom = 140.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Bucket Tool"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="RainbowTool" type="Button" parent="ToolMenu/Buttons"]
 anchor_right = 1.0
 margin_top = 140.0
 margin_bottom = 210.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Rainbow Tool"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorPicker" type="ColorPickerButton" parent="ToolMenu/Buttons"]
 anchor_right = 1.0
 margin_top = 210.0
 margin_bottom = 240.0
-script = ExtResource( 8 )
+focus_mode = 0
+enabled_focus_mode = 0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Layers" type="Control" parent="ToolMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 310.0
+margin_top = 240.0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Tree" type="Tree" parent="ToolMenu/Layers"]
+[node name="Panel" type="Panel" parent="ToolMenu/Layers"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -70.0
-hide_root = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ToolMenu/Layers/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 20.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ToolMenu/Layers/Panel/ScrollContainer"]
+margin_right = 100.0
+margin_bottom = 90.0
+
+[node name="AddLayer" type="Button" parent="ToolMenu/Layers/Panel"]
+margin_left = 90.0
+margin_right = 110.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="Label" type="Label" parent="ToolMenu/Layers/Panel"]
+margin_left = 4.0
+margin_right = 74.0
+margin_bottom = 20.0
+text = "Add Layer:"
+align = 1
+valign = 1
 
 [node name="BottomPanel" type="Panel" parent="."]
 editor/display_folded = true
@@ -146,9 +266,15 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextInfo" type="Control" parent="BottomPanel"]
-script = ExtResource( 9 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SaveFileDialog" type="FileDialog" parent="."]
 anchor_left = 0.5
@@ -160,9 +286,9 @@ margin_top = -165.0
 margin_right = 340.0
 margin_bottom = 165.0
 filters = PoolStringArray( "*.png ; PNG Images" )
-script = ExtResource( 10 )
+script = ExtResource( 13 )
 
-[node name="Settings" parent="." instance=ExtResource( 11 )]
+[node name="Settings" parent="." instance=ExtResource( 14 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -171,6 +297,46 @@ margin_left = -155.0
 margin_top = -150.0
 margin_right = 155.0
 margin_bottom = 150.0
+
+[node name="NewImage" parent="." instance=ExtResource( 15 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -145.0
+margin_top = -40.0
+margin_right = 145.0
+margin_bottom = 40.0
+
+[node name="LoadFileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -340.0
+margin_top = -165.0
+margin_right = 340.0
+margin_bottom = 165.0
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.png ; PNG Images" )
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExpandCanvas" parent="." instance=ExtResource( 17 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -145.0
+margin_top = -40.0
+margin_right = 145.0
+margin_bottom = 40.0
+
+[node name="ToolManager" type="Node" parent="."]
+script = ExtResource( 18 )
 [connection signal="mouse_entered" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_entered"]
 [connection signal="mouse_exited" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_exited"]
 [connection signal="pressed" from="ToolMenu/Buttons/PaintTool" to="." method="_on_PaintTool_pressed"]
@@ -180,7 +346,12 @@ margin_bottom = 150.0
 [connection signal="focus_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_focus_exited"]
 [connection signal="mouse_entered" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_entered"]
 [connection signal="mouse_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_exited"]
+[connection signal="pressed" from="ToolMenu/Layers/Panel/AddLayer" to="ToolMenu/Layers" method="_on_AddLayer_pressed"]
 [connection signal="about_to_show" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_about_to_show"]
 [connection signal="confirmed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_confirmed"]
 [connection signal="file_selected" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_file_selected"]
 [connection signal="visibility_changed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_visibility_changed"]
+[connection signal="about_to_show" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_about_to_show"]
+[connection signal="confirmed" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_confirmed"]
+[connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_file_selected"]
+[connection signal="visibility_changed" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_visibility_changed"]

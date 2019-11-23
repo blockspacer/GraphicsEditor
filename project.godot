@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "graphics_editor", "scene_notes", "todo" )
+enabled=PoolStringArray( "todo" )
 
 [rendering]
 
