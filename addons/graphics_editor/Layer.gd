@@ -2,17 +2,15 @@ tool
 extends Control
 onready var layers = get_node("../../../../")
 onready var canvas = layers.canvas
-var image_storage = Image.new()
-#TODO: Get image preview working!
-var image_preview setget set_image_preview
+var image_storage = Image.new() setget set_image_storage
 var layer_visible = true setget set_layer_visible
 
 func _ready():
 	var canvas_size = canvas.image.get_size()
 	image_storage.create(canvas_size.x, canvas_size.y, true, Image.FORMAT_RGBA8)
 
-func set_image_preview(image_data):
-		image_preview = image_data
+func set_image_storage(image_data):
+		image_storage = image_data
 		var texture = ImageTexture.new()
 		texture.create_from_image(image_data)
 		texture.set_flags(0)
