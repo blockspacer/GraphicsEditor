@@ -1,6 +1,8 @@
 tool
 extends ColorPickerButton
 
+#TODO: Picking a color from the canvas is actually broken?
+
 var color_picking = false
 var mouse_on_top = false
 
