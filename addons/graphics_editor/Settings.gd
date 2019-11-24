@@ -1,6 +1,8 @@
 tool
 extends Control
 
+#TODO: Make the settings auto generate!
+
 onready var editor = get_parent()
 onready var canvas_outline = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/CanvasOutline")
 onready var visual_grid_1 = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids/VisualGrid")

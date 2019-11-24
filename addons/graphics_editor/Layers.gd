@@ -6,6 +6,7 @@ onready var layer_list = get_node("Panel/ScrollContainer/VBoxContainer")
 var layer_scene = preload("res://addons/graphics_editor/Layer.tscn")
 var active_layer setget set_active_layer
 
+#TODO: When a layer gets deleted, and then added back in with the same name, the layer data is copied over then
 func _ready():
 	if layer_list.get_children().size() <= 0:
 		add_new_layer(true)
