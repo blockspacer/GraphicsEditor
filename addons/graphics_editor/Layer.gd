@@ -15,7 +15,7 @@ func set_image_storage(image_data):
 		texture.create_from_image(image_data)
 		texture.set_flags(0)
 		texture.setup_local_to_scene()
-		get_node("TextureRect").texture = texture
+		get_node("LayerPreview/TextureRect").texture = texture
 
 func set_layer_visible(value):
 	layer_visible = value
