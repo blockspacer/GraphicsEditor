@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/graphics_editor/PaintCanvasContainer.gd" type="Script" id=2]
@@ -8,16 +8,15 @@
 [ext_resource path="res://addons/graphics_editor/VisualGrid.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/graphics_editor/CanvasOutline.gd" type="Script" id=7]
 [ext_resource path="res://addons/graphics_editor/Navbar.gd" type="Script" id=8]
-[ext_resource path="res://addons/graphics_editor/MenuButtonExtended.gd" type="Script" id=9]
-[ext_resource path="res://addons/graphics_editor/ColorPicker.gd" type="Script" id=10]
-[ext_resource path="res://addons/graphics_editor/Layers.gd" type="Script" id=11]
-[ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=12]
-[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=13]
-[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=14]
-[ext_resource path="res://addons/graphics_editor/NewImage.tscn" type="PackedScene" id=15]
-[ext_resource path="res://addons/graphics_editor/LoadFileDialog.gd" type="Script" id=16]
-[ext_resource path="res://addons/graphics_editor/ExpandCanvas.tscn" type="PackedScene" id=17]
-[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=18]
+[ext_resource path="res://addons/graphics_editor/ColorPicker.gd" type="Script" id=9]
+[ext_resource path="res://addons/graphics_editor/Layers.gd" type="Script" id=10]
+[ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=11]
+[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=12]
+[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=13]
+[ext_resource path="res://addons/graphics_editor/NewImage.tscn" type="PackedScene" id=14]
+[ext_resource path="res://addons/graphics_editor/LoadFileDialog.gd" type="Script" id=15]
+[ext_resource path="res://addons/graphics_editor/ExpandCanvas.tscn" type="PackedScene" id=16]
+[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=17]
 
 [sub_resource type="World" id=1]
 
@@ -115,7 +114,6 @@ color = Color( 0, 1, 0, 1 )
 width = 3.0
 
 [node name="Navbar" type="Control" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 20.0
 script = ExtResource( 8 )
@@ -131,42 +129,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="File" type="MenuButton" parent="Navbar/Buttons"]
-margin_right = 90.0
-margin_bottom = 20.0
-text = "File"
-flat = false
-items = [ "New", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false, "Save", null, 0, false, false, 2, 0, null, "", false, "Quit", null, 0, false, false, 3, 0, null, "", false ]
-switch_on_hover = true
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Editor" type="MenuButton" parent="Navbar/Buttons"]
-margin_left = 90.0
-margin_right = 180.0
-margin_bottom = 20.0
-text = "Editor"
-flat = false
-items = [ "Settings", null, 0, false, false, -1, 0, null, "", false, "Reset Camera Position", null, 0, false, false, -1, 0, null, "", false, "Toggle Grid", null, 0, false, false, -1, 0, null, "", false ]
-switch_on_hover = true
-script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Image" type="MenuButton" parent="Navbar/Buttons"]
-margin_left = 180.0
-margin_right = 270.0
-margin_bottom = 20.0
-text = "Image"
-flat = false
-items = [ "Resize", null, 0, false, false, -1, 0, null, "", false ]
-switch_on_hover = true
-script = ExtResource( 9 )
-
 [node name="ToolMenu" type="Control" parent="."]
+editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -219,7 +183,7 @@ margin_top = 210.0
 margin_bottom = 240.0
 focus_mode = 0
 enabled_focus_mode = 0
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -228,7 +192,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 240.0
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -271,7 +235,7 @@ __meta__ = {
 }
 
 [node name="TextInfo" type="Control" parent="BottomPanel"]
-script = ExtResource( 12 )
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -286,9 +250,9 @@ margin_top = -165.0
 margin_right = 340.0
 margin_bottom = 165.0
 filters = PoolStringArray( "*.png ; PNG Images" )
-script = ExtResource( 13 )
+script = ExtResource( 12 )
 
-[node name="Settings" parent="." instance=ExtResource( 14 )]
+[node name="Settings" parent="." instance=ExtResource( 13 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -298,7 +262,7 @@ margin_top = -150.0
 margin_right = 155.0
 margin_bottom = 150.0
 
-[node name="NewImage" parent="." instance=ExtResource( 15 )]
+[node name="NewImage" parent="." instance=ExtResource( 14 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -320,12 +284,12 @@ margin_bottom = 165.0
 window_title = "Open a File"
 mode = 0
 filters = PoolStringArray( "*.png ; PNG Images" )
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExpandCanvas" parent="." instance=ExtResource( 17 )]
+[node name="ExpandCanvas" parent="." instance=ExtResource( 16 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -336,7 +300,7 @@ margin_right = 145.0
 margin_bottom = 40.0
 
 [node name="ToolManager" type="Node" parent="."]
-script = ExtResource( 18 )
+script = ExtResource( 17 )
 [connection signal="mouse_entered" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_entered"]
 [connection signal="mouse_exited" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_exited"]
 [connection signal="pressed" from="ToolMenu/Buttons/PaintTool" to="." method="_on_PaintTool_pressed"]

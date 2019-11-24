@@ -16,7 +16,6 @@ func _process(delta):
 	if active_node:
 		active_node.image_storage = canvas.image.duplicate()
 	canvas.image_pixel_array = get_all_layer_images()
-	pass
 
 func set_active_layer(new_layer):
 	if active_layer:

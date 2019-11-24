@@ -16,7 +16,6 @@ margin_bottom = 290.0
 text = "Ok"
 
 [node name="CanvasOutline" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 300.0
@@ -31,7 +30,6 @@ margin_bottom = 14.0
 text = "Canvas Outline:"
 
 [node name="Enabled" type="Control" parent="CanvasOutline"]
-editor/display_folded = true
 margin_left = 10.0
 margin_top = 20.0
 margin_right = 290.0
@@ -69,7 +67,6 @@ margin_right = 280.0
 margin_bottom = 20.0
 
 [node name="Width" type="Control" parent="CanvasOutline"]
-editor/display_folded = true
 margin_left = 10.0
 margin_top = 80.0
 margin_right = 290.0
