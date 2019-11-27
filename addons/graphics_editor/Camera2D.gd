@@ -1,3 +1,4 @@
+#This script isn't a tool script because you can accidently move the camera while trying to edit the scene
 extends Camera2D
 
 #TODO: Make the camera movement snap to the nearest highlighted cell
