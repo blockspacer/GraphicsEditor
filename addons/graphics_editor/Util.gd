@@ -46,6 +46,24 @@ static func random_color_alt():
 static func get_line_string(file, number):
 	return file.get_as_text().split("\n")[number - 1].strip_edges()
 
+static func get_file_name(path):
+	var file_name_raw = path.get_file()
+	var file_extension = path.get_extension()
+	var file_name = file_name_raw.substr(0, file_name_raw.length()-(file_extension.length()+1))
+	return file_name
+
+static func get_files_from_path(path):
+	var file_array = PoolStringArray()
+	var dir = Directory.new()
+	if dir.open(path) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while (file_name != ""):
+			if !dir.current_is_dir():
+				file_array.append(path.plus_file(file_name))
+			file_name = dir.get_next()
+	return file_array
+
 static func printv(variable):
 	var stack = get_stack()[get_stack().size() - 1]
 	var line = stack.line

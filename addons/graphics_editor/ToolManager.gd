@@ -1,6 +1,7 @@
 tool
 extends Node
 
+var util = preload("res://addons/graphics_editor/Util.gd")
 var active_tool
 
 func _ready():
@@ -8,11 +9,9 @@ func _ready():
 
 func set_active_tool(tool_to_use):
 	var tool_manager_folder = get_script().resource_path.get_base_dir()
-	var tool_scripts = get_files_from_path(tool_manager_folder.plus_file("Tools"))
+	var tool_scripts = util.get_files_from_path(tool_manager_folder.plus_file("Tools"))
 	for i in tool_scripts:
-		var file_name_raw = i.get_file()
-		var file_extension = i.get_extension()
-		var file_name = file_name_raw.substr(0, file_name_raw.length()-(file_extension.length()+1))
+		var file_name = util.get_file_name(i)
 		if file_name == tool_to_use:
 			var node = Node.new()
 			node.name = file_name

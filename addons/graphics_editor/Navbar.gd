@@ -14,6 +14,8 @@ var navbar_storage = {
 	}
 }
 
+onready var dialogs = get_parent().get_node("Dialogs")
+
 func _ready():
 	var x_to_add = 0
 	var menu_button_script = load("res://addons/graphics_editor/MenuButtonExtended.gd")
@@ -44,16 +46,17 @@ func _ready():
 func button_pressed(button_name, button_item):
 	if button_name == "File":
 		if button_item == "New":
-			get_parent().get_node("NewImage").show()
+			dialogs.show_dialog("NewImage")
 		if button_item == "Load":
-			get_parent().get_node("LoadFileDialog").show()
+			dialogs.show_dialog("LoadFileDialog")
 		if button_item == "Save":
-			get_parent().get_node("SaveFileDialog").show()
+			dialogs.show_dialog("SaveFileDialog")
 		if button_item == "Quit":
 			get_tree().quit()
 	elif button_name == "Editor":
 		if button_item == "Settings":
-			get_parent().get_node("Settings").show()
+			dialogs.show_dialog("Settings")
+			#get_parent().get_node("Settings").show()
 		elif button_item == "Toggle Grid":
 			var grids_node = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids")
 			grids_node.visible = !grids_node.visible
@@ -61,4 +64,4 @@ func button_pressed(button_name, button_item):
 			get_parent().camera.position = Vector2(0, 0)
 	elif button_name == "Image":
 		if button_item == "Resize":
-			get_parent().get_node("ExpandCanvas").show()
+			dialogs.show_dialog("ExpandCanvas")

@@ -1,7 +1,7 @@
 tool
 extends FileDialog
 
-onready var canvas = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas")
+onready var canvas = get_parent().get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas")
 
 var file_path = ""
 

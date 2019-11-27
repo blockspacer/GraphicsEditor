@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/graphics_editor/PaintCanvasContainer.gd" type="Script" id=2]
@@ -11,12 +11,10 @@
 [ext_resource path="res://addons/graphics_editor/ColorPicker.gd" type="Script" id=9]
 [ext_resource path="res://addons/graphics_editor/Layers.gd" type="Script" id=10]
 [ext_resource path="res://addons/graphics_editor/TextInfo.gd" type="Script" id=11]
-[ext_resource path="res://addons/graphics_editor/SaveFileDialog.gd" type="Script" id=12]
-[ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=13]
-[ext_resource path="res://addons/graphics_editor/NewImage.tscn" type="PackedScene" id=14]
-[ext_resource path="res://addons/graphics_editor/LoadFileDialog.gd" type="Script" id=15]
-[ext_resource path="res://addons/graphics_editor/ExpandCanvas.tscn" type="PackedScene" id=16]
-[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=17]
+[ext_resource path="res://addons/graphics_editor/Dialogs.gd" type="Script" id=12]
+[ext_resource path="res://addons/graphics_editor/Dialogs/SaveFileDialog.gd" type="Script" id=13]
+[ext_resource path="res://addons/graphics_editor/Dialogs/LoadFileDialog.gd" type="Script" id=14]
+[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=15]
 
 [sub_resource type="World" id=1]
 
@@ -31,6 +29,7 @@ __meta__ = {
 }
 
 [node name="PaintCanvasContainer" type="Control" parent="."]
+editor/display_folded = true
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -75,6 +74,10 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1600.0
 margin_bottom = 1600.0
+grid_size = 16
+canvas_size = Vector2( 100, 100 )
+chunk_size = Vector2( 10, 10 )
+can_draw = true
 
 [node name="PixelCursorHighlight" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
 anchor_right = 1.0
@@ -96,11 +99,16 @@ __meta__ = {
 [node name="VisualGrid" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids" instance=ExtResource( 6 )]
 mouse_filter = 2
 color = Color( 0.639216, 0.639216, 0.639216, 1 )
+size = 16
+zoom = 0
+offset = Vector2( 0, 0 )
 
 [node name="VisualGrid2" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids" instance=ExtResource( 6 )]
 mouse_filter = 2
 color = Color( 1, 1, 1, 1 )
 size = 160.0
+zoom = 0
+offset = Vector2( 0, 0 )
 
 [node name="CanvasOutline" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
 anchor_right = 1.0
@@ -114,6 +122,7 @@ color = Color( 0, 1, 0, 1 )
 width = 3.0
 
 [node name="Navbar" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 20.0
 script = ExtResource( 8 )
@@ -240,7 +249,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SaveFileDialog" type="FileDialog" parent="."]
+[node name="Dialogs" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SaveFileDialog" type="FileDialog" parent="Dialogs"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -250,29 +268,9 @@ margin_top = -165.0
 margin_right = 340.0
 margin_bottom = 165.0
 filters = PoolStringArray( "*.png ; PNG Images" )
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 
-[node name="Settings" parent="." instance=ExtResource( 13 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -155.0
-margin_top = -150.0
-margin_right = 155.0
-margin_bottom = 150.0
-
-[node name="NewImage" parent="." instance=ExtResource( 14 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -145.0
-margin_top = -40.0
-margin_right = 145.0
-margin_bottom = 40.0
-
-[node name="LoadFileDialog" type="FileDialog" parent="."]
+[node name="LoadFileDialog" type="FileDialog" parent="Dialogs"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -284,23 +282,13 @@ margin_bottom = 165.0
 window_title = "Open a File"
 mode = 0
 filters = PoolStringArray( "*.png ; PNG Images" )
-script = ExtResource( 15 )
+script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExpandCanvas" parent="." instance=ExtResource( 16 )]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -145.0
-margin_top = -40.0
-margin_right = 145.0
-margin_bottom = 40.0
-
 [node name="ToolManager" type="Node" parent="."]
-script = ExtResource( 17 )
+script = ExtResource( 15 )
 [connection signal="mouse_entered" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_entered"]
 [connection signal="mouse_exited" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_exited"]
 [connection signal="pressed" from="ToolMenu/Buttons/PaintTool" to="." method="_on_PaintTool_pressed"]
@@ -311,11 +299,11 @@ script = ExtResource( 17 )
 [connection signal="mouse_entered" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_entered"]
 [connection signal="mouse_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_exited"]
 [connection signal="pressed" from="ToolMenu/Layers/Panel/AddLayer" to="ToolMenu/Layers" method="_on_AddLayer_pressed"]
-[connection signal="about_to_show" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_about_to_show"]
-[connection signal="confirmed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_confirmed"]
-[connection signal="file_selected" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_file_selected"]
-[connection signal="visibility_changed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_visibility_changed"]
-[connection signal="about_to_show" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_about_to_show"]
-[connection signal="confirmed" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_confirmed"]
-[connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_file_selected"]
-[connection signal="visibility_changed" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_visibility_changed"]
+[connection signal="about_to_show" from="Dialogs/SaveFileDialog" to="Dialogs/SaveFileDialog" method="_on_SaveFileDialog_about_to_show"]
+[connection signal="confirmed" from="Dialogs/SaveFileDialog" to="Dialogs/SaveFileDialog" method="_on_SaveFileDialog_confirmed"]
+[connection signal="file_selected" from="Dialogs/SaveFileDialog" to="Dialogs/SaveFileDialog" method="_on_SaveFileDialog_file_selected"]
+[connection signal="visibility_changed" from="Dialogs/SaveFileDialog" to="Dialogs/SaveFileDialog" method="_on_SaveFileDialog_visibility_changed"]
+[connection signal="about_to_show" from="Dialogs/LoadFileDialog" to="Dialogs/LoadFileDialog" method="_on_LoadFileDialog_about_to_show"]
+[connection signal="confirmed" from="Dialogs/LoadFileDialog" to="Dialogs/LoadFileDialog" method="_on_LoadFileDialog_confirmed"]
+[connection signal="file_selected" from="Dialogs/LoadFileDialog" to="Dialogs/LoadFileDialog" method="_on_LoadFileDialog_file_selected"]
+[connection signal="visibility_changed" from="Dialogs/LoadFileDialog" to="Dialogs/LoadFileDialog" method="_on_LoadFileDialog_visibility_changed"]

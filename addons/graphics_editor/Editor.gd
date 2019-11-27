@@ -133,11 +133,12 @@ var zoom_amount = 0.5
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
-			if event.button_index == BUTTON_WHEEL_UP:
-				if camera.zoom - Vector2(zoom_amount, zoom_amount) > Vector2(0, 0):
-					camera.zoom -= Vector2(zoom_amount, zoom_amount)
-			elif event.button_index == BUTTON_WHEEL_DOWN:
-				camera.zoom += Vector2(zoom_amount, zoom_amount)
+			if paint_canvas_container_node.mouse_in_region and paint_canvas_container_node.mouse_on_top:
+				if event.button_index == BUTTON_WHEEL_UP:
+					if camera.zoom - Vector2(zoom_amount, zoom_amount) > Vector2(0, 0):
+						camera.zoom -= Vector2(zoom_amount, zoom_amount)
+				elif event.button_index == BUTTON_WHEEL_DOWN:
+					camera.zoom += Vector2(zoom_amount, zoom_amount)
 
 func add_text_info_variables():
 	textinfo.add_text_info("FPS")
