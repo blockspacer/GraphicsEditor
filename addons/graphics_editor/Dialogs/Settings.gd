@@ -114,7 +114,6 @@ func generate_property_container(category, node, propertyname, valuemod):
 	label.align = Label.ALIGN_CENTER
 	label.valign = Label.ALIGN_CENTER
 	var settertypenode
-	print(node, valuemod)
 	var get_value = node.get(valuemod)
 	match typeof(get_value):
 		TYPE_INT:

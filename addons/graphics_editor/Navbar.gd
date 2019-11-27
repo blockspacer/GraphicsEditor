@@ -56,7 +56,6 @@ func button_pressed(button_name, button_item):
 	elif button_name == "Editor":
 		if button_item == "Settings":
 			dialogs.show_dialog("Settings")
-			#get_parent().get_node("Settings").show()
 		elif button_item == "Toggle Grid":
 			var grids_node = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids")
 			grids_node.visible = !grids_node.visible

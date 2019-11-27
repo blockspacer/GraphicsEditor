@@ -10,7 +10,6 @@ func _ready():
 		if i.get_extension() == "tscn":
 			var new_scene = load(i).instance()
 			add_child(new_scene)
-			#new_scene.set_anchors_preset(PRESET_CENTER)
 
 func show_dialog(dialog_name):
 	var dialog_node = get_node_or_null(dialog_name)
