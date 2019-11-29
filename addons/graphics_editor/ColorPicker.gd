@@ -1,14 +1,14 @@
 tool
 extends ColorPickerButton
 
-#TODO: Picking a color from the canvas is actually broken?
-
 var color_picking = false
 var mouse_on_top = false
 
 func _ready():
 	var color_picker = get_picker()
+	var color_picker_popup = get_popup()
 	var color_picker_button = color_picker.get_children()[0].get_children()[1]
+	color_picker_popup.connect("popup_hide", self, "color_picker_popup_hide") 
 	color_picker_button.disconnect("pressed", color_picker, "_screen_pick_pressed")
 	color_picker_button.connect("pressed", self, "color_picker_button_pressed")
 
@@ -24,7 +24,7 @@ func color_picker_button_pressed():
 	if not color_picking:
 		color_picking = true
 
-func _on_ColorPicker_focus_exited():
+func color_picker_popup_hide():
 	color_picking = false
 
 func _on_ColorPicker_mouse_entered():

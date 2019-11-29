@@ -283,7 +283,6 @@ script = ExtResource( 15 )
 [connection signal="pressed" from="ToolMenu/Buttons/BucketTool" to="." method="_on_BucketTool_pressed"]
 [connection signal="pressed" from="ToolMenu/Buttons/RainbowTool" to="." method="_on_RainbowTool_pressed"]
 [connection signal="color_changed" from="ToolMenu/Buttons/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
-[connection signal="focus_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_focus_exited"]
 [connection signal="mouse_entered" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_entered"]
 [connection signal="mouse_exited" from="ToolMenu/Buttons/ColorPicker" to="ToolMenu/Buttons/ColorPicker" method="_on_ColorPicker_mouse_exited"]
 [connection signal="pressed" from="ToolMenu/Layers/Panel/AddLayer" to="ToolMenu/Layers" method="_on_AddLayer_pressed"]
