@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/graphics_editor/PaintCanvasContainer.gd" type="Script" id=2]
@@ -14,7 +14,8 @@
 [ext_resource path="res://addons/graphics_editor/Dialogs.gd" type="Script" id=12]
 [ext_resource path="res://addons/graphics_editor/Dialogs/SaveFileDialog.gd" type="Script" id=13]
 [ext_resource path="res://addons/graphics_editor/Dialogs/LoadFileDialog.gd" type="Script" id=14]
-[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=15]
+[ext_resource path="res://addons/graphics_editor/Notifications.gd" type="Script" id=15]
+[ext_resource path="res://addons/graphics_editor/ToolManager.gd" type="Script" id=16]
 
 [sub_resource type="World" id=1]
 
@@ -46,6 +47,9 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.192157, 0.192157, 0.192157, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ViewportContainer" type="ViewportContainer" parent="PaintCanvasContainer"]
 anchor_right = 1.0
@@ -53,6 +57,7 @@ anchor_bottom = 1.0
 mouse_filter = 1
 stretch = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -112,6 +117,7 @@ color = Color( 0, 1, 0, 1 )
 width = 3.0
 
 [node name="Navbar" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 20.0
 script = ExtResource( 8 )
@@ -128,6 +134,7 @@ __meta__ = {
 }
 
 [node name="ToolMenu" type="Control" parent="."]
+editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -222,6 +229,7 @@ align = 1
 valign = 1
 
 [node name="BottomPanel" type="Panel" parent="."]
+editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -275,8 +283,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ToolManager" type="Node" parent="."]
+[node name="Notifications" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -244.0
+mouse_filter = 2
 script = ExtResource( 15 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Notifications"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ToolManager" type="Node" parent="."]
+script = ExtResource( 16 )
 [connection signal="mouse_entered" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_entered"]
 [connection signal="mouse_exited" from="PaintCanvasContainer" to="PaintCanvasContainer" method="_on_PaintCanvasContainer_mouse_exited"]
 [connection signal="pressed" from="ToolMenu/Buttons/PaintTool" to="." method="_on_PaintTool_pressed"]
