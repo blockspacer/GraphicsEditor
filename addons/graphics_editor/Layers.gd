@@ -6,7 +6,6 @@ onready var layer_list = get_node("Panel/ScrollContainer/VBoxContainer")
 var layer_scene = preload("res://addons/graphics_editor/Layer.tscn")
 var active_layer setget set_active_layer
 
-#TODO: When a layer gets deleted, and then added back in with the same name, the layer data is copied over then
 func _ready():
 	if layer_list.get_children().size() <= 0:
 		add_new_layer(true)
@@ -35,11 +34,11 @@ func get_all_layer_images():
 			array.append(i.image_storage)
 	return array
 
-func increase_number_string(array, name_string, cur_int = 1):
-	for i in array:
-		if i == "%s %s" % [name_string, cur_int]:
-			cur_int += 1
-	return "%s %s" % [name_string, cur_int]
+var num_increase = 1
+func increase_number_string(array, name_string):
+	var name_to_return = "%s %s" % [name_string, num_increase]
+	num_increase += 1
+	return name_to_return
 
 func _on_AddLayer_pressed():
 	add_new_layer()
@@ -57,9 +56,15 @@ func add_new_layer(is_active = false):
 		set_active_layer(new_node_name)
 
 func remove_layer(layer_name):
-	if layer_list.get_children().size() <= 1:
+	var layer_children = layer_list.get_children()
+	if layer_children.size() <= 1:
 		print("There needs to be an active layer always!")
 		return
-	var node_to_remove = layer_list.get_node_or_null(layer_name)
-	if node_to_remove:
-		node_to_remove.queue_free()
+	for i in layer_children.size():
+		if layer_children[i].name == layer_name:
+			if layer_children[i].name == active_layer:
+				if layer_children.size() != i+1:
+					set_active_layer(layer_children[i+1].name)
+				else:
+					set_active_layer(layer_children[i-1].name)
+			layer_children[i].queue_free()

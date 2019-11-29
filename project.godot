@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "todo" )
+enabled=PoolStringArray( "todo", "zylann.editor_debugger" )
 
 [rendering]
 

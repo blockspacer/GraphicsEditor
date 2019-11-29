@@ -29,7 +29,6 @@ __meta__ = {
 }
 
 [node name="PaintCanvasContainer" type="Control" parent="."]
-editor/display_folded = true
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,10 +73,6 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1600.0
 margin_bottom = 1600.0
-grid_size = 16
-canvas_size = Vector2( 100, 100 )
-chunk_size = Vector2( 10, 10 )
-can_draw = true
 
 [node name="PixelCursorHighlight" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
 anchor_right = 1.0
@@ -99,16 +94,11 @@ __meta__ = {
 [node name="VisualGrid" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids" instance=ExtResource( 6 )]
 mouse_filter = 2
 color = Color( 0.639216, 0.639216, 0.639216, 1 )
-size = 16
-zoom = 0
-offset = Vector2( 0, 0 )
 
 [node name="VisualGrid2" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids" instance=ExtResource( 6 )]
 mouse_filter = 2
 color = Color( 1, 1, 1, 1 )
 size = 160.0
-zoom = 0
-offset = Vector2( 0, 0 )
 
 [node name="CanvasOutline" type="Control" parent="PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas"]
 anchor_right = 1.0
@@ -122,7 +112,6 @@ color = Color( 0, 1, 0, 1 )
 width = 3.0
 
 [node name="Navbar" type="Control" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 margin_bottom = 20.0
 script = ExtResource( 8 )
@@ -139,7 +128,6 @@ __meta__ = {
 }
 
 [node name="ToolMenu" type="Control" parent="."]
-editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -234,7 +222,6 @@ align = 1
 valign = 1
 
 [node name="BottomPanel" type="Panel" parent="."]
-editor/display_folded = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -250,6 +237,7 @@ __meta__ = {
 }
 
 [node name="Dialogs" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

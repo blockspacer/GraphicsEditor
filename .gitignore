@@ -1,9 +1,9 @@
 \exports/
 \.import/
 
-addons/scene_notes/
+addons/*
 
-addons/todo/
+!addons/graphics_editor
 
 scene-notes\.ini
 
