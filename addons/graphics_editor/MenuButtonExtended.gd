@@ -9,3 +9,5 @@ func _ready():
 
 func id_pressed(id):
 	emit_signal("item_pressed", name, popup.get_item_text(id))
+
+

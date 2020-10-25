@@ -8,20 +8,30 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "BrushPrefabs",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/Brush.gd"
+} ]
 _global_script_class_icons={
-
+"BrushPrefabs": ""
 }
 
 [application]
 
-config/name="GraphicsEditor"
-run/main_scene="res://addons/graphics_editor/Editor.tscn"
+config/name="TestGDNative"
 config/icon="res://icon.png"
+
+[autoload]
+
+Gdtest="*res://gdtest.gdns"
+IconLoader="*res://addons/file-editor/scripts/IconLoader.gd"
+LastOpenedFiles="*res://addons/file-editor/scripts/LastOpenedFiles.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "todo", "zylann.editor_debugger" )
+enabled=PoolStringArray( "godot-plugin-refresher", "graphics_editor" )
 
 [rendering]
 

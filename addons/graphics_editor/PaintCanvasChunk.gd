@@ -20,9 +20,6 @@ func set_cell(x, y, color):
 	image.set_pixel(x, y, color)
 	update_chunk()
 
-func get_cell(x, y):
-	return image.get_pixel(x, y)
-
 func _on_VisibilityNotifier2D_screen_entered():
 	visible = true
 

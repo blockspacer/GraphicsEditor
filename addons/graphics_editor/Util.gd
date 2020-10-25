@@ -1,21 +1,6 @@
 tool
 extends Node
 
-class time_debug:
-	var start_time = 0.0
-	var end_time = 0.0
-	
-	func start():
-		start_time = OS.get_ticks_msec()
-		return start_time
-	
-	func end():
-		end_time = OS.get_ticks_msec()
-		return end_time
-	
-	func get_time_passed():
-		return end_time - start_time
-
 static func color_from_array(color_array):
 	var r = color_array[0]
 	var g = color_array[1]
@@ -30,39 +15,27 @@ static func random_color_alt():
 	var rand = randi() % 6
 	
 	match rand:
+		#red
 		0:
 			return Color.red
+		#blue
 		1:
 			return Color.blue
+		#green
 		2:
 			return Color.green
+		#orange
 		3:
 			return Color.orange
+		#yellow
 		4:
 			return Color.yellow
+		#purple
 		5:
 			return Color.purple
 
 static func get_line_string(file, number):
 	return file.get_as_text().split("\n")[number - 1].strip_edges()
-
-static func get_file_name(path):
-	var file_name_raw = path.get_file()
-	var file_extension = path.get_extension()
-	var file_name = file_name_raw.substr(0, file_name_raw.length()-(file_extension.length()+1))
-	return file_name
-
-static func get_files_from_path(path):
-	var file_array = PoolStringArray()
-	var dir = Directory.new()
-	if dir.open(path) == OK:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while (file_name != ""):
-			if !dir.current_is_dir():
-				file_array.append(path.plus_file(file_name))
-			file_name = dir.get_next()
-	return file_array
 
 static func printv(variable):
 	var stack = get_stack()[get_stack().size() - 1]

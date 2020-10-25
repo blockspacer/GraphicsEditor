@@ -1,66 +1,84 @@
 tool
 extends Control
 
-var navbar_storage = {
-	"File": {
-		"items": ["New", "Load", "Save", "Quit"],
-		"export_only": ["Quit"]
-	},
-	"Editor": {
-		"items": ["Settings", "Toggle Grid", "Reset Camera Position"],
-	},
-	"Image": {
-		"items": ["Resize"]
-	}
-}
-
-onready var dialogs = get_parent().get_node("Dialogs")
+var editor
+var paint_canvas
 
 func _ready():
-	var x_to_add = 0
-	var menu_button_script = load("res://addons/graphics_editor/MenuButtonExtended.gd")
-	for i in navbar_storage:
-		var menu_button = MenuButton.new()
-		menu_button.name = i
-		menu_button.rect_size = Vector2(90, 20)
-		menu_button.rect_position = Vector2(x_to_add, 0)
-		x_to_add += menu_button.rect_size.x
-		menu_button.switch_on_hover = true
-		menu_button.flat = false
-		menu_button.text = i
-		menu_button.set_script(menu_button_script)
-		var items_to_remove = []
-		if Engine.editor_hint:
-			if navbar_storage[i].get("export_only"):
-				for j in navbar_storage[i]["export_only"]:
-					items_to_remove.append(j)
-		if navbar_storage[i].get("items"):
-			for j in navbar_storage[i]["items"]:
-				var item_index = items_to_remove.find(j)
-				if item_index == -1:
-					menu_button.get_popup().add_item(j)
-		get_node("Buttons").add_child(menu_button)
+	editor = owner
+	paint_canvas = editor.find_node("PaintCanvas")
+	
 	for i in get_node("Buttons").get_children():
 		i.connect("item_pressed", self, "button_pressed")
 
 func button_pressed(button_name, button_item):
-	if button_name == "File":
-		if button_item == "New":
-			dialogs.show_dialog("NewImage")
-		if button_item == "Load":
-			dialogs.show_dialog("LoadFileDialog")
-		if button_item == "Save":
-			dialogs.show_dialog("SaveFileDialog")
-		if button_item == "Quit":
-			get_tree().quit()
-	elif button_name == "Editor":
-		if button_item == "Settings":
-			dialogs.show_dialog("Settings")
-		elif button_item == "Toggle Grid":
-			var grids_node = get_parent().get_node("PaintCanvasContainer/ViewportContainer/Viewport/PaintCanvas/Grids")
+	print("pressed: ", button_name)
+	print("pressed item is: '%s'" % button_item)
+	
+	match button_name:
+		"File":
+			handle_file_menu(button_item)
+		"Edit":
+			handle_edit_menu(button_item)
+		"Canvas":
+			handle_canvas_menu(button_item)
+		"Layer":
+			handle_layer_menu(button_item)
+		"Grid":
+			handle_grid_menu(button_item)
+		"Magic":
+			handle_magic_menu(button_item)
+		"Editor":
+			handle_editor_menu(button_item)
+
+
+func handle_file_menu(pressed_item: String):
+	match pressed_item:
+		"Save":
+			owner.get_node("SaveFileDialog").show()
+
+
+func handle_edit_menu(pressed_item: String):
+	match pressed_item:
+		"Add Layer":
+			editor.add_new_layer()
+
+
+func handle_canvas_menu(pressed_item: String):
+	match pressed_item:
+		"Add Layer":
+			editor.add_new_layer()
+
+
+func handle_layer_menu(pressed_item: String):
+	match pressed_item:
+		"Add Layer":
+			editor.add_new_layer()
+		"Delete Layer":
+			editor.remove_active_layer()
+		"Duplicate Layer":
+			editor.duplicate_active_layer()
+
+
+func handle_grid_menu(pressed_item: String):
+	match pressed_item:
+		"Add Layer":
+			editor.add_new_layer()
+
+
+func handle_magic_menu(pressed_item: String):
+	match pressed_item:
+		"Add Layer":
+			editor.add_new_layer()
+
+
+func handle_editor_menu(pressed_item: String):
+	match pressed_item:
+		"Settings":
+			owner.get_node("Settings").show()
+		"Toggle Grid":
+			var grids_node = owner.find_node("Grids")
 			grids_node.visible = !grids_node.visible
-		elif button_item == "Reset Camera Position":
-			get_parent().camera.position = Vector2(0, 0)
-	elif button_name == "Image":
-		if button_item == "Resize":
-			dialogs.show_dialog("ExpandCanvas")
+		"Reset Canvas Position":
+			owner.paint_canvas_node.rect_position = Vector2(0, 0)
+
