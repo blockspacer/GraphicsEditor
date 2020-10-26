@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/graphics_editor/actions/Action.gd"
 }, {
+"base": "GEAction",
+"class": "GEBrush",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Brush.gd"
+}, {
+"base": "Control",
+"class": "GECanvas",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/Canvas.gd"
+}, {
 "base": "Reference",
 "class": "GELayer",
 "language": "GDScript",
@@ -37,6 +47,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BrushPrefabs": "",
 "GEAction": "",
+"GEBrush": "",
+"GECanvas": "",
 "GELayer": "",
 "GEPencil": "",
 "GEUtils": ""

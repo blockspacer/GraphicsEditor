@@ -1,4 +1,5 @@
 extends Control
+class_name GECanvas
 tool
 
 export var pixel_size: int = 16 setget set_pixel_size
@@ -232,7 +233,7 @@ func get_pixel_v(pos: Vector2):
 func get_pixel(x: int, y: int):
 	var idx = GEUtils.to_1D(x, y, canvas_width)
 	if active_layer:
-		if not active_layer.pixels.has(idx):
+		if active_layer.pixels.size() <= idx:
 			return null
 	return active_layer.pixels[idx]
 

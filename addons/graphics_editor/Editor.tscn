@@ -14,7 +14,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.75, 0.75, 0.75, 1 )
+bg_color = Color( 0.25, 0.25, 0.25, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1

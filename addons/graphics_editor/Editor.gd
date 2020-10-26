@@ -72,7 +72,7 @@ func _enter_tree():
 
 
 func _ready():
-	return
+	set_brush(Tools.PAINT)
 
 
 func _input(event):
@@ -83,7 +83,7 @@ func _input(event):
 	
 
 
-var brush_mode = Tools.PAINT
+var brush_mode
 
 var mouse_position = Vector2()
 var canvas_position = Vector2()
@@ -177,10 +177,20 @@ func brush_process():
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 #		var arr = GEUtils.get_pixels_in_line(cell_mouse_position, last_cell_mouse_position)
 #		paint_canvas.set_pixel_arr(arr, selected_color)
-		do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
+		
+		
+		if _current_action == null:
+			_current_action = get_action()
+		
+		match brush_mode:
+			Tools.PAINT:
+				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
+			Tools.BRUSH:
+				do_action([cell_mouse_position, last_cell_mouse_position, selected_color, selected_brush_prefab])
 		return
 	else:
-		commit_action()
+		if _current_action and _current_action.can_commit():
+			commit_action()
 	
 	return
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
@@ -383,31 +393,27 @@ func _on_Save_pressed():
 #---------------------------------------
 
 
-func get_action():
-	match brush_mode:
-		Tools.PAINT:
-			return GEPencil.new()
-	return null
-
-
 func do_action(data: Array):
 	if _current_action == null:
 		_redo_history.clear()
-		_current_action = GEPencil.new()
 	_current_action.do_action(paint_canvas, data)
 
 
 func commit_action():
 	if not _current_action:
 		return
-	var action = GEPencil.new()
+	
+	print("commit action")
+	_current_action.commit_action(paint_canvas)
+	var action = get_action()
+	action.action_data = _current_action.action_data.duplicate(true)
+	_actions_history.push_back(action)
+	_current_action = null
+	return
 	action.action_data = _current_action.action_data
 	if not "action_data" in action:
 		print(action.get_class())
 		return
-	action.action_data = _current_action.action_data.duplicate(true)
-	_actions_history.push_back(action)
-	_current_action.commit_action(paint_canvas)
 	_current_action = null
 
 
@@ -420,12 +426,23 @@ func undo_action():
 	if not action:
 		return 
 	action.undo_action(paint_canvas)
+	print("undo action")
+
+
+func get_action():
+	match brush_mode:
+		Tools.PAINT:
+			return GEPencil.new()
+		Tools.BRUSH:
+			return GEBrush.new()
+		_:
+			print("no tool!")
+			return null
 
 
 #---------------------------------------
 # Brushes
 #---------------------------------------
-
 
 func set_brush(new_mode):
 	if brush_mode == new_mode:
