@@ -13,9 +13,33 @@ _global_script_classes=[ {
 "class": "BrushPrefabs",
 "language": "GDScript",
 "path": "res://addons/graphics_editor/Brush.gd"
+}, {
+"base": "Node",
+"class": "GEAction",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Action.gd"
+}, {
+"base": "Reference",
+"class": "GELayer",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/Layer.gd"
+}, {
+"base": "GEAction",
+"class": "GEPencil",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Pencil.gd"
+}, {
+"base": "Node",
+"class": "GEUtils",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/Util.gd"
 } ]
 _global_script_class_icons={
-"BrushPrefabs": ""
+"BrushPrefabs": "",
+"GEAction": "",
+"GELayer": "",
+"GEPencil": "",
+"GEUtils": ""
 }
 
 [application]

@@ -1,25 +1,37 @@
-extends "res://addons/graphics_editor/actions/Action.gd"
+extends GEAction
+class_name GEPencil
 
 
-
-func do_action(data: Array):
-	action_data["do"] = {
-		"cell_position": data[0],
-		"last_cell_position": data[1],
-		"color": data[2],
-	}
+func do_action(canvas, data: Array):
+	if not "cells" in action_data.do:
+		action_data.do["cells"] = []
+		action_data.do["colors"] = []
 	
-	action_data["undo"] = {
-		"cell_position": data[0],
-		"last_cell_position": data[1],
-		"color": get("painter").get_pixel_cell_color_v(action_data.do.cell_position),
-	}
+	if not "cells" in action_data.undo:
+		action_data.undo["cells"] = []
+		action_data.undo["colors"] = []
 	
-	get("painter").set_pixels_from_line(action_data.do.cell_position, action_data.do.last_cell_position, action_data.do.color)
+	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
+	
+	for pixel in pixels:
+		canvas.set_pixel_v(pixel, data[2])
+		action_data.do.cells.append(pixel)
+		action_data.undo.cells.append(pixel)
+	
+		action_data.do.colors.append(data[2])
+		action_data.undo.colors.append(Color.transparent)
 
 
-func undo_action(data: Array):
-	get("painter").set_pixels_from_line(action_data.undo.cell_position, action_data.undo.last_cell_position, action_data.undo.color)
+func commit_action(canvas):
+	var cells = action_data.do.cells
+	var colors = action_data.do.colors
+
+
+func undo_action(canvas):
+	var cells = action_data.undo.cells
+	var colors = action_data.undo.colors
+	for idx in range(cells.size()):
+		canvas.set_pixel_v(cells[idx], colors[idx])
 
 
 

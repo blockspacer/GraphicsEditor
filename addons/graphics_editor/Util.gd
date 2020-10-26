@@ -1,5 +1,47 @@
 tool
 extends Node
+class_name GEUtils
+
+
+static func get_pixels_in_line(from: Vector2, to: Vector2):
+	var dx = to[0] - from[0]
+	var dy = to[1] - from[1]
+	var nx = abs(dx)
+	var ny = abs(dy)
+	var signX = sign(dx)
+	var signY = sign(dy)
+	var p = from
+	var points : Array = [p]
+
+	var ix = 0
+	var iy = 0
+
+	while ix < nx || iy < ny:
+		if (1 + (ix << 1)) * ny < (1 + (iy << 1)) * nx:
+			p[0] += signX
+			ix +=1
+		else:
+			p[1] += signY
+			iy += 1
+		points.append(p)
+	return points
+
+
+static func to_1D_v(p, w) -> int:
+	return p.x + p.y * w
+
+
+static func to_1D(x, y, w) -> int:
+	return x + y * w
+
+
+static func to_2D(idx, w) -> Vector2:
+	var p = Vector2()
+	p.x = idx % int(w)
+	p.y = int(idx / w)
+	return p 
+
+
 
 static func color_from_array(color_array):
 	var r = color_array[0]

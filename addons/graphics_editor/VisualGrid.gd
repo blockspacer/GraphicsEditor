@@ -2,7 +2,7 @@ tool
 extends Control
 
 export var color = Color()
-export var size = 16
+export var size:int = 16
 export var zoom = 0
 export var offset = Vector2(0, 0)
 

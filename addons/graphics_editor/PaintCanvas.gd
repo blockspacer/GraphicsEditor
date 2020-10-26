@@ -27,7 +27,6 @@ var preview_enabled = false
 
 
 func _enter_tree():
-	
 	#----------------------
 	# init Layer
 	#----------------------

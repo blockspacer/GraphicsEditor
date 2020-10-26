@@ -1,7 +1,7 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
-[ext_resource path="res://addons/graphics_editor/PaintCanvas.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/graphics_editor/Canvas.gd" type="Script" id=3]
 [ext_resource path="res://addons/graphics_editor/VisualGrid.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/graphics_editor/CanvasOutline.gd" type="Script" id=5]
 [ext_resource path="res://addons/graphics_editor/Navbar.gd" type="Script" id=6]
@@ -11,6 +11,7 @@
 [ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/graphics_editor/DebugTextDisplay.gd" type="Script" id=11]
 [ext_resource path="res://addons/graphics_editor/LayerButton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://icon.png" type="Texture" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.75, 0.75, 0.75, 1 )
@@ -24,77 +25,77 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.452144, 0.397716, 0.0538159, 1 )
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 0.213659, 0.765351, 0.325763, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.114134, 0.989919, 0.990908, 1 )
+[sub_resource type="StyleBoxFlat" id=28]
+bg_color = Color( 0.176073, 0.806619, 0.967443, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.315986, 0.563746, 0.536825, 1 )
+[sub_resource type="StyleBoxFlat" id=29]
+bg_color = Color( 0.46115, 0.389032, 0.649624, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.218219, 0.336323, 0.0659741, 1 )
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0.415833, 0.965657, 0.678807, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.163289, 0.240192, 0.37346, 1 )
+[sub_resource type="StyleBoxFlat" id=31]
+bg_color = Color( 0.95106, 0.531613, 0.0362836, 1 )
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.330661, 0.369256, 0.97379, 1 )
+[sub_resource type="StyleBoxFlat" id=32]
+bg_color = Color( 0.414718, 0.156676, 0.927291, 1 )
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.216537, 0.755049, 0.491349, 1 )
+[sub_resource type="StyleBoxFlat" id=33]
+bg_color = Color( 0.904518, 0.341891, 0.208397, 1 )
 
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.826652, 0.848742, 0.0115273, 1 )
+[sub_resource type="StyleBoxFlat" id=34]
+bg_color = Color( 0.532053, 0.87726, 0.342851, 1 )
 
-[sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 0.122094, 0.920589, 0.44931, 1 )
+[sub_resource type="StyleBoxFlat" id=35]
+bg_color = Color( 0.933623, 0.443817, 0.855431, 1 )
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.150271, 0.325517, 0.694568, 1 )
+[sub_resource type="StyleBoxFlat" id=36]
+bg_color = Color( 0.79689, 0.333745, 0.615167, 1 )
 
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.703849, 0.926427, 0.334865, 1 )
+[sub_resource type="StyleBoxFlat" id=37]
+bg_color = Color( 0.399027, 0.806071, 0.516829, 1 )
 
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.471709, 0.00867083, 0.188914, 1 )
+[sub_resource type="StyleBoxFlat" id=38]
+bg_color = Color( 0.513829, 0.820974, 0.0806655, 1 )
 
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.300704, 0.501144, 0.687167, 1 )
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 0.576046, 0.303465, 0.354421, 1 )
 
-[sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.52919, 0.953225, 0.374313, 1 )
+[sub_resource type="StyleBoxFlat" id=40]
+bg_color = Color( 0.0409532, 0.831937, 0.447566, 1 )
 
-[sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0.443307, 0.0121565, 0.599621, 1 )
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0.641815, 0.654958, 0.623856, 1 )
 
-[sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 0.868357, 0.245633, 0.583044, 1 )
+[sub_resource type="StyleBoxFlat" id=42]
+bg_color = Color( 0.16782, 0.641056, 0.625732, 1 )
 
-[sub_resource type="StyleBoxFlat" id=18]
-bg_color = Color( 0.20955, 0.510868, 0.721501, 1 )
+[sub_resource type="StyleBoxFlat" id=43]
+bg_color = Color( 0.797095, 0.50587, 0.280019, 1 )
 
-[sub_resource type="StyleBoxFlat" id=19]
-bg_color = Color( 0.544154, 0.786819, 0.162435, 1 )
+[sub_resource type="StyleBoxFlat" id=44]
+bg_color = Color( 0.691959, 0.511673, 0.985569, 1 )
 
-[sub_resource type="StyleBoxFlat" id=20]
-bg_color = Color( 0.309762, 0.772837, 0.467272, 1 )
+[sub_resource type="StyleBoxFlat" id=45]
+bg_color = Color( 0.610537, 0.592647, 0.539142, 1 )
 
-[sub_resource type="StyleBoxFlat" id=21]
-bg_color = Color( 0.0682784, 0.753402, 0.362869, 1 )
+[sub_resource type="StyleBoxFlat" id=46]
+bg_color = Color( 0.263664, 0.636201, 0.25046, 1 )
 
-[sub_resource type="StyleBoxFlat" id=22]
-bg_color = Color( 0.343818, 0.0699588, 0.589297, 1 )
+[sub_resource type="StyleBoxFlat" id=47]
+bg_color = Color( 0.49156, 0.696528, 0.836079, 1 )
 
-[sub_resource type="StyleBoxFlat" id=23]
-bg_color = Color( 0.290648, 0.443224, 0.249702, 1 )
+[sub_resource type="StyleBoxFlat" id=48]
+bg_color = Color( 0.402661, 0.715784, 0.995676, 1 )
 
-[sub_resource type="StyleBoxFlat" id=24]
-bg_color = Color( 0.838284, 0.660357, 0.11075, 1 )
+[sub_resource type="StyleBoxFlat" id=49]
+bg_color = Color( 0.694132, 0.532637, 0.466888, 1 )
 
-[sub_resource type="StyleBoxFlat" id=25]
-bg_color = Color( 0.876227, 0.296861, 0.400053, 1 )
+[sub_resource type="StyleBoxFlat" id=50]
+bg_color = Color( 0.120597, 0.37573, 0.24552, 1 )
 
 [sub_resource type="StyleBoxFlat" id=26]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
@@ -168,7 +169,7 @@ script = ExtResource( 7 )
 
 [node name="Edit" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
 margin_left = 93.0
-margin_right = 166.0
+margin_right = 167.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -179,8 +180,8 @@ switch_on_hover = true
 script = ExtResource( 7 )
 
 [node name="Canvas" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
-margin_left = 186.0
-margin_right = 259.0
+margin_left = 187.0
+margin_right = 260.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -191,8 +192,8 @@ switch_on_hover = true
 script = ExtResource( 7 )
 
 [node name="Layer" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
-margin_left = 279.0
-margin_right = 352.0
+margin_left = 280.0
+margin_right = 354.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -203,8 +204,8 @@ switch_on_hover = true
 script = ExtResource( 7 )
 
 [node name="Grid" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
-margin_left = 372.0
-margin_right = 445.0
+margin_left = 374.0
+margin_right = 447.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -215,8 +216,8 @@ switch_on_hover = true
 script = ExtResource( 7 )
 
 [node name="Magic" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
-margin_left = 465.0
-margin_right = 538.0
+margin_left = 467.0
+margin_right = 541.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -227,7 +228,7 @@ switch_on_hover = true
 script = ExtResource( 7 )
 
 [node name="Editor" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
-margin_left = 558.0
+margin_left = 561.0
 margin_right = 635.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
@@ -262,44 +263,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PaintCanvas" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer" instance=ExtResource( 3 )]
+[node name="Canvas" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -384.0
-margin_top = -240.0
+margin_top = -192.0
 margin_right = 384.0
-margin_bottom = 208.0
-mouse_filter = 1
-canvas_size = Vector2( 48, 28 )
+margin_bottom = 192.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+canvas_height = 24
+grid_size = 1
+big_grid_size = 8
 
-[node name="Grids" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas"]
+[node name="Grid" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas" instance=ExtResource( 4 )]
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.266667 )
+
+[node name="BigGrid" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas" instance=ExtResource( 4 )]
+mouse_filter = 2
+color = Color( 1, 1, 1, 1 )
+size = 128
+
+[node name="CanvasLayers" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="VisualGrid" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas/Grids" instance=ExtResource( 4 )]
-mouse_filter = 2
-color = Color( 1, 1, 1, 0.121569 )
-
-[node name="VisualGrid2" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas/Grids" instance=ExtResource( 4 )]
-mouse_filter = 2
-color = Color( 1, 1, 1, 1 )
-size = 160
-
-[node name="CanvasOutline" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas"]
+[node name="CanvasOutline" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 5 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 color = Color( 0, 1, 0, 1 )
+
+[node name="Image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 13 )
+expand = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer"]
 margin_left = 910.0
@@ -453,7 +472,7 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 2 )
+custom_styles/normal = SubResource( 27 )
 
 [node name="Button2" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 29.0
@@ -462,7 +481,7 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 3 )
+custom_styles/normal = SubResource( 28 )
 
 [node name="Button3" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 58.0
@@ -471,7 +490,7 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 4 )
+custom_styles/normal = SubResource( 29 )
 
 [node name="Button4" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 87.0
@@ -480,7 +499,7 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 5 )
+custom_styles/normal = SubResource( 30 )
 
 [node name="Button5" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_top = 29.0
@@ -489,7 +508,7 @@ margin_bottom = 54.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 6 )
+custom_styles/normal = SubResource( 31 )
 
 [node name="Button6" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 29.0
@@ -499,7 +518,7 @@ margin_bottom = 54.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 7 )
+custom_styles/normal = SubResource( 32 )
 
 [node name="Button7" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 58.0
@@ -509,7 +528,7 @@ margin_bottom = 54.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 8 )
+custom_styles/normal = SubResource( 33 )
 
 [node name="Button8" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 87.0
@@ -519,7 +538,7 @@ margin_bottom = 54.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 9 )
+custom_styles/normal = SubResource( 34 )
 
 [node name="Button9" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_top = 58.0
@@ -528,7 +547,7 @@ margin_bottom = 83.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 10 )
+custom_styles/normal = SubResource( 35 )
 
 [node name="Button10" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 29.0
@@ -538,7 +557,7 @@ margin_bottom = 83.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 11 )
+custom_styles/normal = SubResource( 36 )
 
 [node name="Button11" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 58.0
@@ -548,7 +567,7 @@ margin_bottom = 83.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 12 )
+custom_styles/normal = SubResource( 37 )
 
 [node name="Button12" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 87.0
@@ -558,7 +577,7 @@ margin_bottom = 83.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 13 )
+custom_styles/normal = SubResource( 38 )
 
 [node name="Button13" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_top = 87.0
@@ -567,7 +586,7 @@ margin_bottom = 112.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 14 )
+custom_styles/normal = SubResource( 39 )
 
 [node name="Button14" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 29.0
@@ -577,7 +596,7 @@ margin_bottom = 112.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 15 )
+custom_styles/normal = SubResource( 40 )
 
 [node name="Button15" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 58.0
@@ -587,7 +606,7 @@ margin_bottom = 112.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 16 )
+custom_styles/normal = SubResource( 41 )
 
 [node name="Button16" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 87.0
@@ -597,7 +616,7 @@ margin_bottom = 112.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 17 )
+custom_styles/normal = SubResource( 42 )
 
 [node name="Button17" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_top = 116.0
@@ -606,7 +625,7 @@ margin_bottom = 141.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 18 )
+custom_styles/normal = SubResource( 43 )
 
 [node name="Button18" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 29.0
@@ -616,7 +635,7 @@ margin_bottom = 141.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 19 )
+custom_styles/normal = SubResource( 44 )
 
 [node name="Button19" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 58.0
@@ -626,7 +645,7 @@ margin_bottom = 141.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 20 )
+custom_styles/normal = SubResource( 45 )
 
 [node name="Button20" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 87.0
@@ -636,7 +655,7 @@ margin_bottom = 141.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 21 )
+custom_styles/normal = SubResource( 46 )
 
 [node name="Button21" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_top = 145.0
@@ -645,7 +664,7 @@ margin_bottom = 170.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 22 )
+custom_styles/normal = SubResource( 47 )
 
 [node name="Button22" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 29.0
@@ -655,7 +674,7 @@ margin_bottom = 170.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 23 )
+custom_styles/normal = SubResource( 48 )
 
 [node name="Button23" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 58.0
@@ -665,7 +684,7 @@ margin_bottom = 170.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 24 )
+custom_styles/normal = SubResource( 49 )
 
 [node name="Button24" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
 margin_left = 87.0
@@ -675,7 +694,7 @@ margin_bottom = 170.0
 rect_min_size = Vector2( 25, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/normal = SubResource( 25 )
+custom_styles/normal = SubResource( 50 )
 
 [node name="Control" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu"]
 margin_top = 434.0
@@ -716,7 +735,7 @@ custom_styles/panel = SubResource( 26 )
 [node name="DebugTextDisplay" type="RichTextLabel" parent="Panel/VBoxContainer/BottomPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "FPS 145	Mouse Position (0, 0)	Canvas Mouse Position (0, 0) 	Canvas Position (0, 0)	
+text = "FPS 60	Mouse Position (0, 0)	Canvas Mouse Position (0, 0) 	Canvas Position (0, 0)	
 Cell Position (0, 0) 	Cell Color 0,0,0,0	Cell Region (0, 0) 	Cell Position (0, 0)	"
 scroll_active = false
 script = ExtResource( 11 )
@@ -733,6 +752,7 @@ margin_left = -340.0
 margin_top = -165.0
 margin_right = 340.0
 margin_bottom = 165.0
+mouse_filter = 1
 filters = PoolStringArray( "*.png ; PNG Images" )
 script = ExtResource( 9 )
 
@@ -745,8 +765,7 @@ margin_left = -150.0
 margin_top = -50.0
 margin_right = 150.0
 margin_bottom = 50.0
-[connection signal="mouse_entered" from="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas" to="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas" to="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/PaintCanvas" method="_on_mouse_exited"]
+mouse_filter = 1
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/PaintTool" to="." method="_on_PaintTool_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/BrushTool" to="." method="_on_BrushTool_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/BucketTool" to="." method="_on_BucketTool_pressed"]
