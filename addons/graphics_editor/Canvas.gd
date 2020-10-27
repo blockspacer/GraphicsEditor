@@ -12,7 +12,7 @@ export var can_draw = true
 var mouse_in_region
 var mouse_on_top
 
-var layers = {} # Key: layer_name, val: GELayer
+var layers : Array = [] # Key: layer_name, val: GELayer
 var active_layer: GELayer
 var preview_layer: GELayer
 
@@ -31,13 +31,11 @@ func _enter_tree():
 	grid = find_node("Grid")
 	big_grid = find_node("BigGrid")
 	
-	
 	#-------------------------------
 	# setup layers and canvas
 	#-------------------------------
 	connect("mouse_entered", self, "_on_mouse_entered")
 	connect("mouse_exited", self, "_on_mouse_exited")
-	
 	
 	#-------------------------------
 	# setup layers and canvas
@@ -45,10 +43,8 @@ func _enter_tree():
 	#canvas_size = Vector2(int(rect_size.x / grid_size), int(rect_size.y / grid_size))
 	#pixel_size = canvas_size
 	
-	preview_layer = add_new_layer("Preview")
 	active_layer = add_new_layer("Layer1")
-	
-	active_layer.set_pixel(10, 10, Color.blue)
+	preview_layer = add_new_layer("Preview")
 	
 	set_process(true)
 
@@ -63,13 +59,21 @@ func _process(delta):
 
 
 func _draw():
-	for layer_name in layers:
-		var layer = layers[layer_name]
+	for layer in layers:
+		if not layer.visible:
+			continue
 		var idx = 0
 		for color in layer.pixels:
 			var p = GEUtils.to_2D(idx, canvas_width)
 			draw_rect(Rect2(p.x * pixel_size, p.y * pixel_size, pixel_size, pixel_size), color)
 			idx += 1
+	
+	var idx = 0
+	for color in preview_layer.pixels:
+		var p = GEUtils.to_2D(idx, canvas_width)
+		draw_rect(Rect2(p.x * pixel_size, p.y * pixel_size, pixel_size, pixel_size), color)
+		idx += 1
+	
 
 
 #-------------------------------
@@ -121,61 +125,106 @@ func get_preview_layer():
 
 
 func clear_active_layer():
-	clear_layer(active_layer.name)
+	active_layer.clear()
 
 
 func clear_preview_layer():
-	clear_layer(preview_layer.name)
+	preview_layer.clear()
 
 
 func clear_layer(layer_name: String):
 	for layer in layers:
-		layer.pixels.clear()
+		if layer.name == layer_name:
+			layer.clear()
+			break
 
 
 func remove_layer(layer_name: String):
-	if not layer_name in layers:
-		return null
-	
 	# change current layer if the active layer is removed
-	if active_layer.name == layer_name:
+	var del_layer = find_layer_by_name(layer_name)
+	del_layer.clear()
+	if del_layer == active_layer:
 		for layer in layers:
-			if layer == preview_layer:
+			if layer == preview_layer or layer == active_layer:
 				continue
 			active_layer = layer
 			break
-	
-	find_node("Layers").remove_child(layers[layer_name])
-	layers[layer_name].queue_free()
-	layers.erase(layer_name)
-	
-	# return new active layer ?
+	layers.erase(del_layer)
 	return active_layer
 
 
-func add_new_layer(layer_name):
-	if layer_name in layers:
-		return
+func add_new_layer(layer_name: String):
+	for layer in layers:
+		if layer.name == layer_name:
+			return
 	var layer = GELayer.new()
 	layer.name = layer_name
 	layer.resize(canvas_width, canvas_height)
-	layers[layer_name] = layer
-	return layers[layer_name]
+	if layer_name != "Preview":
+		layers.append(layer)
+	return layer
 
 
 func duplicate_layer(layer_name: String, new_layer_name: String):
-	if not layer_name in layers or new_layer_name in layers:
-		return
-	var layer = add_new_layer(new_layer_name)
-	layer.pixels = layers[layer_name].pixels.duplicate()
+	for layer in layers:
+		if layer.name == new_layer_name:
+			return
+	
+	var dup_layer
+	for layer in layers:
+		if layer.name == layer_name:
+			dup_layer = layer
+			break
+	
+	var layer :GELayer = add_new_layer(new_layer_name)
+	layer.pixels = dup_layer.pixels.duplicate()
+	layer.name = new_layer_name
 	return layer
 
 
 func toggle_layer_visibility(layer_name: String):
-	if not layer_name in layers:
-		return
-	layers[layer_name].visible = not layers[layer_name].visible
+	for layer in layers:
+		if layer.name == layer_name:
+			layer.visible = not layer.visible
 
+
+func find_layer_by_name(layer_name: String):
+	for layer in layers:
+		if layer.name == layer_name:
+			return layer
+	return null
+
+
+func move_layer_forward(layer_name: String):
+	var remove_pos = -1
+	var layer
+	for i in range(layers.size()):
+		if layers[i].name == layer_name:
+			remove_pos = i
+			layer = layers[i]
+			print("from: ", i)
+			break
+	layers.erase(layer)
+	print("forw to: ", max(remove_pos - 1, 0))
+	layers.insert(max(remove_pos - 1, 0), layer)
+
+
+func move_layer_back(layer_name: String):
+	var remove_pos = -1
+	var layer
+	for i in range(layers.size()):
+		if layers[i].name == layer_name:
+			remove_pos = i
+			layer = layers[i]
+			print("from: ", i)
+			break
+	layers.erase(layer)
+	print("back to: ", min(remove_pos + 1, layers.size()))
+	layers.insert(min(remove_pos + 1, layers.size()), layer)
+
+
+func select_layer(layer_name: String):
+	active_layer = find_layer_by_name(layer_name)
 
 
 #-------------------------------
@@ -235,7 +284,30 @@ func get_pixel(x: int, y: int):
 	if active_layer:
 		if active_layer.pixels.size() <= idx:
 			return null
-	return active_layer.pixels[idx]
+		return active_layer.pixels[idx]
+	return null
+
+
+func set_preview_pixel_v(pos: Vector2, color: Color):
+	set_preview_pixel(pos.x, pos.y, color)
+
+
+func set_preview_pixel(x:int, y: int, color: Color):
+	if not is_inside_canvas(x, y):
+		return
+	preview_layer.set_pixel(x, y, color)
+
+
+func get_preview_pixel_v(pos: Vector2):
+	return get_preview_pixel(pos.x, pos.y)
+
+
+func get_preview_pixel(x: int, y: int):
+	var idx = GEUtils.to_1D(x, y, canvas_width)
+	if preview_layer:
+		if preview_layer.pixels.size() <= idx:
+			return null
+	return preview_layer.pixels[idx]
 
 
 #-------------------------------
@@ -252,7 +324,7 @@ func select_color(x, y):
 	return same_color_pixels
 
 
-func select_neighbouring_color(x, y):
+func select_same_color(x, y):
 	return get_neighbouring_pixels(x, y)
 
 
@@ -262,14 +334,21 @@ func select_neighbouring_color(x, y):
 func get_neighbouring_pixels(pos_x: int, pos_y: int) -> Array:
 	var pixels = []
 	
-	var check_queue = []
+	var to_check_queue = []
+	var checked_queue = []
 	
-	check_queue.append(Vector2(pos_x, pos_y))
+	to_check_queue.append(GEUtils.to_1D(pos_x, pos_y, canvas_width))
 	
 	var color = get_pixel(pos_x, pos_y)
 	
-	while not check_queue.empty():
-		var p = check_queue.pop_front()
+	while not to_check_queue.empty():
+		var idx = to_check_queue.pop_front()
+		var p = GEUtils.to_2D(idx, canvas_width)
+		
+		if idx in checked_queue:
+			continue
+		
+		checked_queue.append(idx)
 		
 		if get_pixel(p.x, p.y) != color:
 			continue
@@ -280,22 +359,25 @@ func get_neighbouring_pixels(pos_x: int, pos_y: int) -> Array:
 		# check neighbours
 		var x = p.x - 1
 		var y = p.y
-		
-		if  not p in pixels and is_inside_canvas(x, y):
-			check_queue.append(Vector2(x, y))
+		if is_inside_canvas(x, y):
+			idx = GEUtils.to_1D(x, y, canvas_width)
+			to_check_queue.append(idx)
 		
 		x = p.x + 1
-		if not p in pixels and is_inside_canvas(x, y):
-			check_queue.append(Vector2(x, y))
+		if is_inside_canvas(x, y):
+			idx = GEUtils.to_1D(x, y, canvas_width)
+			to_check_queue.append(idx)
 		
 		x = p.x
 		y = p.y - 1
-		if not p in pixels and is_inside_canvas(x, y):
-			check_queue.append(Vector2(x, y))
+		if is_inside_canvas(x, y):
+			idx = GEUtils.to_1D(x, y, canvas_width)
+			to_check_queue.append(idx)
 		
 		y = p.y + 1
-		if not p in pixels and is_inside_canvas(x, y):
-			check_queue.append(Vector2(x, y))
+		if is_inside_canvas(x, y):
+			idx = GEUtils.to_1D(x, y, canvas_width)
+			to_check_queue.append(idx)
 	
 	return pixels
 

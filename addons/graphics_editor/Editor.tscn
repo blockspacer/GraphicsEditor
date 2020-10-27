@@ -26,76 +26,76 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id=27]
-bg_color = Color( 0.213659, 0.765351, 0.325763, 1 )
+bg_color = Color( 0.103793, 0.952543, 0.558178, 1 )
 
 [sub_resource type="StyleBoxFlat" id=28]
-bg_color = Color( 0.176073, 0.806619, 0.967443, 1 )
+bg_color = Color( 0.68094, 0.136103, 0.784658, 1 )
 
 [sub_resource type="StyleBoxFlat" id=29]
-bg_color = Color( 0.46115, 0.389032, 0.649624, 1 )
+bg_color = Color( 0.565245, 0.950216, 0.525136, 1 )
 
 [sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0.415833, 0.965657, 0.678807, 1 )
+bg_color = Color( 0.840295, 0.689674, 0.146119, 1 )
 
 [sub_resource type="StyleBoxFlat" id=31]
-bg_color = Color( 0.95106, 0.531613, 0.0362836, 1 )
+bg_color = Color( 0.170796, 0.863757, 0.940376, 1 )
 
 [sub_resource type="StyleBoxFlat" id=32]
-bg_color = Color( 0.414718, 0.156676, 0.927291, 1 )
+bg_color = Color( 0.989842, 0.167318, 0.759568, 1 )
 
 [sub_resource type="StyleBoxFlat" id=33]
-bg_color = Color( 0.904518, 0.341891, 0.208397, 1 )
+bg_color = Color( 0.424938, 0.286666, 0.207677, 1 )
 
 [sub_resource type="StyleBoxFlat" id=34]
-bg_color = Color( 0.532053, 0.87726, 0.342851, 1 )
+bg_color = Color( 0.470532, 0.276365, 0.490264, 1 )
 
 [sub_resource type="StyleBoxFlat" id=35]
-bg_color = Color( 0.933623, 0.443817, 0.855431, 1 )
+bg_color = Color( 0.479465, 0.612879, 0.603754, 1 )
 
 [sub_resource type="StyleBoxFlat" id=36]
-bg_color = Color( 0.79689, 0.333745, 0.615167, 1 )
+bg_color = Color( 0.66582, 0.937007, 0.078631, 1 )
 
 [sub_resource type="StyleBoxFlat" id=37]
-bg_color = Color( 0.399027, 0.806071, 0.516829, 1 )
+bg_color = Color( 0.969678, 0.463082, 0.741374, 1 )
 
 [sub_resource type="StyleBoxFlat" id=38]
-bg_color = Color( 0.513829, 0.820974, 0.0806655, 1 )
+bg_color = Color( 0.748974, 0.911029, 0.0970848, 1 )
 
 [sub_resource type="StyleBoxFlat" id=39]
-bg_color = Color( 0.576046, 0.303465, 0.354421, 1 )
+bg_color = Color( 0.0446367, 0.149028, 0.965347, 1 )
 
 [sub_resource type="StyleBoxFlat" id=40]
-bg_color = Color( 0.0409532, 0.831937, 0.447566, 1 )
+bg_color = Color( 0.652305, 0.82955, 0.449331, 1 )
 
 [sub_resource type="StyleBoxFlat" id=41]
-bg_color = Color( 0.641815, 0.654958, 0.623856, 1 )
+bg_color = Color( 0.858449, 0.143876, 0.556734, 1 )
 
 [sub_resource type="StyleBoxFlat" id=42]
-bg_color = Color( 0.16782, 0.641056, 0.625732, 1 )
+bg_color = Color( 0.885448, 0.997685, 0.776802, 1 )
 
 [sub_resource type="StyleBoxFlat" id=43]
-bg_color = Color( 0.797095, 0.50587, 0.280019, 1 )
+bg_color = Color( 0.404004, 0.65451, 0.498103, 1 )
 
 [sub_resource type="StyleBoxFlat" id=44]
-bg_color = Color( 0.691959, 0.511673, 0.985569, 1 )
+bg_color = Color( 0.0711977, 0.735235, 0.953192, 1 )
 
 [sub_resource type="StyleBoxFlat" id=45]
-bg_color = Color( 0.610537, 0.592647, 0.539142, 1 )
+bg_color = Color( 0.696129, 0.303368, 0.559114, 1 )
 
 [sub_resource type="StyleBoxFlat" id=46]
-bg_color = Color( 0.263664, 0.636201, 0.25046, 1 )
+bg_color = Color( 0.16818, 0.0828524, 0.104581, 1 )
 
 [sub_resource type="StyleBoxFlat" id=47]
-bg_color = Color( 0.49156, 0.696528, 0.836079, 1 )
+bg_color = Color( 0.388226, 0.400829, 0.895155, 1 )
 
 [sub_resource type="StyleBoxFlat" id=48]
-bg_color = Color( 0.402661, 0.715784, 0.995676, 1 )
+bg_color = Color( 0.381586, 0.871279, 0.0388422, 1 )
 
 [sub_resource type="StyleBoxFlat" id=49]
-bg_color = Color( 0.694132, 0.532637, 0.466888, 1 )
+bg_color = Color( 0.0975624, 0.683663, 0.768315, 1 )
 
 [sub_resource type="StyleBoxFlat" id=50]
-bg_color = Color( 0.120597, 0.37573, 0.24552, 1 )
+bg_color = Color( 0.125084, 0.498048, 0.0623495, 1 )
 
 [sub_resource type="StyleBoxFlat" id=26]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
@@ -702,23 +702,30 @@ margin_right = 114.0
 margin_bottom = 501.0
 size_flags_vertical = 3
 
-[node name="Layers" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control"]
 margin_right = 114.0
 margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LayerButtons" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer"]
+margin_right = 114.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Layer1" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/Layers" instance=ExtResource( 12 )]
+[node name="Layer1" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer/LayerButtons" instance=ExtResource( 12 )]
 margin_bottom = 32.0
 
-[node name="Button" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/Layers"]
-margin_top = 36.0
+[node name="Button" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer"]
+margin_top = 42.0
 margin_right = 114.0
-margin_bottom = 61.0
+margin_bottom = 67.0
 rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
 text = "+"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -736,7 +743,7 @@ custom_styles/panel = SubResource( 26 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "FPS 60	Mouse Position (0, 0)	Canvas Mouse Position (0, 0) 	Canvas Position (0, 0)	
-Cell Position (0, 0) 	Cell Color 0,0,0,0	Cell Region (0, 0) 	Cell Position (0, 0)	"
+Cell Position (0, 0) 	Cell Color 0,0,0,0	"
 scroll_active = false
 script = ExtResource( 11 )
 __meta__ = {
@@ -777,7 +784,7 @@ mouse_filter = 1
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/ColorPickerTool" to="." method="_on_ColorPickerTool_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/CutTool" to="." method="_on_CutTool_pressed"]
 [connection signal="color_changed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/Layers/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_about_to_show"]
 [connection signal="confirmed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_confirmed"]
 [connection signal="file_selected" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_file_selected"]

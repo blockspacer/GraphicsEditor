@@ -9,7 +9,7 @@
 bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
 
 [node name="Layer1" type="Button" groups=[
-"layer",
+"layer_button",
 ]]
 margin_right = 114.0
 margin_bottom = 20.0

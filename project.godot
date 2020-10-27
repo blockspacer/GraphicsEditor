@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "BrushPrefabs",
 "language": "GDScript",
-"path": "res://addons/graphics_editor/Brush.gd"
+"path": "res://addons/graphics_editor/BrushPrefabs.gd"
 }, {
 "base": "Node",
 "class": "GEAction",
@@ -20,14 +20,34 @@ _global_script_classes=[ {
 "path": "res://addons/graphics_editor/actions/Action.gd"
 }, {
 "base": "GEAction",
+"class": "GEBrighten",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Brighten.gd"
+}, {
+"base": "GEAction",
 "class": "GEBrush",
 "language": "GDScript",
 "path": "res://addons/graphics_editor/actions/Brush.gd"
+}, {
+"base": "GEAction",
+"class": "GEBucket",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Bucket.gd"
 }, {
 "base": "Control",
 "class": "GECanvas",
 "language": "GDScript",
 "path": "res://addons/graphics_editor/Canvas.gd"
+}, {
+"base": "GEAction",
+"class": "GECut",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Cut.gd"
+}, {
+"base": "GEAction",
+"class": "GEDarken",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Darken.gd"
 }, {
 "base": "Reference",
 "class": "GELayer",
@@ -35,9 +55,24 @@ _global_script_classes=[ {
 "path": "res://addons/graphics_editor/Layer.gd"
 }, {
 "base": "GEAction",
+"class": "GELine",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Line.gd"
+}, {
+"base": "GEAction",
 "class": "GEPencil",
 "language": "GDScript",
 "path": "res://addons/graphics_editor/actions/Pencil.gd"
+}, {
+"base": "GEAction",
+"class": "GERainbow",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Rainbow.gd"
+}, {
+"base": "GEAction",
+"class": "GERect",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/Rect.gd"
 }, {
 "base": "Node",
 "class": "GEUtils",
@@ -47,10 +82,17 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BrushPrefabs": "",
 "GEAction": "",
+"GEBrighten": "",
 "GEBrush": "",
+"GEBucket": "",
 "GECanvas": "",
+"GECut": "",
+"GEDarken": "",
 "GELayer": "",
+"GELine": "",
 "GEPencil": "",
+"GERainbow": "",
+"GERect": "",
 "GEUtils": ""
 }
 
@@ -58,12 +100,6 @@ _global_script_class_icons={
 
 config/name="TestGDNative"
 config/icon="res://icon.png"
-
-[autoload]
-
-Gdtest="*res://gdtest.gdns"
-IconLoader="*res://addons/file-editor/scripts/IconLoader.gd"
-LastOpenedFiles="*res://addons/file-editor/scripts/LastOpenedFiles.gd"
 
 [editor_plugins]
 

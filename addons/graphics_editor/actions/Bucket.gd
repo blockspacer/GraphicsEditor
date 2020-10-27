@@ -1,11 +1,15 @@
 extends GEAction
-class_name GEPencil
+class_name GEBucket
+
 
 
 func do_action(canvas, data: Array):
 	.do_action(canvas, data)
 	
-	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
+	if canvas.get_pixel_v(data[0]) == data[2]:
+		return
+	var pixels = canvas.select_same_color(data[0].x, data[0].y)
+	
 	for pixel in pixels:
 		if pixel in action_data.undo.cells:
 			continue
@@ -20,8 +24,8 @@ func do_action(canvas, data: Array):
 
 
 func commit_action(canvas):
-	var cells = action_data.do.cells
-	var colors = action_data.do.colors
+	var cells = action_data.preview.cells
+	var colors = action_data.preview.colors
 	return []
 
 

@@ -3,17 +3,7 @@ class_name GEBrush
 
 
 func do_action(canvas: GECanvas, data: Array):
-	if not "cells" in action_data.do:
-		action_data.do["cells"] = []
-		action_data.do["colors"] = []
-	
-	if not "cells" in action_data.undo:
-		action_data.undo["cells"] = []
-		action_data.undo["colors"] = []
-	
-	if "layer" in action_data.do:
-		action_data.do["layer"] = canvas.active_layer
-		action_data.undo["layer"] = canvas.active_layer
+	.do_action(canvas, data)
 	
 	for pixel in GEUtils.get_pixels_in_line(data[0], data[1]):
 		for off in BrushPrefabs.list[data[3]]:
@@ -34,6 +24,7 @@ func do_action(canvas: GECanvas, data: Array):
 func commit_action(canvas):
 	var cells = action_data.do.cells
 	var colors = action_data.do.colors
+	return []
 
 
 func undo_action(canvas):

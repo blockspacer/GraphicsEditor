@@ -36,8 +36,7 @@ func save_file():
 	image.create(canvas.canvas_width, canvas.canvas_height, true, Image.FORMAT_RGBA8)
 	image.lock()
 	
-	for layer_name in canvas.layers:
-		var layer = canvas.layers[layer_name]
+	for layer in canvas.layers:
 		var idx = 0
 		for color in layer.pixels:
 			var pos = GEUtils.to_2D(idx, canvas.canvas_width)

@@ -1,5 +1,7 @@
 extends GEAction
-class_name GEPencil
+class_name GEDarken
+
+const dark_factor = 0.1
 
 
 func do_action(canvas, data: Array):
@@ -8,15 +10,20 @@ func do_action(canvas, data: Array):
 	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
 	for pixel in pixels:
 		if pixel in action_data.undo.cells:
+			var darkened_color = canvas.get_pixel_v(pixel).darkened(dark_factor)
+			canvas.set_pixel_v(pixel, darkened_color)
+		
+			action_data.do.cells.append(pixel)
+			action_data.do.colors.append(darkened_color)
 			continue
 		
 		action_data.undo.colors.append(canvas.get_pixel_v(pixel))
 		action_data.undo.cells.append(pixel)
-		
-		canvas.set_pixel_v(pixel, data[2])
+		var darkened_color = canvas.get_pixel_v(pixel).darkened(dark_factor)
+		canvas.set_pixel_v(pixel, darkened_color)
 	
 		action_data.do.cells.append(pixel)
-		action_data.do.colors.append(data[2])
+		action_data.do.colors.append(darkened_color)
 
 
 func commit_action(canvas):

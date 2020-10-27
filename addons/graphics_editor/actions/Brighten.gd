@@ -1,5 +1,8 @@
 extends GEAction
-class_name GEPencil
+class_name GEBrighten
+
+
+const brighten_color = 0.1
 
 
 func do_action(canvas, data: Array):
@@ -8,15 +11,20 @@ func do_action(canvas, data: Array):
 	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
 	for pixel in pixels:
 		if pixel in action_data.undo.cells:
+			var brightened_color = canvas.get_pixel_v(pixel).lightened(0.1)
+			canvas.set_pixel_v(pixel, brightened_color)
+		
+			action_data.do.cells.append(pixel)
+			action_data.do.colors.append(brightened_color)
 			continue
 		
 		action_data.undo.colors.append(canvas.get_pixel_v(pixel))
 		action_data.undo.cells.append(pixel)
-		
-		canvas.set_pixel_v(pixel, data[2])
+		var brightened_color = canvas.get_pixel_v(pixel).lightened(0.1)
+		canvas.set_pixel_v(pixel, brightened_color)
 	
 		action_data.do.cells.append(pixel)
-		action_data.do.colors.append(data[2])
+		action_data.do.colors.append(brightened_color)
 
 
 func commit_action(canvas):
