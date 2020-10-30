@@ -17,6 +17,7 @@ enum Tools {
 var layer_buttons: Control
 var paint_canvas_container_node
 var paint_canvas: GECanvas
+var canvas_background: TextureRect
 var grids_node
 var colors_grid
 var selected_color = Color(1, 1, 1, 1)
@@ -24,7 +25,12 @@ var util = preload("res://addons/graphics_editor/Util.gd")
 var textinfo
 var allow_drawing = true
 
+var mouse_in_region = false
+var mouse_on_top = false
 
+
+var _middle_mouse_pressed_pos = null
+var _middle_mouse_pressed_start_pos = null
 var _left_mouse_pressed_start_pos = Vector2()
 var _previous_tool
 
@@ -58,8 +64,9 @@ func _enter_tree():
 	textinfo = find_node("DebugTextDisplay")
 	selected_color = find_node("ColorPicker").color
 	colors_grid = find_node("Colors")
-	paint_canvas = get_node("Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas")
+	paint_canvas = paint_canvas_container_node.find_node("Canvas")
 	layer_buttons = find_node("LayerButtons")
+	canvas_background = find_node("CanvasBackground")
 	
 	set_process(true)
 	
@@ -80,12 +87,25 @@ func _ready():
 
 
 func _input(event):
+	if not Engine.is_editor_hint():
+		return
+	if Rect2(Vector2(), paint_canvas_container_node.rect_size).has_point(
+			paint_canvas_container_node.get_local_mouse_position()):
+		mouse_in_region = true
+	elif mouse_in_region:
+		mouse_in_region = false
+	
+	if not mouse_on_top or not mouse_in_region:
+		return
+	
 	if Input.is_key_pressed(KEY_Z):
 		undo_action()
 	elif Input.is_key_pressed(KEY_Y):
-		print("Y")
+		pass
 	
-	if (paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
+	_handle_zoom(event)
+	
+	if paint_canvas and (paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
 		match brush_mode:
 			Tools.BUCKET:
 				if _current_action == null:
@@ -113,6 +133,10 @@ var last_cell_color = Color()
 
 # warning-ignore:unused_argument
 func _process(delta):
+	if not Engine.is_editor_hint():
+		return
+	if not mouse_on_top or not mouse_in_region:
+		return
 	update_text_info()
 	#It's a lot more easier to just keep updating the variables in here than just have a bunch of local variables
 	#in every update function and make it very messy
@@ -120,6 +144,10 @@ func _process(delta):
 		#_check_variables()
 		set_process(false)
 		return
+	
+	
+	if mouse_on_top and mouse_in_region:
+		_handle_scroll()
 	
 	#Update commonly used variables
 	var grid_size = paint_canvas.pixel_size
@@ -133,7 +161,7 @@ func _process(delta):
 		brush_process()
 	
 	#Render the highlighting stuff
-	update()
+	
 	
 	#Canvas Shift Moving
 	if not mouse_position == last_mouse_position:
@@ -152,6 +180,42 @@ func _process(delta):
 	last_canvas_mouse_position = canvas_mouse_position
 	last_cell_mouse_position = cell_mouse_position
 	last_cell_color = cell_color
+
+
+func _handle_scroll():
+	if Input.is_mouse_button_pressed(BUTTON_MIDDLE):
+		if _middle_mouse_pressed_start_pos == null:
+			_middle_mouse_pressed_start_pos = paint_canvas.rect_position
+			_middle_mouse_pressed_pos = get_global_mouse_position()
+		
+		paint_canvas.rect_position = _middle_mouse_pressed_start_pos
+		paint_canvas.rect_position += get_global_mouse_position() - _middle_mouse_pressed_pos 
+		
+	elif _middle_mouse_pressed_start_pos != null:
+		_middle_mouse_pressed_start_pos = null
+
+
+const max_zoom_out = 1
+const max_zoom_in = 50
+
+func _handle_zoom(event):
+	if not event is InputEventMouseButton:
+		return
+	if event.is_pressed():
+		if event.button_index == BUTTON_WHEEL_UP:
+			paint_canvas.set_pixel_size(min(paint_canvas.pixel_size * 2, max_zoom_in))
+			return
+			if paint_canvas.pixel_size != max_zoom_in:
+				paint_canvas.rect_global_position -= Vector2(
+						paint_canvas.canvas_width / 2,
+						paint_canvas.canvas_height / 2)
+		elif event.button_index == BUTTON_WHEEL_DOWN:
+			paint_canvas.set_pixel_size(max(paint_canvas.pixel_size / 2.0, max_zoom_out))
+			return
+			if paint_canvas.pixel_size != max_zoom_out:
+				paint_canvas.rect_global_position += Vector2(
+						paint_canvas.canvas_width / 2,
+						paint_canvas.canvas_height / 2)
 
 
 func _reset_cut_tool():
@@ -192,9 +256,13 @@ func _handle_cut():
 func brush_process():
 	if _just_cut:
 		_handle_cut()
+		update()
+		paint_canvas.update()
 		return
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+		update()
+		paint_canvas.update()
 		if _current_action == null:
 			_current_action = get_action()
 		
@@ -217,12 +285,10 @@ func brush_process():
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 			Tools.RAINBOW:
 				do_action([cell_mouse_position, last_cell_mouse_position])
-	else:
-		if _current_action and _current_action.can_commit():
-			commit_action()
 	
-	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
-		return
+	elif Input.is_mouse_button_pressed(BUTTON_RIGHT):
+		update()
+		paint_canvas.update()
 		if _current_action == null:
 			_current_action = get_action()
 		
@@ -231,6 +297,11 @@ func brush_process():
 				do_action([cell_mouse_position, last_cell_mouse_position, Color(0, 0, 0, 0)])
 			Tools.BRUSH:
 				do_action([cell_mouse_position, last_cell_mouse_position, Color(0, 0, 0, 0), selected_brush_prefab])
+	else:
+		if _current_action and _current_action.can_commit():
+			commit_action()
+			update()
+			paint_canvas.update()
 
 
 func update_text_info():
@@ -312,6 +383,8 @@ func undo_action():
 	if not action:
 		return 
 	action.undo_action(paint_canvas)
+	update()
+	paint_canvas.update()
 	print("undo action")
 
 
@@ -437,18 +510,21 @@ func select_layer(layer_name: String):
 
 
 func add_new_layer():
-	var new_layer = layer_buttons.get_child(0).duplicate()
-	layer_buttons.add_child_below_node(layer_buttons.get_child(layer_buttons.get_child_count() - 1), new_layer, true)
+	var new_layer_button = layer_buttons.get_child(0).duplicate()
+	layer_buttons.add_child_below_node(
+			layer_buttons.get_child(layer_buttons.get_child_count() - 1), new_layer_button, true)
 	_total_added_layers += 1
-	new_layer.text = "Layer " + str(_total_added_layers)
+	new_layer_button.text = "Layer " + str(_total_added_layers)
 	
-	var layer: GELayer = paint_canvas.add_new_layer(new_layer.name) 
+	var layer: GELayer = paint_canvas.add_new_layer(new_layer_button.name) 
 	
-	_layer_button_ref[new_layer.name] = new_layer
+	_layer_button_ref[new_layer_button.name] = new_layer_button
 	
 	_connect_layer_buttons()
 	
 	print("added layer: ", layer.name)
+	
+	return layer
 
 
 func remove_active_layer():
@@ -520,3 +596,9 @@ func _on_Button_pressed():
 
 
 
+func _on_PaintCanvasContainer_mouse_entered():
+	mouse_on_top = true
+
+
+func _on_PaintCanvasContainer_mouse_exited():
+	mouse_on_top = false

@@ -36,6 +36,10 @@ func handle_file_menu(pressed_item: String):
 	match pressed_item:
 		"Save":
 			owner.get_node("SaveFileDialog").show()
+		"Load":
+			owner.get_node("LoadFileDialog").show()
+		"New":
+			owner.get_node("ConfirmationDialog").show()
 
 
 func handle_edit_menu(pressed_item: String):
@@ -46,8 +50,8 @@ func handle_edit_menu(pressed_item: String):
 
 func handle_canvas_menu(pressed_item: String):
 	match pressed_item:
-		"Add Layer":
-			editor.add_new_layer()
+		"Change Size":
+			owner.get_node("ChangeCanvasSize").show()
 
 
 func handle_layer_menu(pressed_item: String):
@@ -62,8 +66,10 @@ func handle_layer_menu(pressed_item: String):
 
 func handle_grid_menu(pressed_item: String):
 	match pressed_item:
-		"Add Layer":
-			editor.add_new_layer()
+		"Change Grid Size":
+			owner.get_node("ChangeGridSizeDialog").show()
+		"Toggle Grid":
+			owner.paint_canvas.toggle_grid()
 
 
 func handle_magic_menu(pressed_item: String):

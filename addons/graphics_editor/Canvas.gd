@@ -15,6 +15,7 @@ var mouse_on_top
 var layers : Array = [] # Key: layer_name, val: GELayer
 var active_layer: GELayer
 var preview_layer: GELayer
+var canvas_layers: Control
 
 var canvas
 var grid
@@ -30,6 +31,7 @@ func _enter_tree():
 	canvas = find_node("Canvas")
 	grid = find_node("Grid")
 	big_grid = find_node("BigGrid")
+	canvas_layers = find_node("CanvasLayers")
 	
 	#-------------------------------
 	# setup layers and canvas
@@ -50,29 +52,34 @@ func _enter_tree():
 
 
 func _process(delta):
-	if active_layer == null:
+	if not Engine.is_editor_hint():
 		return
 	var mouse_position = get_local_mouse_position()
 	var rect = Rect2(Vector2(0, 0), rect_size)
 	mouse_in_region = rect.has_point(mouse_position)
-	update()
 
 
 func _draw():
+	if not Engine.is_editor_hint():
+		return
 	for layer in layers:
-		if not layer.visible:
-			continue
-		var idx = 0
-		for color in layer.pixels:
-			var p = GEUtils.to_2D(idx, canvas_width)
-			draw_rect(Rect2(p.x * pixel_size, p.y * pixel_size, pixel_size, pixel_size), color)
-			idx += 1
+		layer.update_texture()
 	
-	var idx = 0
-	for color in preview_layer.pixels:
-		var p = GEUtils.to_2D(idx, canvas_width)
-		draw_rect(Rect2(p.x * pixel_size, p.y * pixel_size, pixel_size, pixel_size), color)
-		idx += 1
+	preview_layer.update_texture()
+
+
+func resize(width: int, height: int):
+	if width < 0:
+		width = 1
+	if height < 0:
+		height = 1
+	
+	set_canvas_width(width)
+	set_canvas_height(height)
+	
+	preview_layer.resize(width, height)
+	for layer in layers:
+		layer.resize(width, height)
 	
 
 
@@ -86,6 +93,13 @@ func set_pixel_size(size: int):
 	set_big_grid_size(big_grid_size)
 	set_canvas_width(canvas_width)
 	set_canvas_height(canvas_height)
+	
+	return
+	if preview_layer == null:
+		return
+	preview_layer.resize(canvas_width, canvas_height)
+	for layer in layers:
+		layer.resize(canvas_width, canvas_height)
 
 
 func set_grid_size(size):
@@ -159,7 +173,17 @@ func add_new_layer(layer_name: String):
 			return
 	var layer = GELayer.new()
 	layer.name = layer_name
-	layer.resize(canvas_width, canvas_height)
+	
+	var texture_rect = TextureRect.new()
+	canvas_layers.add_child(texture_rect)
+	texture_rect.expand = true
+	texture_rect.anchor_right = 1
+	texture_rect.anchor_bottom = 1
+	texture_rect.margin_right = 0
+	texture_rect.margin_bottom = 0
+	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	layer.create(texture_rect, canvas_width, canvas_height)
 	if layer_name != "Preview":
 		layers.append(layer)
 	return layer
@@ -282,7 +306,7 @@ func get_pixel_v(pos: Vector2):
 func get_pixel(x: int, y: int):
 	var idx = GEUtils.to_1D(x, y, canvas_width)
 	if active_layer:
-		if active_layer.pixels.size() <= idx:
+		if idx >= 0 and active_layer.pixels.size() <= idx:
 			return null
 		return active_layer.pixels[idx]
 	return null
@@ -308,6 +332,27 @@ func get_preview_pixel(x: int, y: int):
 		if preview_layer.pixels.size() <= idx:
 			return null
 	return preview_layer.pixels[idx]
+
+
+
+#-------------------------------
+# Grid
+#-------------------------------
+
+
+func toggle_grid():
+	$BigGrid.visible = not $BigGrid.visible
+	$Grid.visible = not $Grid.visible
+
+
+func show_grid():
+	$BigGrid.show()
+	$Grid.show()
+
+
+func hide_grid():
+	$BigGrid.hide()
+	$Grid.hide()
 
 
 #-------------------------------

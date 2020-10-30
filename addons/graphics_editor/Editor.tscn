@@ -1,6 +1,7 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://addons/graphics_editor/Editor.gd" type="Script" id=1]
+[ext_resource path="res://addons/graphics_editor/dialogs/LoadFileDialog.gd" type="Script" id=2]
 [ext_resource path="res://addons/graphics_editor/Canvas.gd" type="Script" id=3]
 [ext_resource path="res://addons/graphics_editor/VisualGrid.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/graphics_editor/CanvasOutline.gd" type="Script" id=5]
@@ -11,9 +12,14 @@
 [ext_resource path="res://addons/graphics_editor/Settings.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/graphics_editor/DebugTextDisplay.gd" type="Script" id=11]
 [ext_resource path="res://addons/graphics_editor/LayerButton.tscn" type="PackedScene" id=12]
-[ext_resource path="res://icon.png" type="Texture" id=13]
+[ext_resource path="res://addons/graphics_editor/assets/grid.png" type="Texture" id=13]
+[ext_resource path="res://addons/graphics_editor/dialogs/ConfirmationDialog.gd" type="Script" id=14]
+[ext_resource path="res://addons/graphics_editor/dialogs/ChangeGridSizeDialog.gd" type="Script" id=15]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=28]
+bg_color = Color( 0.2, 0.2, 0.2, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.25, 0.25, 0.25, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -25,79 +31,79 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=27]
-bg_color = Color( 0.103793, 0.952543, 0.558178, 1 )
-
-[sub_resource type="StyleBoxFlat" id=28]
-bg_color = Color( 0.68094, 0.136103, 0.784658, 1 )
-
 [sub_resource type="StyleBoxFlat" id=29]
-bg_color = Color( 0.565245, 0.950216, 0.525136, 1 )
+bg_color = Color( 0.992425, 0.72214, 0.22694, 1 )
 
 [sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0.840295, 0.689674, 0.146119, 1 )
+bg_color = Color( 0.188976, 0.642524, 0.740442, 1 )
 
 [sub_resource type="StyleBoxFlat" id=31]
-bg_color = Color( 0.170796, 0.863757, 0.940376, 1 )
+bg_color = Color( 0.839845, 0.552142, 0.433226, 1 )
 
 [sub_resource type="StyleBoxFlat" id=32]
-bg_color = Color( 0.989842, 0.167318, 0.759568, 1 )
+bg_color = Color( 0.997992, 0.341005, 0.762806, 1 )
 
 [sub_resource type="StyleBoxFlat" id=33]
-bg_color = Color( 0.424938, 0.286666, 0.207677, 1 )
+bg_color = Color( 0.504709, 0.669541, 0.499676, 1 )
 
 [sub_resource type="StyleBoxFlat" id=34]
-bg_color = Color( 0.470532, 0.276365, 0.490264, 1 )
+bg_color = Color( 0.511632, 0.846479, 0.257186, 1 )
 
 [sub_resource type="StyleBoxFlat" id=35]
-bg_color = Color( 0.479465, 0.612879, 0.603754, 1 )
+bg_color = Color( 0.104288, 0.47341, 0.657715, 1 )
 
 [sub_resource type="StyleBoxFlat" id=36]
-bg_color = Color( 0.66582, 0.937007, 0.078631, 1 )
+bg_color = Color( 0.209301, 0.260868, 0.090683, 1 )
 
 [sub_resource type="StyleBoxFlat" id=37]
-bg_color = Color( 0.969678, 0.463082, 0.741374, 1 )
+bg_color = Color( 0.737483, 0.85665, 0.452039, 1 )
 
 [sub_resource type="StyleBoxFlat" id=38]
-bg_color = Color( 0.748974, 0.911029, 0.0970848, 1 )
+bg_color = Color( 0.721016, 0.818223, 0.305368, 1 )
 
 [sub_resource type="StyleBoxFlat" id=39]
-bg_color = Color( 0.0446367, 0.149028, 0.965347, 1 )
+bg_color = Color( 0.11069, 0.60355, 0.886431, 1 )
 
 [sub_resource type="StyleBoxFlat" id=40]
-bg_color = Color( 0.652305, 0.82955, 0.449331, 1 )
+bg_color = Color( 0.231713, 0.673817, 0.173052, 1 )
 
 [sub_resource type="StyleBoxFlat" id=41]
-bg_color = Color( 0.858449, 0.143876, 0.556734, 1 )
+bg_color = Color( 0.406265, 0.172438, 0.309769, 1 )
 
 [sub_resource type="StyleBoxFlat" id=42]
-bg_color = Color( 0.885448, 0.997685, 0.776802, 1 )
+bg_color = Color( 0.819319, 0.927778, 0.361548, 1 )
 
 [sub_resource type="StyleBoxFlat" id=43]
-bg_color = Color( 0.404004, 0.65451, 0.498103, 1 )
+bg_color = Color( 0.0092795, 0.251186, 0.846242, 1 )
 
 [sub_resource type="StyleBoxFlat" id=44]
-bg_color = Color( 0.0711977, 0.735235, 0.953192, 1 )
+bg_color = Color( 0.26609, 0.90187, 0.702388, 1 )
 
 [sub_resource type="StyleBoxFlat" id=45]
-bg_color = Color( 0.696129, 0.303368, 0.559114, 1 )
+bg_color = Color( 0.727636, 0.395947, 0.545933, 1 )
 
 [sub_resource type="StyleBoxFlat" id=46]
-bg_color = Color( 0.16818, 0.0828524, 0.104581, 1 )
+bg_color = Color( 0.673933, 0.595609, 0.891036, 1 )
 
 [sub_resource type="StyleBoxFlat" id=47]
-bg_color = Color( 0.388226, 0.400829, 0.895155, 1 )
+bg_color = Color( 0.828221, 0.65787, 0.905474, 1 )
 
 [sub_resource type="StyleBoxFlat" id=48]
-bg_color = Color( 0.381586, 0.871279, 0.0388422, 1 )
+bg_color = Color( 0.0794242, 0.693443, 0.325962, 1 )
 
 [sub_resource type="StyleBoxFlat" id=49]
-bg_color = Color( 0.0975624, 0.683663, 0.768315, 1 )
+bg_color = Color( 0.227995, 0.60802, 0.650897, 1 )
 
 [sub_resource type="StyleBoxFlat" id=50]
-bg_color = Color( 0.125084, 0.498048, 0.0623495, 1 )
+bg_color = Color( 0.213816, 0.447523, 0.105662, 1 )
 
-[sub_resource type="StyleBoxFlat" id=26]
+[sub_resource type="StyleBoxFlat" id=51]
+bg_color = Color( 0.34228, 0.766934, 0.145565, 1 )
+
+[sub_resource type="StyleBoxFlat" id=52]
+bg_color = Color( 0.920236, 0.967262, 0.495874, 1 )
+
+[sub_resource type="StyleBoxFlat" id=27]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
 border_width_top = 2
 border_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
@@ -110,7 +116,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -121,32 +126,565 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="NoBCViewportsnotworking26181" type="Control" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": "https://github.com/godotengine/godot/issues/26181"
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/NoBCViewportsnotworking26181"]
+show_behind_parent = true
+anchor_top = 0.081
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -3.8147e-06
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PaintCanvasContainer" type="Control" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer"]
+margin_right = 892.0
+margin_bottom = 551.0
+focus_mode = 1
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 7.0
+
+[node name="Canvas" type="Control" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+pixel_size = 4
+canvas_width = 64
+canvas_height = 64
+grid_size = 1
+big_grid_size = 8
+
+[node name="CanvasBackground" type="TextureRect" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.341176 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CanvasLayers" type="Control" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Navbar" type="Control" parent="Panel/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource( 6 )
+[node name="PreviewLayer" type="TextureRect" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="Panel/VBoxContainer/Navbar"]
+[node name="ToolPreviewLayer" type="TextureRect" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grid" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas" instance=ExtResource( 4 )]
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.12549 )
+size = 4
+
+[node name="BigGrid" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas" instance=ExtResource( 4 )]
+mouse_filter = 2
+color = Color( 1, 1, 1, 0.576471 )
+size = 32
+
+[node name="CanvasOutline" type="Control" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer/Canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+color = Color( 0, 1, 0, 1 )
+
+[node name="Panel" type="Panel" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer"]
+margin_left = 896.0
+margin_right = 1024.0
+margin_bottom = 551.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 28 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToolMenu" type="VBoxContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer"]
+margin_right = 120.0
+margin_bottom = 543.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Tools" type="VBoxContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu"]
+margin_right = 120.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PaintTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_right = 120.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Paint"
+
+[node name="BrushTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 24.0
+margin_right = 120.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+text = "Brush"
+
+[node name="BucketTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 44.0
+margin_right = 120.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Bucket Fill"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RainbowTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 68.0
+margin_right = 120.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Rainbow"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 92.0
+margin_right = 120.0
+margin_bottom = 112.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Line"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RectTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 116.0
+margin_right = 120.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Rectangle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DarkenTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 140.0
+margin_right = 120.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Darken"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BrightenTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 164.0
+margin_right = 120.0
+margin_bottom = 184.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Brighten"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorPickerTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 188.0
+margin_right = 120.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Color Picker"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CutTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 212.0
+margin_right = 120.0
+margin_bottom = 232.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Cut Section"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
+margin_top = 236.0
+margin_right = 120.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colors" type="GridContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu"]
+margin_top = 260.0
+margin_right = 120.0
+margin_bottom = 430.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+script = ExtResource( 8 )
+
+[node name="Button1" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_right = 27.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 29 )
+
+[node name="Button2" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 31.0
+margin_right = 58.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 30 )
+
+[node name="Button3" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 62.0
+margin_right = 89.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 31 )
+
+[node name="Button4" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 93.0
+margin_right = 120.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 32 )
+
+[node name="Button5" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_top = 29.0
+margin_right = 27.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 33 )
+
+[node name="Button6" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 31.0
+margin_top = 29.0
+margin_right = 58.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 34 )
+
+[node name="Button7" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 62.0
+margin_top = 29.0
+margin_right = 89.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 35 )
+
+[node name="Button8" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 93.0
+margin_top = 29.0
+margin_right = 120.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 36 )
+
+[node name="Button9" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_top = 58.0
+margin_right = 27.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 37 )
+
+[node name="Button10" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 31.0
+margin_top = 58.0
+margin_right = 58.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 38 )
+
+[node name="Button11" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 62.0
+margin_top = 58.0
+margin_right = 89.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 39 )
+
+[node name="Button12" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 93.0
+margin_top = 58.0
+margin_right = 120.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 40 )
+
+[node name="Button13" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_top = 87.0
+margin_right = 27.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 41 )
+
+[node name="Button14" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 31.0
+margin_top = 87.0
+margin_right = 58.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 42 )
+
+[node name="Button15" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 62.0
+margin_top = 87.0
+margin_right = 89.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 43 )
+
+[node name="Button16" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 93.0
+margin_top = 87.0
+margin_right = 120.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 44 )
+
+[node name="Button17" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_top = 116.0
+margin_right = 27.0
+margin_bottom = 141.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 45 )
+
+[node name="Button18" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 31.0
+margin_top = 116.0
+margin_right = 58.0
+margin_bottom = 141.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 46 )
+
+[node name="Button19" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 62.0
+margin_top = 116.0
+margin_right = 89.0
+margin_bottom = 141.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 47 )
+
+[node name="Button20" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 93.0
+margin_top = 116.0
+margin_right = 120.0
+margin_bottom = 141.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 48 )
+
+[node name="Button21" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_top = 145.0
+margin_right = 27.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 49 )
+
+[node name="Button22" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 31.0
+margin_top = 145.0
+margin_right = 58.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 50 )
+
+[node name="Button23" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 62.0
+margin_top = 145.0
+margin_right = 89.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 51 )
+
+[node name="Button24" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Colors"]
+margin_left = 93.0
+margin_top = 145.0
+margin_right = 120.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 25, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 52 )
+
+[node name="Control" type="ScrollContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu"]
+margin_top = 434.0
+margin_right = 120.0
+margin_bottom = 543.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Control"]
+margin_right = 120.0
+margin_bottom = 109.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LayerButtons" type="VBoxContainer" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Control/VBoxContainer"]
+margin_right = 120.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Layer1" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Control/VBoxContainer/LayerButtons" instance=ExtResource( 12 )]
+margin_right = 120.0
+margin_bottom = 32.0
+
+[node name="Button" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Control/VBoxContainer"]
+margin_top = 84.0
+margin_right = 120.0
+margin_bottom = 109.0
+rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Navbar" type="Control" parent="Panel/NoBCViewportsnotworking26181"]
+anchor_right = 1.0
+anchor_bottom = 0.0833333
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel" type="Panel" parent="Panel/NoBCViewportsnotworking26181/Navbar"]
+self_modulate = Color( 0.854902, 0.854902, 0.854902, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/VBoxContainer/Navbar"]
+[node name="Buttons" type="HBoxContainer" parent="Panel/NoBCViewportsnotworking26181/Navbar"]
 anchor_left = 0.0078125
 anchor_top = 0.12
 anchor_right = 0.628906
@@ -156,21 +694,21 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="File" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="File" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_right = 73.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "File"
 flat = false
-items = [ "Save", null, 0, false, false, 0, 0, null, "", false, "Load", null, 0, false, false, 1, 0, null, "", false ]
+items = [ "New", null, 0, false, false, 0, 0, null, "", false, "Save", null, 0, false, false, 1, 0, null, "", false, "Load", null, 0, false, false, 2, 0, null, "", false ]
 switch_on_hover = true
 script = ExtResource( 7 )
 
-[node name="Edit" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="Edit" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_left = 93.0
 margin_right = 167.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Edit"
@@ -179,10 +717,10 @@ items = [ "Undo", null, 0, false, false, 0, 0, null, "", false, "Redo", null, 0,
 switch_on_hover = true
 script = ExtResource( 7 )
 
-[node name="Canvas" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="Canvas" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_left = 187.0
 margin_right = 260.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Canvas"
@@ -191,10 +729,10 @@ items = [ "Clear Canvas", null, 0, false, false, 0, 0, null, "", false, "Change 
 switch_on_hover = true
 script = ExtResource( 7 )
 
-[node name="Layer" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="Layer" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_left = 280.0
 margin_right = 354.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Layer"
@@ -203,10 +741,10 @@ items = [ "Add Layer", null, 0, false, false, 0, 0, null, "", false, "Delete Lay
 switch_on_hover = true
 script = ExtResource( 7 )
 
-[node name="Grid" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="Grid" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_left = 374.0
 margin_right = 447.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Grid"
@@ -215,10 +753,10 @@ items = [ "Toggle Grid", null, 0, false, false, 0, 0, null, "", false, "Change G
 switch_on_hover = true
 script = ExtResource( 7 )
 
-[node name="Magic" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="Magic" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_left = 467.0
 margin_right = 541.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Magic"
@@ -227,10 +765,10 @@ items = [ "ChangeSingleColor", null, 0, false, false, 0, 0, null, "", false, "Ch
 switch_on_hover = true
 script = ExtResource( 7 )
 
-[node name="Editor" type="MenuButton" parent="Panel/VBoxContainer/Navbar/Buttons"]
+[node name="Editor" type="MenuButton" parent="Panel/NoBCViewportsnotworking26181/Navbar/Buttons"]
 margin_left = 561.0
 margin_right = 635.0
-margin_bottom = 25.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Editor"
@@ -242,507 +780,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
-margin_top = 54.0
-margin_right = 1024.0
-margin_bottom = 555.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 10.0
-
-[node name="PaintCanvasContainer" type="Control" parent="Panel/VBoxContainer/HBoxContainer"]
-show_behind_parent = true
-margin_right = 906.0
-margin_bottom = 501.0
-focus_mode = 1
-mouse_filter = 1
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 8.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Canvas" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -384.0
-margin_top = -192.0
-margin_right = 384.0
-margin_bottom = 192.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-canvas_height = 24
-grid_size = 1
-big_grid_size = 8
-
-[node name="Grid" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas" instance=ExtResource( 4 )]
-mouse_filter = 2
-color = Color( 1, 1, 1, 0.266667 )
-
-[node name="BigGrid" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas" instance=ExtResource( 4 )]
-mouse_filter = 2
-color = Color( 1, 1, 1, 1 )
-size = 128
-
-[node name="CanvasLayers" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="CanvasOutline" type="Control" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-color = Color( 0, 1, 0, 1 )
-
-[node name="Image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 13 )
-expand = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer"]
-margin_left = 910.0
-margin_right = 1024.0
-margin_bottom = 501.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ToolMenu" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer"]
-margin_right = 114.0
-margin_bottom = 501.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Tools" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu"]
-margin_right = 114.0
-margin_bottom = 256.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="PaintTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_right = 114.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Paint"
-
-[node name="BrushTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 24.0
-margin_right = 114.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 1 )
-custom_styles/focus = SubResource( 1 )
-custom_styles/disabled = SubResource( 1 )
-custom_styles/normal = SubResource( 1 )
-text = "Brush"
-
-[node name="BucketTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 44.0
-margin_right = 114.0
-margin_bottom = 64.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Bucket Fill"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RainbowTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 68.0
-margin_right = 114.0
-margin_bottom = 88.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Rainbow"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LineTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 92.0
-margin_right = 114.0
-margin_bottom = 112.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Line"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RectTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 116.0
-margin_right = 114.0
-margin_bottom = 136.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Rectangle"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DarkenTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 140.0
-margin_right = 114.0
-margin_bottom = 160.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Darken"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BrightenTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 164.0
-margin_right = 114.0
-margin_bottom = 184.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Brighten"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorPickerTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 188.0
-margin_right = 114.0
-margin_bottom = 208.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Color Picker"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CutTool" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 212.0
-margin_right = 114.0
-margin_bottom = 232.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Cut Section"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorPicker" type="ColorPickerButton" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools"]
-margin_top = 236.0
-margin_right = 114.0
-margin_bottom = 256.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Colors" type="GridContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu"]
-margin_top = 260.0
-margin_right = 114.0
-margin_bottom = 430.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 4
-script = ExtResource( 8 )
-
-[node name="Button1" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_right = 25.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 27 )
-
-[node name="Button2" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 29.0
-margin_right = 54.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 28 )
-
-[node name="Button3" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 58.0
-margin_right = 83.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 29 )
-
-[node name="Button4" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 87.0
-margin_right = 112.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 30 )
-
-[node name="Button5" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_top = 29.0
-margin_right = 25.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 31 )
-
-[node name="Button6" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 29.0
-margin_top = 29.0
-margin_right = 54.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 32 )
-
-[node name="Button7" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 58.0
-margin_top = 29.0
-margin_right = 83.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 33 )
-
-[node name="Button8" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 87.0
-margin_top = 29.0
-margin_right = 112.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 34 )
-
-[node name="Button9" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_top = 58.0
-margin_right = 25.0
-margin_bottom = 83.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 35 )
-
-[node name="Button10" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 29.0
-margin_top = 58.0
-margin_right = 54.0
-margin_bottom = 83.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 36 )
-
-[node name="Button11" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 58.0
-margin_top = 58.0
-margin_right = 83.0
-margin_bottom = 83.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 37 )
-
-[node name="Button12" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 87.0
-margin_top = 58.0
-margin_right = 112.0
-margin_bottom = 83.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 38 )
-
-[node name="Button13" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_top = 87.0
-margin_right = 25.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 39 )
-
-[node name="Button14" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 29.0
-margin_top = 87.0
-margin_right = 54.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 40 )
-
-[node name="Button15" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 58.0
-margin_top = 87.0
-margin_right = 83.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 41 )
-
-[node name="Button16" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 87.0
-margin_top = 87.0
-margin_right = 112.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 42 )
-
-[node name="Button17" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_top = 116.0
-margin_right = 25.0
-margin_bottom = 141.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 43 )
-
-[node name="Button18" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 29.0
-margin_top = 116.0
-margin_right = 54.0
-margin_bottom = 141.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 44 )
-
-[node name="Button19" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 58.0
-margin_top = 116.0
-margin_right = 83.0
-margin_bottom = 141.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 45 )
-
-[node name="Button20" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 87.0
-margin_top = 116.0
-margin_right = 112.0
-margin_bottom = 141.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 46 )
-
-[node name="Button21" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_top = 145.0
-margin_right = 25.0
-margin_bottom = 170.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 47 )
-
-[node name="Button22" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 29.0
-margin_top = 145.0
-margin_right = 54.0
-margin_bottom = 170.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 48 )
-
-[node name="Button23" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 58.0
-margin_top = 145.0
-margin_right = 83.0
-margin_bottom = 170.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 49 )
-
-[node name="Button24" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Colors"]
-margin_left = 87.0
-margin_top = 145.0
-margin_right = 112.0
-margin_bottom = 170.0
-rect_min_size = Vector2( 25, 25 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 50 )
-
-[node name="Control" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu"]
-margin_top = 434.0
-margin_right = 114.0
-margin_bottom = 501.0
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control"]
-margin_right = 114.0
-margin_bottom = 67.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="LayerButtons" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer"]
-margin_right = 114.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Layer1" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer/LayerButtons" instance=ExtResource( 12 )]
-margin_bottom = 32.0
-
-[node name="Button" type="Button" parent="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer"]
-margin_top = 42.0
-margin_right = 114.0
-margin_bottom = 67.0
-rect_min_size = Vector2( 0, 25 )
-size_flags_horizontal = 3
-text = "+"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BottomPanel" type="Panel" parent="Panel/VBoxContainer"]
-margin_top = 559.0
-margin_right = 1024.0
-margin_bottom = 599.0
+[node name="BottomPanel" type="Panel" parent="Panel/NoBCViewportsnotworking26181"]
+anchor_top = 0.931667
+anchor_right = 0.875
+anchor_bottom = 0.998333
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 26 )
+custom_styles/panel = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="DebugTextDisplay" type="RichTextLabel" parent="Panel/VBoxContainer/BottomPanel"]
+[node name="DebugTextDisplay" type="RichTextLabel" parent="Panel/NoBCViewportsnotworking26181/BottomPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "FPS 60	Mouse Position (0, 0)	Canvas Mouse Position (0, 0) 	Canvas Position (0, 0)	
+text = "FPS 59	Mouse Position (0, 0)	Canvas Mouse Position (0, 0) 	Canvas Position (0, 0)	
 Cell Position (0, 0) 	Cell Color 0,0,0,0	"
 scroll_active = false
 script = ExtResource( 11 )
@@ -763,7 +815,23 @@ mouse_filter = 1
 filters = PoolStringArray( "*.png ; PNG Images" )
 script = ExtResource( 9 )
 
+[node name="LoadFileDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -340.0
+margin_top = -165.0
+margin_right = 340.0
+margin_bottom = 165.0
+mouse_filter = 1
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.png ; PNG Images" )
+script = ExtResource( 2 )
+
 [node name="Settings" parent="." instance=ExtResource( 10 )]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -773,19 +841,211 @@ margin_top = -50.0
 margin_right = 150.0
 margin_bottom = 50.0
 mouse_filter = 1
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/PaintTool" to="." method="_on_PaintTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/BrushTool" to="." method="_on_BrushTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/BucketTool" to="." method="_on_BucketTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/RainbowTool" to="." method="_on_RainbowTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/LineTool" to="." method="_on_LineTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/RectTool" to="." method="_on_RectTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/DarkenTool" to="." method="_on_DarkenTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/BrightenTool" to="." method="_on_BrightenTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/ColorPickerTool" to="." method="_on_ColorPickerTool_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/CutTool" to="." method="_on_CutTool_pressed"]
-[connection signal="color_changed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Tools/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/ScrollContainer/ToolMenu/Control/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+
+[node name="ChangeCanvasSize" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -162.0
+margin_top = -69.0
+margin_right = 162.0
+margin_bottom = 69.0
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChangeCanvasSize"]
+anchor_left = 0.104938
+anchor_top = 0.108696
+anchor_right = 0.891975
+anchor_bottom = 0.695652
+margin_left = -25.9999
+margin_top = -7.00005
+margin_right = 27.0001
+margin_bottom = 6.00002
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="ChangeCanvasSize/VBoxContainer"]
+margin_top = 5.0
+margin_right = 255.0
+margin_bottom = 19.0
+size_flags_vertical = 6
+text = "Change canvas size?"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChangeCanvasSize/VBoxContainer"]
+margin_top = 28.0
+margin_right = 255.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ChangeCanvasSize/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 125.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Width (X)"
+
+[node name="Width" type="SpinBox" parent="ChangeCanvasSize/VBoxContainer/HBoxContainer"]
+margin_left = 129.0
+margin_right = 255.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 1.0
+max_value = 2500.0
+value = 64.0
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ChangeCanvasSize/VBoxContainer"]
+margin_top = 56.0
+margin_right = 255.0
+margin_bottom = 81.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ChangeCanvasSize/VBoxContainer/HBoxContainer2"]
+margin_top = 5.0
+margin_right = 125.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Height (Y)"
+
+[node name="Height" type="SpinBox" parent="ChangeCanvasSize/VBoxContainer/HBoxContainer2"]
+margin_left = 129.0
+margin_right = 255.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 1.0
+max_value = 2500.0
+value = 64.0
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChangeGridSizeDialog" type="AcceptDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.0
+margin_top = -74.0
+margin_right = 128.0
+margin_bottom = 73.0
+window_title = "Change Grid Size"
+resizable = true
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChangeGridSizeDialog"]
+anchor_left = 0.0313726
+anchor_top = 0.0816327
+anchor_right = 0.968627
+anchor_bottom = 0.727891
+margin_left = -1.23978e-05
+margin_top = -4.00001
+margin_right = 0.00012207
+margin_bottom = 4.00002
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="ChangeGridSizeDialog/VBoxContainer"]
+margin_right = 239.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Change Grid Size"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChangeGridSizeDialog/VBoxContainer"]
+margin_top = 35.0
+margin_right = 239.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ChangeGridSizeDialog/VBoxContainer/HBoxContainer"]
+margin_top = 9.0
+margin_right = 117.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Grid 1"
+
+[node name="GridValue" type="SpinBox" parent="ChangeGridSizeDialog/VBoxContainer/HBoxContainer"]
+margin_left = 121.0
+margin_top = 4.0
+margin_right = 239.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 2500.0
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ChangeGridSizeDialog/VBoxContainer"]
+margin_top = 71.0
+margin_right = 239.0
+margin_bottom = 103.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ChangeGridSizeDialog/VBoxContainer/HBoxContainer2"]
+margin_top = 9.0
+margin_right = 117.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Grid 2"
+
+[node name="BigGridValue" type="SpinBox" parent="ChangeGridSizeDialog/VBoxContainer/HBoxContainer2"]
+margin_left = 121.0
+margin_top = 4.0
+margin_right = 239.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 2500.0
+value = 8.0
+[connection signal="mouse_entered" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer" to="." method="_on_PaintCanvasContainer_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/PaintCanvasContainer" to="." method="_on_PaintCanvasContainer_mouse_exited"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/PaintTool" to="." method="_on_PaintTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/BrushTool" to="." method="_on_BrushTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/BucketTool" to="." method="_on_BucketTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/RainbowTool" to="." method="_on_RainbowTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/LineTool" to="." method="_on_LineTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/RectTool" to="." method="_on_RectTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/DarkenTool" to="." method="_on_DarkenTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/BrightenTool" to="." method="_on_BrightenTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/ColorPickerTool" to="." method="_on_ColorPickerTool_pressed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/CutTool" to="." method="_on_CutTool_pressed"]
+[connection signal="color_changed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
+[connection signal="pressed" from="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Control/VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="about_to_show" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_about_to_show"]
 [connection signal="confirmed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_confirmed"]
 [connection signal="file_selected" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_file_selected"]
 [connection signal="visibility_changed" from="SaveFileDialog" to="SaveFileDialog" method="_on_SaveFileDialog_visibility_changed"]
+[connection signal="about_to_show" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_about_to_show"]
+[connection signal="confirmed" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_confirmed"]
+[connection signal="file_selected" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_file_selected"]
+[connection signal="visibility_changed" from="LoadFileDialog" to="LoadFileDialog" method="_on_LoadFileDialog_visibility_changed"]
+[connection signal="confirmed" from="ChangeCanvasSize" to="ChangeCanvasSize" method="_on_ConfirmationDialog_confirmed"]
+[connection signal="visibility_changed" from="ChangeCanvasSize" to="ChangeCanvasSize" method="_on_ChangeCanvasSize_visibility_changed"]
+[connection signal="confirmed" from="ChangeGridSizeDialog" to="ChangeGridSizeDialog" method="_on_ChangeGridSizeDialog_confirmed"]
+[connection signal="visibility_changed" from="ChangeGridSizeDialog" to="ChangeGridSizeDialog" method="_on_ChangeGridSizeDialog_visibility_changed"]
+[connection signal="value_changed" from="ChangeGridSizeDialog/VBoxContainer/HBoxContainer/GridValue" to="ChangeGridSizeDialog" method="_on_GridValue_value_changed"]
+[connection signal="value_changed" from="ChangeGridSizeDialog/VBoxContainer/HBoxContainer2/BigGridValue" to="ChangeGridSizeDialog" method="_on_BigGridValue_value_changed"]

@@ -7,7 +7,7 @@ var file_path = ""
 
 
 func _enter_tree():
-	canvas = get_parent().get_node("Panel/VBoxContainer/HBoxContainer/PaintCanvasContainer/Canvas")
+	canvas = get_parent().find_node("Canvas")
 
 
 func _ready():

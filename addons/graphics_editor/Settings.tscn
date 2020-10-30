@@ -3,6 +3,7 @@
 [ext_resource path="res://addons/graphics_editor/Settings.gd" type="Script" id=1]
 
 [node name="Settings" type="WindowDialog"]
+visible = true
 margin_top = 20.0
 margin_right = 300.0
 margin_bottom = 120.0

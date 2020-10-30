@@ -7,7 +7,7 @@ func do_action(canvas, data: Array):
 	
 	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
 	for pixel in pixels:
-		if pixel in action_data.undo.cells:
+		if pixel in action_data.undo.cells or canvas.get_pixel_v(pixel) == null:
 			continue
 		
 		action_data.undo.colors.append(canvas.get_pixel_v(pixel))
