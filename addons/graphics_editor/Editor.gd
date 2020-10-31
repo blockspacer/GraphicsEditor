@@ -20,7 +20,7 @@ var paint_canvas: GECanvas
 var canvas_background: TextureRect
 var grids_node
 var colors_grid
-var selected_color = Color(1, 1, 1, 1)
+var selected_color = Color(1, 1, 1, 1) setget set_selected_color
 var util = preload("res://addons/graphics_editor/Util.gd")
 var textinfo
 var allow_drawing = true
@@ -96,10 +96,11 @@ func _input(event):
 	if not mouse_on_top or not mouse_in_region:
 		return
 	
-	if Input.is_key_pressed(KEY_Z):
-		undo_action()
-	elif Input.is_key_pressed(KEY_Y):
-		pass
+	if event is InputEventKey:
+		if event.scancode == KEY_Z and event.is_pressed() and not event.is_echo():
+			undo_action()
+		elif event.scancode == KEY_Y and event.is_pressed() and not event.is_echo():
+			pass
 	
 	_handle_zoom(event)
 	
@@ -114,6 +115,12 @@ func _input(event):
 					if event.button_index == BUTTON_LEFT:
 						if event.pressed:
 							do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
+			Tools.COLORPICKER:
+				if event is InputEventMouseButton:
+					if event.button_index == BUTTON_LEFT:
+						if event.pressed:
+							find_node("Colors").add_color_prefab(selected_color)
+							set_brush(_previous_tool)
 
 
 var brush_mode
@@ -271,7 +278,7 @@ func brush_process():
 		return
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
-		if _current_action == null:
+		if _current_action == null and brush_mode != Tools.COLORPICKER:
 			_current_action = get_action()
 		
 		match brush_mode:
@@ -288,7 +295,8 @@ func brush_process():
 			Tools.BRIGHTEN:
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 			Tools.COLORPICKER:
-				change_color(paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y))
+				selected_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
+				find_node("ColorPicker").color = selected_color
 			Tools.CUT:
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 			Tools.RAINBOW:
@@ -426,6 +434,11 @@ func get_action():
 #---------------------------------------
 # Brushes
 #---------------------------------------
+
+
+func set_selected_color(color):
+	selected_color = color
+
 
 func set_brush(new_mode):
 	if brush_mode == new_mode:
@@ -609,10 +622,13 @@ func _on_Button_pressed():
 	add_new_layer()
 
 
-
 func _on_PaintCanvasContainer_mouse_entered():
 	mouse_on_top = true
 
 
 func _on_PaintCanvasContainer_mouse_exited():
 	mouse_on_top = false
+
+
+func _on_ColorPicker_popup_closed():
+	find_node("Colors").add_color_prefab(find_node("ColorPicker").color)

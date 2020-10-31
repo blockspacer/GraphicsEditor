@@ -40,6 +40,15 @@ func load_img():
 	var image_data = image.get_data()
 	var layer: GELayer = owner.add_new_layer()
 	
+	var width = image.get_width()
+	var height = image.get_height()
+	
+	if owner.paint_canvas.canvas_width < width:
+		owner.paint_canvas.resize(width, owner.paint_canvas.canvas_height)
+	
+	if owner.paint_canvas.canvas_height < height:
+		owner.paint_canvas.resize(owner.paint_canvas.canvas_width, height)
+	
 	for i in range(image_data.size() / 4):
 		var color = Color(image_data[i*4] / 255.0, image_data[i*4+1] / 255.0, image_data[i*4+2] / 255.0, image_data[i*4+3] / 255.0)
 		var pos = GEUtils.to_2D(i, image.get_width())
