@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/minidotta_invis.png-ec3aa0ca68f47f1c02c9ad632b063555.stex"
+path="res://.import/lock_layer_1.png-c7f56bc948259e1b922d48c7fca34e93.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/graphics_editor/assets/minidotta_invis.png"
-dest_files=[ "res://.import/minidotta_invis.png-ec3aa0ca68f47f1c02c9ad632b063555.stex" ]
+source_file="res://addons/graphics_editor/assets/lock_layer_1.png"
+dest_files=[ "res://.import/lock_layer_1.png-c7f56bc948259e1b922d48c7fca34e93.stex" ]
 
 [params]
 

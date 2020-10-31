@@ -98,7 +98,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="TestGDNative"
+config/name="Image Editor"
 config/icon="res://icon.png"
 
 [editor_plugins]

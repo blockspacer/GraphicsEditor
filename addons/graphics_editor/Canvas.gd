@@ -15,6 +15,7 @@ var mouse_on_top
 var layers : Array = [] # Key: layer_name, val: GELayer
 var active_layer: GELayer
 var preview_layer: GELayer
+var tool_layer: GELayer
 var canvas_layers: Control
 
 var canvas
@@ -47,25 +48,23 @@ func _enter_tree():
 	
 	active_layer = add_new_layer("Layer1")
 	preview_layer = add_new_layer("Preview")
+	tool_layer = add_new_layer("Tool")
 	
 	set_process(true)
 
 
 func _process(delta):
-	if not Engine.is_editor_hint():
-		return
 	var mouse_position = get_local_mouse_position()
 	var rect = Rect2(Vector2(0, 0), rect_size)
 	mouse_in_region = rect.has_point(mouse_position)
 
 
 func _draw():
-	if not Engine.is_editor_hint():
-		return
 	for layer in layers:
 		layer.update_texture()
 	
 	preview_layer.update_texture()
+	tool_layer.update_texture()
 
 
 func resize(width: int, height: int):
@@ -78,6 +77,7 @@ func resize(width: int, height: int):
 	set_canvas_height(height)
 	
 	preview_layer.resize(width, height)
+	tool_layer.resize(width, height)
 	for layer in layers:
 		layer.resize(width, height)
 	
@@ -93,13 +93,6 @@ func set_pixel_size(size: int):
 	set_big_grid_size(big_grid_size)
 	set_canvas_width(canvas_width)
 	set_canvas_height(canvas_height)
-	
-	return
-	if preview_layer == null:
-		return
-	preview_layer.resize(canvas_width, canvas_height)
-	for layer in layers:
-		layer.resize(canvas_width, canvas_height)
 
 
 func set_grid_size(size):
@@ -159,7 +152,7 @@ func remove_layer(layer_name: String):
 	del_layer.clear()
 	if del_layer == active_layer:
 		for layer in layers:
-			if layer == preview_layer or layer == active_layer:
+			if layer == preview_layer or layer == active_layer or layer == tool_layer:
 				continue
 			active_layer = layer
 			break
@@ -174,18 +167,23 @@ func add_new_layer(layer_name: String):
 	var layer = GELayer.new()
 	layer.name = layer_name
 	
-	var texture_rect = TextureRect.new()
-	canvas_layers.add_child(texture_rect)
-	texture_rect.expand = true
-	texture_rect.anchor_right = 1
-	texture_rect.anchor_bottom = 1
-	texture_rect.margin_right = 0
-	texture_rect.margin_bottom = 0
-	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	layer.create(texture_rect, canvas_width, canvas_height)
-	if layer_name != "Preview":
+	if layer_name == "Preview":
+		layer.create($PreviewLayer, canvas_width, canvas_height)
+	elif layer_name == "Tool":
+		layer.create($ToolPreviewLayer, canvas_width, canvas_height)
+	else:
+		var texture_rect = TextureRect.new()
+		texture_rect.name = layer_name
+		canvas_layers.add_child(texture_rect, true)
+		texture_rect.expand = true
+		texture_rect.anchor_right = 1
+		texture_rect.anchor_bottom = 1
+		texture_rect.margin_right = 0
+		texture_rect.margin_bottom = 0
+		texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.create(texture_rect, canvas_width, canvas_height)
 		layers.append(layer)
+	
 	return layer
 
 
@@ -219,32 +217,23 @@ func find_layer_by_name(layer_name: String):
 	return null
 
 
+func toggle_lock_layer(layer_name: String):
+	find_layer_by_name(layer_name).toggle_lock()
+
+
+func is_active_layer_locked() -> bool:
+	return active_layer.locked
+
+
 func move_layer_forward(layer_name: String):
-	var remove_pos = -1
-	var layer
-	for i in range(layers.size()):
-		if layers[i].name == layer_name:
-			remove_pos = i
-			layer = layers[i]
-			print("from: ", i)
-			break
-	layers.erase(layer)
-	print("forw to: ", max(remove_pos - 1, 0))
-	layers.insert(max(remove_pos - 1, 0), layer)
+	var layer = find_layer_by_name(layer_name).texture_rect_ref
+	var new_idx = max(layer.get_index() - 1, 0)
+	canvas_layers.move_child(layer, new_idx)
 
 
 func move_layer_back(layer_name: String):
-	var remove_pos = -1
-	var layer
-	for i in range(layers.size()):
-		if layers[i].name == layer_name:
-			remove_pos = i
-			layer = layers[i]
-			print("from: ", i)
-			break
-	layers.erase(layer)
-	print("back to: ", min(remove_pos + 1, layers.size()))
-	layers.insert(min(remove_pos + 1, layers.size()), layer)
+	var layer = find_layer_by_name(layer_name).texture_rect_ref
+	canvas_layers.move_child(layer, layer.get_index() + 1)
 
 
 func select_layer(layer_name: String):

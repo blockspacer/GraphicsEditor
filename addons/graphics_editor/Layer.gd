@@ -6,6 +6,7 @@ var name
 var pixels  # array of pixels (colors), idx repressents x and y
 var layer_width
 var visible = true setget set_visible
+var locked = false
 
 var texture: ImageTexture
 var image: Image
@@ -71,6 +72,9 @@ func clear():
 	for idx in range(pixels.size()):
 		if pixels[idx] != Color.transparent:
 			pixels[idx] = Color.transparent
+			var pos = GEUtils.to_2D(idx, layer_width)
+			set_pixel(pos.x, pos.y, Color.transparent)
+
 
 func update_texture():
 	texture.create_from_image(image, 0)
@@ -84,3 +88,5 @@ func set_visible(vis: bool):
 	texture_rect_ref.visible = visible
 
 
+func toggle_lock():
+	locked = not locked

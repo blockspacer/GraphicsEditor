@@ -41,11 +41,13 @@ func load_img():
 	var layer: GELayer = owner.add_new_layer()
 	
 	for i in range(image_data.size() / 4):
-		var color = Color(image_data[i*4], image_data[i*4+1], image_data[i*4+2], image_data[i*4+3])
+		var color = Color(image_data[i*4] / 255.0, image_data[i*4+1] / 255.0, image_data[i*4+2] / 255.0, image_data[i*4+3] / 255.0)
 		var pos = GEUtils.to_2D(i, image.get_width())
 		if pos.x > layer.layer_width:
 			continue
+			
 		layer.set_pixel(pos.x, pos.y, color)
+	layer.update_texture()
 
 
 

@@ -87,8 +87,6 @@ func _ready():
 
 
 func _input(event):
-	if not Engine.is_editor_hint():
-		return
 	if Rect2(Vector2(), paint_canvas_container_node.rect_size).has_point(
 			paint_canvas_container_node.get_local_mouse_position()):
 		mouse_in_region = true
@@ -105,7 +103,9 @@ func _input(event):
 	
 	_handle_zoom(event)
 	
-	if paint_canvas and (paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
+	if paint_canvas and \
+			not paint_canvas.is_active_layer_locked() and \
+			(paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
 		match brush_mode:
 			Tools.BUCKET:
 				if _current_action == null:
@@ -133,8 +133,6 @@ var last_cell_color = Color()
 
 # warning-ignore:unused_argument
 func _process(delta):
-	if not Engine.is_editor_hint():
-		return
 	if not mouse_on_top or not mouse_in_region:
 		return
 	update_text_info()
@@ -149,16 +147,29 @@ func _process(delta):
 	if mouse_on_top and mouse_in_region:
 		_handle_scroll()
 	
-	#Update commonly used variables
-	var grid_size = paint_canvas.pixel_size
-	mouse_position = paint_canvas.get_local_mouse_position()
-	canvas_position = paint_canvas_container_node.rect_position
-	canvas_mouse_position = Vector2(mouse_position.x - canvas_position.x, mouse_position.y - canvas_position.y)
-	cell_mouse_position = Vector2(floor(canvas_mouse_position.x / grid_size), floor(canvas_mouse_position.y / grid_size))
-	cell_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
+		#Update commonly used variables
+		var grid_size = paint_canvas.pixel_size
+		mouse_position = paint_canvas.get_local_mouse_position()
+		canvas_position = paint_canvas_container_node.rect_position
+		canvas_mouse_position = Vector2(mouse_position.x - canvas_position.x, mouse_position.y - canvas_position.y)
+		cell_mouse_position = Vector2(floor(canvas_mouse_position.x / grid_size), floor(canvas_mouse_position.y / grid_size))
+		if cell_mouse_position.x >= 0 and cell_mouse_position.y >= 0:
+			cell_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
 	
 	if (paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
-		brush_process()
+		if not paint_canvas.is_active_layer_locked():
+			brush_process()
+		
+		paint_canvas.tool_layer.clear()
+		#TODO add here brush prefab drawing 
+		paint_canvas._set_pixel(paint_canvas.tool_layer, 
+				cell_mouse_position.x, cell_mouse_position.y, selected_color)
+		paint_canvas.tool_layer.update_texture()
+	else:
+		paint_canvas.tool_layer.clear()
+		paint_canvas.tool_layer.update_texture()
+		
+	
 	
 	#Render the highlighting stuff
 	
@@ -237,7 +248,7 @@ func _handle_cut():
 			for idx in range(_selection_cells.size()):
 				var pixel = _selection_cells[idx]
 				var color = _selection_colors[idx]
-				pixel -= _cut_pos 
+				pixel -= _cut_pos + _cut_size / 2
 				pixel += pixel_pos
 				paint_canvas.set_pixel_v(pixel, color)
 	else:
@@ -247,7 +258,7 @@ func _handle_cut():
 		for idx in range(_selection_cells.size()):
 			var pixel = _selection_cells[idx]
 			var color = _selection_colors[idx]
-			pixel -= _cut_pos
+			pixel -= _cut_pos + _cut_size / 2
 			pixel += cell_mouse_position
 			paint_canvas.set_preview_pixel_v(pixel, color)
 		_last_preview_draw_cell_pos = cell_mouse_position
@@ -256,13 +267,10 @@ func _handle_cut():
 func brush_process():
 	if _just_cut:
 		_handle_cut()
-		update()
 		paint_canvas.update()
 		return
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
-		update()
-		paint_canvas.update()
 		if _current_action == null:
 			_current_action = get_action()
 		
@@ -285,6 +293,8 @@ func brush_process():
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 			Tools.RAINBOW:
 				do_action([cell_mouse_position, last_cell_mouse_position])
+		update()
+		paint_canvas.update()
 	
 	elif Input.is_mouse_button_pressed(BUTTON_RIGHT):
 		update()
@@ -509,21 +519,21 @@ func select_layer(layer_name: String):
 	paint_canvas.select_layer(layer_name)
 
 
+func lock_layer(button, layer_name: String):
+	paint_canvas.toggle_lock_layer(layer_name)
+
+
 func add_new_layer():
 	var new_layer_button = layer_buttons.get_child(0).duplicate()
 	layer_buttons.add_child_below_node(
 			layer_buttons.get_child(layer_buttons.get_child_count() - 1), new_layer_button, true)
 	_total_added_layers += 1
-	new_layer_button.text = "Layer " + str(_total_added_layers)
-	
-	var layer: GELayer = paint_canvas.add_new_layer(new_layer_button.name) 
-	
+	new_layer_button.find_node("Select").text = "Layer " + str(_total_added_layers)
 	_layer_button_ref[new_layer_button.name] = new_layer_button
-	
 	_connect_layer_buttons()
 	
+	var layer: GELayer = paint_canvas.add_new_layer(new_layer_button.name) 
 	print("added layer: ", layer.name)
-	
 	return layer
 
 
@@ -546,49 +556,53 @@ func duplicate_active_layer():
 			layer_buttons.get_child(layer_buttons.get_child_count() - 1), new_layer_button, true)
 	
 	_total_added_layers += 1 # for keeping track...
-	new_layer_button.text = "Layer " + str(_total_added_layers)
+	new_layer_button.find_node("Select").text = "Layer " + str(_total_added_layers)
 	
 	var new_layer = paint_canvas.duplicate_layer(paint_canvas.active_layer.name, new_layer_button.name) 
 	
 	_layer_button_ref[new_layer.name] = new_layer_button
 	
-	new_layer_button.disconnect("pressed", self, "select_layer")
+	new_layer_button.find_node("Select").disconnect("pressed", self, "select_layer")
 	new_layer_button.find_node("Visible").disconnect("pressed", self, "toggle_layer_visibility")
 	new_layer_button.find_node("Up").disconnect("pressed", self, "move_down")
 	new_layer_button.find_node("Down").disconnect("pressed", self, "move_up")
+	new_layer_button.find_node("Lock").disconnect("pressed", self, "lock_layer")
 	
-	new_layer_button.connect("pressed", self, "select_layer", [new_layer_button.name])
+	new_layer_button.find_node("Select").connect("pressed", self, "select_layer", [new_layer_button.name])
 	new_layer_button.find_node("Visible").connect("pressed", self, "toggle_layer_visibility", 
 			[new_layer_button.find_node("Visible"), new_layer_button.name])
 	new_layer_button.find_node("Up").connect("pressed", self, "move_down", [new_layer_button])
 	new_layer_button.find_node("Down").connect("pressed", self, "move_up", [new_layer_button])
+	new_layer_button.find_node("Lock").connect("pressed", self, "lock_layer", [new_layer_button, new_layer_button.name])
 	
 	print("added layer: ", new_layer.name, " (total:", layer_buttons.size(), ")")
 
 
 func move_up(layer_btn):
 	var new_idx = min(layer_btn.get_index() + 1, layer_buttons.get_child_count())
-	print("move_down: ", layer_btn.name, " from ", layer_btn.get_index(), " to ", new_idx)
+	print("move_up: ", layer_btn.name, " from ", layer_btn.get_index(), " to ", new_idx)
 	layer_buttons.move_child(layer_btn, new_idx)
 	paint_canvas.move_layer_back(layer_btn.name)
 
 
 func move_down(layer_btn):
 	var new_idx = max(layer_btn.get_index() - 1, 0)
-	print("move_up: ", layer_btn.name, " from ", layer_btn.get_index(), " to ", new_idx)
+	print("move_down: ", layer_btn.name, " from ", layer_btn.get_index(), " to ", new_idx)
 	layer_buttons.move_child(layer_btn, new_idx)
 	paint_canvas.move_layer_forward(layer_btn.name)
 
 
 func _connect_layer_buttons():
 	for layer_btn in layer_buttons.get_children():
-		if layer_btn.is_connected("pressed", self, "select_layer"):
+		if layer_btn.find_node("Select").is_connected("pressed", self, "select_layer"):
 			continue
-		layer_btn.connect("pressed", self, "select_layer", [layer_btn.name])
+		layer_btn.find_node("Select").connect("pressed", self, "select_layer", [layer_btn.name])
 		layer_btn.find_node("Visible").connect("pressed", self, "toggle_layer_visibility", 
 				[layer_btn.find_node("Visible"), layer_btn.name])
 		layer_btn.find_node("Up").connect("pressed", self, "move_down", [layer_btn])
 		layer_btn.find_node("Down").connect("pressed", self, "move_up", [layer_btn])
+		layer_btn.find_node("Lock").connect("pressed", self, "lock_layer", 
+				[layer_btn, layer_btn.name])
 
 
 func _on_Button_pressed():
