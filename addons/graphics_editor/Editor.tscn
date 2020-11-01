@@ -310,7 +310,7 @@ margin_right = 138.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Pixel Paint"
+text = "Paint"
 
 [node name="BrushTool" type="Button" parent="Panel/NoBCViewportsnotworking26181/HBoxContainer/Panel/ScrollContainer/ToolMenu/Tools"]
 margin_top = 24.0

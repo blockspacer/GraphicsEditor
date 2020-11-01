@@ -80,7 +80,6 @@ func resize(width: int, height: int):
 	tool_layer.resize(width, height)
 	for layer in layers:
 		layer.resize(width, height)
-	
 
 
 #-------------------------------
