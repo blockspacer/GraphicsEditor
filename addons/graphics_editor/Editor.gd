@@ -33,6 +33,7 @@ var _middle_mouse_pressed_pos = null
 var _middle_mouse_pressed_start_pos = null
 var _left_mouse_pressed_start_pos = Vector2()
 var _previous_tool
+var brush_mode
 
 var _layer_button_ref = {}
 
@@ -53,6 +54,20 @@ var _cut_size = Vector2.ZERO
 var _actions_history = [] # for undo
 var _redo_history = []
 var _current_action
+
+
+
+var mouse_position = Vector2()
+var canvas_position = Vector2()
+var canvas_mouse_position = Vector2()
+var cell_mouse_position = Vector2()
+var cell_color = Color()
+
+var last_mouse_position = Vector2()
+var last_canvas_position = Vector2()
+var last_canvas_mouse_position = Vector2()
+var last_cell_mouse_position = Vector2()
+var last_cell_color = Color()
 
 
 
@@ -123,22 +138,6 @@ func _input(event):
 							set_brush(_previous_tool)
 
 
-var brush_mode
-
-var mouse_position = Vector2()
-var canvas_position = Vector2()
-var canvas_mouse_position = Vector2()
-var cell_mouse_position = Vector2()
-var cell_color = Color()
-
-var last_mouse_position = Vector2()
-var last_canvas_position = Vector2()
-var last_canvas_mouse_position = Vector2()
-var last_cell_mouse_position = Vector2()
-var last_cell_color = Color()
-
-
-# warning-ignore:unused_argument
 func _process(delta):
 	if not mouse_on_top or not mouse_in_region:
 		return
@@ -175,11 +174,6 @@ func _process(delta):
 	else:
 		paint_canvas.tool_layer.clear()
 		paint_canvas.tool_layer.update_texture()
-		
-	
-	
-	#Render the highlighting stuff
-	
 	
 	#Canvas Shift Moving
 	if not mouse_position == last_mouse_position:
@@ -221,19 +215,21 @@ func _handle_zoom(event):
 		return
 	if event.is_pressed():
 		if event.button_index == BUTTON_WHEEL_UP:
-			paint_canvas.set_pixel_size(min(paint_canvas.pixel_size * 2, max_zoom_in))
-			return
-			if paint_canvas.pixel_size != max_zoom_in:
-				paint_canvas.rect_global_position -= Vector2(
-						paint_canvas.canvas_width / 2,
-						paint_canvas.canvas_height / 2)
+			var px = min(paint_canvas.pixel_size * 2, max_zoom_in)
+			if px == paint_canvas.pixel_size:
+				return
+			paint_canvas.set_pixel_size(px)
+			paint_canvas.rect_position -= paint_canvas.get_local_mouse_position()
+			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, -paint_canvas.rect_size.x * 0.8, rect_size.x)
+			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
 		elif event.button_index == BUTTON_WHEEL_DOWN:
-			paint_canvas.set_pixel_size(max(paint_canvas.pixel_size / 2.0, max_zoom_out))
-			return
-			if paint_canvas.pixel_size != max_zoom_out:
-				paint_canvas.rect_global_position += Vector2(
-						paint_canvas.canvas_width / 2,
-						paint_canvas.canvas_height / 2)
+			var px = max(paint_canvas.pixel_size / 2.0, max_zoom_out)
+			if px == paint_canvas.pixel_size:
+				return
+			paint_canvas.set_pixel_size(px)
+			paint_canvas.rect_position += paint_canvas.get_local_mouse_position() / 2
+			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, -paint_canvas.rect_size.x * 0.8, rect_size.x)
+			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
 
 
 func _reset_cut_tool():
