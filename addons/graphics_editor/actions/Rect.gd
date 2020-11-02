@@ -38,11 +38,10 @@ func commit_action(canvas):
 	var cells = action_data.preview.cells
 	var colors = action_data.preview.colors
 	for idx in range(cells.size()):
-		
 		canvas.set_pixel_v(cells[idx], colors[idx])
 	
-		action_data.do.cells.append(cells[idx])
-		action_data.do.colors.append(colors[idx])
+		action_data.redo.cells.append(cells[idx])
+		action_data.redo.colors.append(colors[idx])
 	mouse_start_pos = null
 	return []
 
@@ -50,8 +49,16 @@ func commit_action(canvas):
 func undo_action(canvas):
 	var cells = action_data.undo.cells
 	var colors = action_data.undo.colors
+	print(action_data.keys())
 	for idx in range(cells.size()):
-		canvas.set_pixel_v(cells[idx], colors[idx])
+		canvas._set_pixel_v(action_data.layer, cells[idx], colors[idx])
+
+
+func redo_action(canvas):
+	var cells = action_data.redo.cells
+	var colors = action_data.redo.colors
+	for idx in range(cells.size()):
+		canvas._set_pixel_v(action_data.layer, cells[idx], colors[idx])
 
 
 

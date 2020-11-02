@@ -12,6 +12,7 @@ enum Tools {
 	BRIGHTEN
 	COLORPICKER,
 	CUT,
+	PASTECUT,
 }
 
 var layer_buttons: Control
@@ -115,7 +116,7 @@ func _input(event):
 		if event.scancode == KEY_Z and event.is_pressed() and not event.is_echo():
 			undo_action()
 		elif event.scancode == KEY_Y and event.is_pressed() and not event.is_echo():
-			pass
+			redo_action()
 	
 	_handle_zoom(event)
 	
@@ -295,6 +296,10 @@ func brush_process():
 				find_node("ColorPicker").color = selected_color
 			Tools.CUT:
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
+			Tools.PASTECUT:
+				do_action([cell_mouse_position, last_cell_mouse_position, 
+						_selection_cells, _selection_colors,
+						_cut_pos, _cut_size])
 			Tools.RAINBOW:
 				do_action([cell_mouse_position, last_cell_mouse_position])
 		update()
@@ -354,6 +359,7 @@ func _on_Save_pressed():
 
 func do_action(data: Array):
 	if _current_action == null:
+		print("clear redo")
 		_redo_history.clear()
 	_current_action.do_action(paint_canvas, data)
 
@@ -366,8 +372,8 @@ func commit_action():
 	var commit_data = _current_action.commit_action(paint_canvas)
 	var action = get_action()
 	action.action_data = _current_action.action_data.duplicate(true)
-	
 	_actions_history.push_back(action)
+	_redo_history.clear()
 	
 	match brush_mode:
 		Tools.CUT:
@@ -375,8 +381,8 @@ func commit_action():
 				continue
 			_cut_pos = _current_action.mouse_start_pos
 			_cut_size = _current_action.mouse_end_pos - _current_action.mouse_start_pos
-			_selection_cells = _current_action.action_data.do.cells.duplicate()
-			_selection_colors = _current_action.action_data.do.colors.duplicate()
+			_selection_cells = _current_action.action_data.redo.cells.duplicate()
+			_selection_colors = _current_action.action_data.redo.colors.duplicate()
 			_just_cut = true
 	
 	_current_action = null
@@ -389,13 +395,23 @@ func commit_action():
 
 
 func redo_action():
-	pass
+	if _redo_history.empty():
+		print("nothing to redo")
+		return
+	var action = _redo_history.pop_back()
+	if not action:
+		return 
+	_actions_history.append(action)
+	action.redo_action(paint_canvas)
+	paint_canvas.update()
+	print("redo action")
 
 
 func undo_action():
 	var action = _actions_history.pop_back()
 	if not action:
-		return 
+		return
+	_redo_history.append(action)
 	action.undo_action(paint_canvas)
 	update()
 	paint_canvas.update()
@@ -554,12 +570,9 @@ func remove_active_layer():
 	layer_buttons.remove_child(_layer_button_ref[layer_name])
 	_layer_button_ref[layer_name].queue_free()
 	_layer_button_ref.erase(layer_name)
-	
 
 
 func duplicate_active_layer():
-	# copy the last layer button (or the initial one)
-	
 	var new_layer_button = layer_buttons.get_child(0).duplicate()
 	layer_buttons.add_child_below_node(
 			layer_buttons.get_child(layer_buttons.get_child_count() - 1), new_layer_button, true)
@@ -568,14 +581,8 @@ func duplicate_active_layer():
 	new_layer_button.find_node("Select").text = "Layer " + str(_total_added_layers)
 	
 	var new_layer = paint_canvas.duplicate_layer(paint_canvas.active_layer.name, new_layer_button.name) 
-	
+	new_layer.update_texture()
 	_layer_button_ref[new_layer.name] = new_layer_button
-	
-	new_layer_button.find_node("Select").disconnect("pressed", self, "select_layer")
-	new_layer_button.find_node("Visible").disconnect("pressed", self, "toggle_layer_visibility")
-	new_layer_button.find_node("Up").disconnect("pressed", self, "move_down")
-	new_layer_button.find_node("Down").disconnect("pressed", self, "move_up")
-	new_layer_button.find_node("Lock").disconnect("pressed", self, "lock_layer")
 	
 	new_layer_button.find_node("Select").connect("pressed", self, "select_layer", [new_layer_button.name])
 	new_layer_button.find_node("Visible").connect("pressed", self, "toggle_layer_visibility", 
@@ -584,7 +591,7 @@ func duplicate_active_layer():
 	new_layer_button.find_node("Down").connect("pressed", self, "move_up", [new_layer_button])
 	new_layer_button.find_node("Lock").connect("pressed", self, "lock_layer", [new_layer_button, new_layer_button.name])
 	
-	print("added layer: ", new_layer.name, " (total:", layer_buttons.size(), ")")
+	print("added layer: ", new_layer.name, " (total:", layer_buttons.get_child_count(), ")")
 
 
 func move_up(layer_btn):

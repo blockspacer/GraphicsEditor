@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "GEAction",
 "class": "GECut",
 "language": "GDScript",
-"path": "res://addons/graphics_editor/actions/Cut.gd"
+"path": "res://addons/graphics_editor/actions/PasteCut.gd"
 }, {
 "base": "GEAction",
 "class": "GEDarken",

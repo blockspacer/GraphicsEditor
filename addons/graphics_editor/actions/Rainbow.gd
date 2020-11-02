@@ -11,12 +11,12 @@ func do_action(canvas, data: Array):
 			var color = GEUtils.random_color()
 			canvas.set_pixel_v(pixel, color)
 			
-			var idx = action_data.do.cells.find(pixel)
-			action_data.do.cells.remove(idx)
-			action_data.do.colors.remove(idx)
+			var idx = action_data.redo.cells.find(pixel)
+			action_data.redo.cells.remove(idx)
+			action_data.redo.colors.remove(idx)
 			
-			action_data.do.cells.append(pixel)
-			action_data.do.colors.append(color)
+			action_data.redo.cells.append(pixel)
+			action_data.redo.colors.append(color)
 			continue
 		
 		action_data.undo.colors.append(canvas.get_pixel_v(pixel))
@@ -25,21 +25,29 @@ func do_action(canvas, data: Array):
 		var color = GEUtils.random_color()
 		canvas.set_pixel_v(pixel, color)
 	
-		action_data.do.cells.append(pixel)
-		action_data.do.colors.append(color)
+		action_data.redo.cells.append(pixel)
+		action_data.redo.colors.append(color)
 
 
 func commit_action(canvas):
-	var cells = action_data.do.cells
-	var colors = action_data.do.colors
+	var cells = action_data.redo.cells
+	var colors = action_data.redo.colors
 	return []
 
 
 func undo_action(canvas):
 	var cells = action_data.undo.cells
 	var colors = action_data.undo.colors
+	print(action_data.keys())
 	for idx in range(cells.size()):
-		canvas.set_pixel_v(cells[idx], colors[idx])
+		canvas._set_pixel_v(action_data.layer, cells[idx], colors[idx])
+
+
+func redo_action(canvas):
+	var cells = action_data.redo.cells
+	var colors = action_data.redo.colors
+	for idx in range(cells.size()):
+		canvas._set_pixel_v(action_data.layer, cells[idx], colors[idx])
 
 
 

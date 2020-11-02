@@ -191,15 +191,11 @@ func duplicate_layer(layer_name: String, new_layer_name: String):
 		if layer.name == new_layer_name:
 			return
 	
-	var dup_layer
-	for layer in layers:
-		if layer.name == layer_name:
-			dup_layer = layer
-			break
-	
+	var dup_layer :GELayer = find_layer_by_name(layer_name)
 	var layer :GELayer = add_new_layer(new_layer_name)
-	layer.pixels = dup_layer.pixels.duplicate()
-	layer.name = new_layer_name
+	for idx in range(dup_layer.pixels.size()):
+		var pos = GEUtils.to_2D(idx, layer.layer_width)
+		layer.set_pixel(pos.x, pos.y, dup_layer.pixels[idx])
 	return layer
 
 
@@ -279,6 +275,10 @@ func set_pixel_v(pos: Vector2, color: Color):
 
 func set_pixel(x: int, y: int, color: Color):
 	_set_pixel(active_layer, x, y, color)
+
+
+func _set_pixel_v(layer: GELayer, v: Vector2, color: Color):
+	_set_pixel(layer, v.x, v.y, color)
 
 
 func _set_pixel(layer: GELayer, x: int, y: int, color: Color):
