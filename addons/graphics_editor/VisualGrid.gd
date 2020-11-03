@@ -36,4 +36,6 @@ func _draw():
 
 
 func _process(delta):
+	if not is_visible_in_tree():
+		return
 	update()

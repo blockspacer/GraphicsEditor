@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "GEAction",
 "class": "GECut",
 "language": "GDScript",
-"path": "res://addons/graphics_editor/actions/PasteCut.gd"
+"path": "res://addons/graphics_editor/actions/Cut.gd"
 }, {
 "base": "GEAction",
 "class": "GEDarken",
@@ -58,6 +58,11 @@ _global_script_classes=[ {
 "class": "GELine",
 "language": "GDScript",
 "path": "res://addons/graphics_editor/actions/Line.gd"
+}, {
+"base": "GEAction",
+"class": "GEPasteCut",
+"language": "GDScript",
+"path": "res://addons/graphics_editor/actions/PasteCut.gd"
 }, {
 "base": "GEAction",
 "class": "GEPencil",
@@ -90,6 +95,7 @@ _global_script_class_icons={
 "GEDarken": "",
 "GELayer": "",
 "GELine": "",
+"GEPasteCut": "",
 "GEPencil": "",
 "GERainbow": "",
 "GERect": "",

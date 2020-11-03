@@ -40,7 +40,6 @@ func commit_action(canvas):
 func undo_action(canvas):
 	var cells = action_data.undo.cells
 	var colors = action_data.undo.colors
-	print(action_data.keys())
 	for idx in range(cells.size()):
 		canvas._set_pixel_v(action_data.layer, cells[idx], colors[idx])
 

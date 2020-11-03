@@ -54,6 +54,8 @@ func _enter_tree():
 
 
 func _process(delta):
+	if not is_visible_in_tree():
+		return
 	var mouse_position = get_local_mouse_position()
 	var rect = Rect2(Vector2(0, 0), rect_size)
 	mouse_in_region = rect.has_point(mouse_position)

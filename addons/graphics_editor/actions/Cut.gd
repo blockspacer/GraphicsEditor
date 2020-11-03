@@ -5,6 +5,11 @@ const selection_color = Color(0.8, 0.8, 0.8, 0.5)
 var mouse_start_pos = null
 var mouse_end_pos = null
 
+
+func can_commit() -> bool:
+	return false #ugly way of handling a cut
+
+
 func do_action(canvas, data: Array):
 	.do_action(canvas, data)
 	
@@ -47,7 +52,7 @@ func commit_action(canvas):
 			var pos = p + Vector2(px, py)
 			var color = canvas.get_pixel(pos.x, pos.y)
 			
-			if color == Color.transparent:
+			if color.a == 0.0:
 				continue
 			
 			action_data.redo.cells.append(pos)
@@ -63,7 +68,6 @@ func commit_action(canvas):
 func undo_action(canvas):
 	var cells = action_data.undo.cells
 	var colors = action_data.undo.colors
-	print(action_data.keys())
 	for idx in range(cells.size()):
 		canvas._set_pixel_v(action_data.layer, cells[idx], colors[idx])
 

@@ -47,8 +47,6 @@ var _last_preview_draw_cell_pos = Vector2.ZERO
 var _selection_cells = []
 var _selection_colors = []
 
-var _just_cut = false
-var _show_cut = false
 var _cut_pos = Vector2.ZERO
 var _cut_size = Vector2.ZERO
 
@@ -103,13 +101,9 @@ func _ready():
 
 
 func _input(event):
-	if Rect2(Vector2(), paint_canvas_container_node.rect_size).has_point(
-			paint_canvas_container_node.get_local_mouse_position()):
-		mouse_in_region = true
-	elif mouse_in_region:
-		mouse_in_region = false
-	
-	if not mouse_on_top or not mouse_in_region:
+	if not is_visible_in_tree():
+		return
+	if paint_canvas_container_node == null or paint_canvas == null:
 		return
 	
 	if event is InputEventKey:
@@ -118,74 +112,62 @@ func _input(event):
 		elif event.scancode == KEY_Y and event.is_pressed() and not event.is_echo():
 			redo_action()
 	
-	_handle_zoom(event)
+	if is_mouse_in_canvas():
+		_handle_zoom(event)
 	
-	if paint_canvas and \
-			not paint_canvas.is_active_layer_locked() and \
-			(paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
-		match brush_mode:
-			Tools.BUCKET:
-				if _current_action == null:
-					_current_action = get_action()
-				if event is InputEventMouseButton:
+	if paint_canvas.is_active_layer_locked():
+		return
+	
+	if brush_mode == Tools.CUT:
+		if event is InputEventMouseButton:
+			if event.button_index == BUTTON_LEFT:
+				if not event.pressed:
+					commit_action()
+	
+	if (paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
+		
+		if event is InputEventMouseButton:
+			match brush_mode:
+				Tools.BUCKET:
 					if event.button_index == BUTTON_LEFT:
 						if event.pressed:
 							do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
-			Tools.COLORPICKER:
-				if event is InputEventMouseButton:
+				Tools.COLORPICKER:
 					if event.button_index == BUTTON_LEFT:
 						if event.pressed:
 							find_node("Colors").add_color_prefab(selected_color)
 							set_brush(_previous_tool)
+				Tools.PASTECUT:
+					if event.button_index == BUTTON_RIGHT:
+						if event.pressed:
+							commit_action()
+							set_brush(Tools.PAINT)
 
 
 func _process(delta):
-	if not mouse_on_top or not mouse_in_region:
+	if not is_visible_in_tree():
 		return
-	update_text_info()
-	#It's a lot more easier to just keep updating the variables in here than just have a bunch of local variables
-	#in every update function and make it very messy
-	if paint_canvas == null:
-		#_check_variables()
-		set_process(false)
+	if paint_canvas_container_node == null or paint_canvas == null:
 		return
 	
-	
-	if mouse_on_top and mouse_in_region:
+	if is_mouse_in_canvas():
 		_handle_scroll()
 	
-		#Update commonly used variables
-		var grid_size = paint_canvas.pixel_size
-		mouse_position = paint_canvas.get_local_mouse_position()
-		canvas_position = paint_canvas_container_node.rect_position
-		canvas_mouse_position = Vector2(mouse_position.x - canvas_position.x, mouse_position.y - canvas_position.y)
-		cell_mouse_position = Vector2(floor(canvas_mouse_position.x / grid_size), floor(canvas_mouse_position.y / grid_size))
-		if cell_mouse_position.x >= 0 and cell_mouse_position.y >= 0:
-			cell_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
+	#Update commonly used variables
+	var grid_size = paint_canvas.pixel_size
+	mouse_position = paint_canvas.get_local_mouse_position()
+	canvas_position = paint_canvas_container_node.rect_position
+	canvas_mouse_position = Vector2(mouse_position.x - canvas_position.x, mouse_position.y - canvas_position.y)
+	cell_mouse_position = Vector2(floor(canvas_mouse_position.x / grid_size), floor(canvas_mouse_position.y / grid_size))
+	if cell_mouse_position.x >= 0 and cell_mouse_position.y >= 0:
+		cell_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
+	update_text_info()
 	
-	if (paint_canvas.mouse_in_region and paint_canvas.mouse_on_top):
-		if not paint_canvas.is_active_layer_locked():
+	if not paint_canvas.is_active_layer_locked():
+		if is_position_in_canvas(last_cell_mouse_position) or is_position_in_canvas(cell_mouse_position):
 			brush_process()
-		
-		paint_canvas.tool_layer.clear()
-		#TODO add here brush prefab drawing 
-		paint_canvas._set_pixel(paint_canvas.tool_layer, 
-				cell_mouse_position.x, cell_mouse_position.y, selected_color)
-		paint_canvas.tool_layer.update_texture()
-	else:
-		paint_canvas.tool_layer.clear()
-		paint_canvas.tool_layer.update_texture()
 	
-	#Canvas Shift Moving
-	if not mouse_position == last_mouse_position:
-		if paint_canvas.has_focus():
-			if Input.is_key_pressed(KEY_SHIFT):
-				if Input.is_mouse_button_pressed(BUTTON_LEFT):
-					var relative = mouse_position - last_mouse_position
-					paint_canvas.rect_position += relative
-				allow_drawing = false
-			else:
-				allow_drawing = true
+	_draw_tool_brush()
 	
 	#Update last variables with the current variables
 	last_mouse_position = mouse_position
@@ -193,6 +175,28 @@ func _process(delta):
 	last_canvas_mouse_position = canvas_mouse_position
 	last_cell_mouse_position = cell_mouse_position
 	last_cell_color = cell_color
+
+
+func _draw_tool_brush():
+	paint_canvas.tool_layer.clear()
+	
+	match brush_mode:
+		Tools.PASTECUT:
+			for idx in range(_selection_cells.size()):
+				var pixel = _selection_cells[idx]
+				if pixel.x < 0 or pixel.y < 0:
+					print(pixel)
+				var color = _selection_colors[idx]
+				pixel -= _cut_pos + _cut_size / 2
+				pixel += cell_mouse_position
+				paint_canvas._set_pixel_v(paint_canvas.tool_layer, pixel, color)
+			paint_canvas.update()
+		_:
+			paint_canvas._set_pixel(paint_canvas.tool_layer, 
+					cell_mouse_position.x, cell_mouse_position.y, selected_color)
+			
+	#TODO add here brush prefab drawing 
+	paint_canvas.tool_layer.update_texture()
 
 
 func _handle_scroll():
@@ -233,17 +237,9 @@ func _handle_zoom(event):
 			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
 
 
-func _reset_cut_tool():
-	_just_cut = false
-	_show_cut = false
-	_selection_cells.clear()
-	_selection_colors.clear()
-
-
 func _handle_cut():
 	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
 		paint_canvas.clear_preview_layer()
-		_reset_cut_tool()
 		set_brush(_previous_tool)
 		return
 	
@@ -269,15 +265,9 @@ func _handle_cut():
 
 
 func brush_process():
-	if _just_cut:
-		_handle_cut()
-		paint_canvas.update()
-		return
-	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		if _current_action == null and brush_mode != Tools.COLORPICKER:
 			_current_action = get_action()
-		
 		match brush_mode:
 			Tools.PAINT:
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
@@ -302,11 +292,9 @@ func brush_process():
 						_cut_pos, _cut_size])
 			Tools.RAINBOW:
 				do_action([cell_mouse_position, last_cell_mouse_position])
-		update()
 		paint_canvas.update()
 	
 	elif Input.is_mouse_button_pressed(BUTTON_RIGHT):
-		update()
 		paint_canvas.update()
 		if _current_action == null:
 			_current_action = get_action()
@@ -319,7 +307,6 @@ func brush_process():
 	else:
 		if _current_action and _current_action.can_commit():
 			commit_action()
-			update()
 			paint_canvas.update()
 
 
@@ -377,21 +364,13 @@ func commit_action():
 	
 	match brush_mode:
 		Tools.CUT:
-			if _just_cut:
-				continue
 			_cut_pos = _current_action.mouse_start_pos
 			_cut_size = _current_action.mouse_end_pos - _current_action.mouse_start_pos
 			_selection_cells = _current_action.action_data.redo.cells.duplicate()
 			_selection_colors = _current_action.action_data.redo.colors.duplicate()
-			_just_cut = true
-	
-	_current_action = null
-	return
-	action.action_data = _current_action.action_data
-	if not "action_data" in action:
-		print(action.get_class())
-		return
-	_current_action = null
+			set_brush(Tools.PASTECUT)
+		_:
+			_current_action = null
 
 
 func redo_action():
@@ -438,6 +417,8 @@ func get_action():
 			return GEBrighten.new()
 		Tools.CUT:
 			return GECut.new()
+		Tools.PASTECUT:
+			return GEPasteCut.new()
 		_:
 			print("no tool!")
 			return null
@@ -458,10 +439,14 @@ func set_brush(new_mode):
 	_previous_tool = brush_mode
 	brush_mode = new_mode
 	
+	_current_action = get_action()
+	
 	match _previous_tool:
 		Tools.CUT:
 			paint_canvas.clear_preview_layer()
-			_just_cut = false
+		Tools.PASTECUT:
+			_selection_cells.clear()
+			_selection_colors.clear()
 		Tools.BUCKET:
 			_current_action = null
 	print("Selected: ", Tools.keys()[brush_mode])
@@ -635,3 +620,22 @@ func _on_PaintCanvasContainer_mouse_exited():
 
 func _on_ColorPicker_popup_closed():
 	find_node("Colors").add_color_prefab(find_node("ColorPicker").color)
+
+
+#---------------------------------------
+# MISC
+#---------------------------------------
+
+func is_position_in_canvas(pos):
+	last_cell_mouse_position
+	if Rect2(Vector2(), paint_canvas_container_node.rect_size).has_point(
+			pos):
+		return true
+	return false
+
+
+func is_mouse_in_canvas() -> bool:
+	if is_position_in_canvas(paint_canvas_container_node.get_local_mouse_position()):
+		return true #mouse_on_top # check if mouse is inside canvas
+	else:
+		return false
