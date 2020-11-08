@@ -12,8 +12,8 @@ func _ready():
 		i.connect("item_pressed", self, "button_pressed")
 
 func button_pressed(button_name, button_item):
-	print("pressed: ", button_name)
-	print("pressed item is: '%s'" % button_item)
+#	print("pressed: ", button_name)
+#	print("pressed item is: '%s'" % button_item)
 	
 	match button_name:
 		"File":
@@ -52,6 +52,8 @@ func handle_canvas_menu(pressed_item: String):
 	match pressed_item:
 		"Change Size":
 			owner.get_node("ChangeCanvasSize").show()
+		"Crop To Content":
+			owner.paint_canvas.crop_to_content()
 
 
 func handle_layer_menu(pressed_item: String):
@@ -62,6 +64,8 @@ func handle_layer_menu(pressed_item: String):
 			editor.remove_active_layer()
 		"Duplicate Layer":
 			editor.duplicate_active_layer()
+		"Clear Layer":
+			owner.paint_canvas.clear_active_layer()
 
 
 func handle_grid_menu(pressed_item: String):

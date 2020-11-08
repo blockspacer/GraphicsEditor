@@ -124,6 +124,45 @@ func set_canvas_height(val: int):
 # Layer
 #-------------------------------
 
+
+
+func get_content_margin() -> Rect2:
+	var rect = Rect2(999999, 999999, -999999, -999999)
+	
+	preview_layer.image.get_used_rect()
+	for layer in layers:
+		
+		var r = layer.image.get_used_rect()
+		
+		if r.position.x < rect.position.x:
+			rect.position.x = r.position.x
+		if r.position.y < rect.position.y:
+			rect.position.y = r.position.y
+		if r.size.x > rect.size.x:
+			rect.size.x = r.size.x
+		if r.size.y > rect.size.y:
+			rect.size.y = r.size.y
+		
+	return rect 
+
+
+func crop_to_content():
+	var rect = get_content_margin()
+	
+	#print(rect)
+	
+	for layer in layers:
+		layer.image
+	
+#	set_canvas_width(rect.size.x)
+#	set_canvas_height(rect.size.x)
+	
+#	preview_layer.resize(width, height)
+#	tool_layer.resize(width, height)
+#	for layer in layers:
+#		layer.resize(width, height)
+
+
 func get_active_layer():
 	return active_layer
 
@@ -195,9 +234,7 @@ func duplicate_layer(layer_name: String, new_layer_name: String):
 	
 	var dup_layer :GELayer = find_layer_by_name(layer_name)
 	var layer :GELayer = add_new_layer(new_layer_name)
-	for idx in range(dup_layer.pixels.size()):
-		var pos = GEUtils.to_2D(idx, layer.layer_width)
-		layer.set_pixel(pos.x, pos.y, dup_layer.pixels[idx])
+	layer.image.copy_from(dup_layer.image)
 	return layer
 
 
@@ -294,11 +331,8 @@ func get_pixel_v(pos: Vector2):
 
 
 func get_pixel(x: int, y: int):
-	var idx = GEUtils.to_1D(x, y, canvas_width)
 	if active_layer:
-		if idx >= 0 and active_layer.pixels.size() <= idx:
-			return null
-		return active_layer.pixels[idx]
+		return active_layer.get_pixel(x, y)
 	return null
 
 
@@ -317,11 +351,9 @@ func get_preview_pixel_v(pos: Vector2):
 
 
 func get_preview_pixel(x: int, y: int):
-	var idx = GEUtils.to_1D(x, y, canvas_width)
-	if preview_layer:
-		if preview_layer.pixels.size() <= idx:
-			return null
-	return preview_layer.pixels[idx]
+	if not preview_layer: 
+		return null
+	return preview_layer.get_pixel(x, y)
 
 
 

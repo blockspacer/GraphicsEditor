@@ -19,16 +19,20 @@ func _ready():
 
 
 func _on_SaveFileDialog_file_selected(path):
+	#print("selected file: ", path)
 	file_path = path
+	save_file()
 
 
 # warning-ignore:unused_argument
 func _on_LineEdit_text_entered(text):
-	save_file()
+	return
+#	print("text entered: ", text)
 
 
 func _on_SaveFileDialog_confirmed():
-	save_file()
+	return
+#	print("confirmed: ", current_path)
 
 
 func save_file():
@@ -38,6 +42,8 @@ func save_file():
 	
 	for layer in canvas.layers:
 		var idx = 0
+		if not layer.visible:
+			continue
 		for color in layer.pixels:
 			var pos = GEUtils.to_2D(idx, canvas.canvas_width)
 			idx += 1
@@ -49,6 +55,11 @@ func save_file():
 			else:
 				image.set_pixel(pos.x, pos.y, color)
 	image.unlock()
+	
+	var dir = Directory.new()
+	if dir.file_exists(file_path):
+		dir.remove(file_path)
+	
 	image.save_png(file_path)
 
 

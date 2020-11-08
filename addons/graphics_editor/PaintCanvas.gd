@@ -37,12 +37,12 @@ func _enter_tree():
 	}
 	
 	canvas_size = Vector2(int(rect_size.x / grid_size), int(rect_size.y / grid_size))
-	print("canvas_size: ", canvas_size)
+	#print("canvas_size: ", canvas_size)
 
 
 func _ready():
 	active_layer = add_existing_layer(get_tree().get_nodes_in_group("layer")[0])
-	print("active Layer: ", active_layer)
+	#print("active Layer: ", active_layer)
 
 
 func get_layer_data(layer_name):
@@ -138,7 +138,7 @@ func duplicate_layer(layer: String, neu_layer_name: String):
 
 func toggle_layer_visibility(layer_name):
 	layers[layer_name].chunks.visible = not layers[layer_name].chunks.visible
-	print("Layer: ", layer_name, " is now: ", layers[layer_name].chunks.visible)
+	#print("Layer: ", layer_name, " is now: ", layers[layer_name].chunks.visible)
 
 
 var util = preload("res://addons/graphics_editor/Util.gd")
@@ -229,7 +229,7 @@ func set_local_cell_in_chunk(chunk_x, chunk_y, local_cell_x, local_cell_y, color
 		chunk_node = layers[active_layer].chunks.get_node_or_null("C-%s-%s" % [chunk_x, chunk_y])
 	
 	if chunk_node == null:
-		print("Can't find chunk node!")
+		#print("Can't find chunk node!")
 		return
 	chunk_node.set_cell(local_cell_x, local_cell_y, color)
 
@@ -409,7 +409,7 @@ func flood_fill(x, y, target_color, replacement_color):
 	else:
 		set_pixel_cell(x, y, replacement_color)
 	if flood_fill_queue >= 500:
-		print(flood_fill_queue)
+		#print(flood_fill_queue)
 		yield(get_tree().create_timer(0.01), "timeout")
 	#up
 	if get_pixel_cell_color(x, y - 1) == target_color:

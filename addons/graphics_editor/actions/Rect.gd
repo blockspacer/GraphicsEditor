@@ -9,7 +9,7 @@ func do_action(canvas, data: Array):
 	
 	if mouse_start_pos == null:
 		mouse_start_pos = data[0]
-		print("init:", mouse_start_pos)
+		#print("init:", mouse_start_pos)
 		
 	
 	action_data.undo.cells.clear()

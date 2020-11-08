@@ -9,6 +9,8 @@ func do_action(canvas, data: Array):
 	
 	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
 	for pixel in pixels:
+		if canvas.get_pixel_v(pixel) == null:
+			continue
 		if pixel in action_data.undo.cells:
 			var darkened_color = canvas.get_pixel_v(pixel).darkened(dark_factor)
 			canvas.set_pixel_v(pixel, darkened_color)

@@ -65,7 +65,12 @@ func set_pixel(x, y, color):
 
 
 func get_pixel(x: int, y: int):
-	return pixels[x + y * layer_width]
+	if x < 0 or y < 0 or x >= image.get_width() or y >= image.get_height():
+		return null
+	image.lock()
+	var pixel = image.get_pixel(x, y)
+	image.unlock()
+	return pixel
 
 
 func clear():
@@ -74,6 +79,7 @@ func clear():
 			pixels[idx] = Color.transparent
 			var pos = GEUtils.to_2D(idx, layer_width)
 			set_pixel(pos.x, pos.y, Color.transparent)
+	update_texture()
 
 
 func update_texture():

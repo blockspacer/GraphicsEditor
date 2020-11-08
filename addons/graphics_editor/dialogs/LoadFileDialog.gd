@@ -15,19 +15,21 @@ func _ready():
 
 
 func _on_LineEdit_text_entered(_text):
-	print(_text)
+	return
+#	print(_text)
 	#load_img()
-	print("hsadfasd")
+#	print("hsadfasd")
 
 
 func _on_LoadFileDialog_file_selected(path):
 	file_path = path
-	print("1ere")
+	#print("1ere")
 	load_img()
 
 
 func _on_LoadFileDialog_confirmed():
-	print("ere")
+	return
+	#print("ere")
 	#load_img()
 
 

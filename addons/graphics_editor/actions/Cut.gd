@@ -52,7 +52,7 @@ func commit_action(canvas):
 			var pos = p + Vector2(px, py)
 			var color = canvas.get_pixel(pos.x, pos.y)
 			
-			if color.a == 0.0:
+			if color == null or color.a == 0.0:
 				continue
 			
 			action_data.redo.cells.append(pos)
