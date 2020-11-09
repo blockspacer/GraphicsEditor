@@ -1,7 +1,7 @@
 tool
 extends EditorPlugin
 
-var editor_scene = load("res://addons/graphics_editor/Editor.tscn").instance()
+var editor_scene = load("res://addons/Godoxel/Editor.tscn").instance()
 
 func _enter_tree():
 	editor_scene.name = "Editor"
@@ -29,7 +29,7 @@ func make_visible(visible):
 
 
 func get_plugin_name():
-	return "Image Editor"
+	return "Godoxel"
 
 
 func get_plugin_icon():

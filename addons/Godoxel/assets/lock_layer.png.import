@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lock_layer.png-33f1e8f880088be39b50ce41c8568529.stex"
+path="res://.import/lock_layer.png-076954b389746de9e13c853ed5d9ba59.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/graphics_editor/assets/lock_layer.png"
-dest_files=[ "res://.import/lock_layer.png-33f1e8f880088be39b50ce41c8568529.stex" ]
+source_file="res://addons/Godoxel/assets/lock_layer.png"
+dest_files=[ "res://.import/lock_layer.png-076954b389746de9e13c853ed5d9ba59.stex" ]
 
 [params]
 

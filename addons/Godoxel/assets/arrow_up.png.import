@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arrow_down.png-6353fddfb758b7080149cf1c92b356e5.stex"
+path="res://.import/arrow_up.png-2598e148d1b795a628ce80a4fd5cf401.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/graphics_editor/assets/arrow_down.png"
-dest_files=[ "res://.import/arrow_down.png-6353fddfb758b7080149cf1c92b356e5.stex" ]
+source_file="res://addons/Godoxel/assets/arrow_up.png"
+dest_files=[ "res://.import/arrow_up.png-2598e148d1b795a628ce80a4fd5cf401.stex" ]
 
 [params]
 

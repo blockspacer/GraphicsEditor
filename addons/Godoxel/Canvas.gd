@@ -383,11 +383,14 @@ func hide_grid():
 
 
 func select_color(x, y):
+	print("???")
 	var same_color_pixels = []
 	var color = get_pixel(x, y)
-	for pixel_color in active_layer.pixels:
-		if pixel_color == color:
-			same_color_pixels.append(color)
+	for x in range(active_layer.layer_width):
+		for y in range(active_layer.layer_height):
+			var pixel_color = active_layer.get_pixel(x, y)
+			if pixel_color == color:
+				same_color_pixels.append(color)
 	return same_color_pixels
 
 

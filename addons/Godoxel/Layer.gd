@@ -3,8 +3,8 @@ class_name GELayer
 
 
 var name
-var pixels  # array of pixels (colors), idx repressents x and y
 var layer_width
+var layer_height
 var visible = true setget set_visible
 var locked = false
 
@@ -15,15 +15,13 @@ var texture_rect_ref
 
 func _init():
 	texture = ImageTexture.new()
-	pixels = []
 
 
 func create(texture_rect_ref, width: int, height: int):
 	self.texture_rect_ref = texture_rect_ref
-	pixels = []
-	for i in range(height * width):
-		pixels.append(Color.transparent)
+	
 	layer_width = width
+	layer_height = height
 	
 	image = Image.new()
 	image.create(width, height, false, Image.FORMAT_RGBA8)
@@ -31,34 +29,33 @@ func create(texture_rect_ref, width: int, height: int):
 
 
 func resize(width: int, height: int):
-	var pixels_and_colors = []
-	for i in range(pixels.size()):
-		pixels_and_colors.append([
-			GEUtils.to_2D(i, layer_width),
-			pixels[i]
-			])
+	var pixel_colors = []
+	var prev_width = layer_width
+	var prev_height = layer_height
+	
+	image.lock()
+	for y in range(prev_height):
+		for x in range(prev_width):
+			pixel_colors.append(image.get_pixel(x, y))
+	image.unlock()
 	
 	layer_width = width
-	pixels.clear()
-	pixels.resize(width * height)
+	layer_height = height
 	
 	image.create(width, height, false, Image.FORMAT_RGBA8)
 	
-	for i in range(height * width):
-		pixels[i] = Color.transparent
+	image.lock()
+	for x in range(prev_width):
+		for y in range(prev_height):
+			if x >= width or y >= height:
+				continue
+			image.set_pixel(x, y, pixel_colors[GEUtils.to_1D(x, y, prev_width)])
+	image.unlock()
 	
-	for i in range(pixels_and_colors.size()):
-		var pos = pixels_and_colors[i][0]
-		var color = pixels_and_colors[i][1]
-		if pos.x >= width or pos.y >= height:
-			continue
-		set_pixel(pos.x, pos.y, color)
 	update_texture()
 
 
 func set_pixel(x, y, color):
-#	print("setting pixel: (", x, ", ", y, ") with ", color)
-	pixels[GEUtils.to_1D(x, y, layer_width)] = color
 	image.lock()
 	image.set_pixel(x, y, color)
 	image.unlock()
@@ -74,11 +71,7 @@ func get_pixel(x: int, y: int):
 
 
 func clear():
-	for idx in range(pixels.size()):
-		if pixels[idx] != Color.transparent:
-			pixels[idx] = Color.transparent
-			var pos = GEUtils.to_2D(idx, layer_width)
-			set_pixel(pos.x, pos.y, Color.transparent)
+	image.fill(Color.transparent)
 	update_texture()
 
 

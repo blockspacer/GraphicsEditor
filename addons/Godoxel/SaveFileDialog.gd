@@ -44,16 +44,15 @@ func save_file():
 		var idx = 0
 		if not layer.visible:
 			continue
-		for color in layer.pixels:
-			var pos = GEUtils.to_2D(idx, canvas.canvas_width)
-			idx += 1
-			
-			image.lock()
-			var current_color = image.get_pixel(pos.x, pos.y)
-			if current_color.a != 0:
-				image.set_pixel(pos.x, pos.y, current_color.blend(color))
-			else:
-				image.set_pixel(pos.x, pos.y, color)
+		for x in range(layer.layer_width):
+			for y in range(layer.layer_height):
+				var color = layer.get_pixel(x, y)
+				var image_color = image.get_pixel(x, y)
+				
+				if color.a != 0:
+					image.set_pixel(x, y, image_color.blend(color))
+				else:
+					image.set_pixel(x, y, color)
 	image.unlock()
 	
 	var dir = Directory.new()

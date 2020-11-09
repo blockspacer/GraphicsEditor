@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arrow_up.png-5a32daf21cc72903f29e9dc2d45d90bf.stex"
+path="res://.import/minidotta_invis.png-5232a113bb226997ae55212b2aa90bd4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/graphics_editor/assets/arrow_up.png"
-dest_files=[ "res://.import/arrow_up.png-5a32daf21cc72903f29e9dc2d45d90bf.stex" ]
+source_file="res://addons/Godoxel/assets/minidotta_invis.png"
+dest_files=[ "res://.import/minidotta_invis.png-5232a113bb226997ae55212b2aa90bd4.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

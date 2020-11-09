@@ -141,7 +141,7 @@ func toggle_layer_visibility(layer_name):
 	#print("Layer: ", layer_name, " is now: ", layers[layer_name].chunks.visible)
 
 
-var util = preload("res://addons/graphics_editor/Util.gd")
+var util = preload("res://addons/Godoxel/Util.gd")
 
 
 func _on_mouse_entered():
@@ -179,7 +179,7 @@ func generate_chunks():
 		
 		for x in maxium_chunk_size.x:
 			for y in maxium_chunk_size.y:
-				var paint_canvas_chunk = load("res://addons/graphics_editor/PaintCanvasChunk.tscn").instance()
+				var paint_canvas_chunk = load("res://addons/Godoxel/PaintCanvasChunk.tscn").instance()
 				paint_canvas_chunk.setup(region_size)
 				paint_canvas_chunk.name = "C-%s-%s" % [x, y]
 				paint_canvas_chunk.rect_position = Vector2(x * (grid_size * region_size), y * (grid_size * region_size))

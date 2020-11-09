@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grid.png-74a92f0786b49dae0c01bd21c08c941f.stex"
+path="res://.import/Godoxel_Preview.png-e30103581d3fc0ed2a2c92cdf72b5c70.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/graphics_editor/assets/grid.png"
-dest_files=[ "res://.import/grid.png-74a92f0786b49dae0c01bd21c08c941f.stex" ]
+source_file="res://addons/Godoxel/assets/Godoxel_Preview.png"
+dest_files=[ "res://.import/Godoxel_Preview.png-e30103581d3fc0ed2a2c92cdf72b5c70.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

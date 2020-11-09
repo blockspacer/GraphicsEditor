@@ -26,4 +26,6 @@ func draw_outline_box(pos, size, color, width):
 
 
 func _process(delta):
+	if not is_visible_in_tree():
+		return
 	update()

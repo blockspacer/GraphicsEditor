@@ -22,7 +22,7 @@ var canvas_background: TextureRect
 var grids_node
 var colors_grid
 var selected_color = Color(1, 1, 1, 1) setget set_selected_color
-var util = preload("res://addons/graphics_editor/Util.gd")
+var util = preload("res://addons/Godoxel/Util.gd")
 var textinfo
 var allow_drawing = true
 
@@ -53,6 +53,8 @@ var _cut_size = Vector2.ZERO
 var _actions_history = [] # for undo
 var _redo_history = []
 var _current_action
+
+var _last_mouse_pos_canvas_area = Vector2.ZERO
 
 var _picked_color = false
 
@@ -162,7 +164,6 @@ func _process(delta):
 		return
 	if paint_canvas_container_node == null or paint_canvas == null:
 		return
-	
 	if is_mouse_in_canvas():
 		_handle_scroll()
 	
@@ -176,14 +177,19 @@ func _process(delta):
 		cell_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
 	update_text_info()
 	
-	if not is_mouse_in_canvas():
-		paint_canvas.tool_layer.clear()
-		paint_canvas.update()
-		paint_canvas.tool_layer.update_texture()
-	else:
+#	if not is_mouse_in_canvas():
+#		paint_canvas.tool_layer.clear()
+#		paint_canvas.update()
+#		paint_canvas.tool_layer.update_texture()
+#	else:
+	if is_mouse_in_canvas():
 		if not paint_canvas.is_active_layer_locked():
-			if is_position_in_canvas(last_cell_mouse_position) or is_position_in_canvas(cell_mouse_position):
+			if is_position_in_canvas(paint_canvas_container_node.get_local_mouse_position()) or \
+					is_position_in_canvas(_last_mouse_pos_canvas_area):
 				brush_process()
+			else:
+				print(cell_mouse_position, " not in ", paint_canvas_container_node.rect_size)
+				print("not in canvas")
 		
 		_draw_tool_brush()
 	
@@ -193,6 +199,7 @@ func _process(delta):
 	last_canvas_mouse_position = canvas_mouse_position
 	last_cell_mouse_position = cell_mouse_position
 	last_cell_color = cell_color
+	_last_mouse_pos_canvas_area = paint_canvas_container_node.get_local_mouse_position()
 
 
 func _draw_tool_brush():
@@ -219,7 +226,7 @@ func _draw_tool_brush():
 		_:
 			paint_canvas._set_pixel(paint_canvas.tool_layer, 
 					cell_mouse_position.x, cell_mouse_position.y, selected_color)
-			
+	
 	paint_canvas.update()
 	#TODO add here brush prefab drawing 
 	paint_canvas.tool_layer.update_texture()
@@ -659,11 +666,21 @@ func _on_Button_pressed():
 
 
 func _on_PaintCanvasContainer_mouse_entered():
+	if mouse_on_top == true:
+		return
 	mouse_on_top = true
+	paint_canvas.tool_layer.clear()
+	paint_canvas.update()
+	paint_canvas.tool_layer.update_texture()
 
 
 func _on_PaintCanvasContainer_mouse_exited():
+	if mouse_on_top == false:
+		return
 	mouse_on_top = false
+	paint_canvas.tool_layer.clear()
+	paint_canvas.update()
+	paint_canvas.tool_layer.update_texture()
 
 
 func _on_ColorPicker_popup_closed():
