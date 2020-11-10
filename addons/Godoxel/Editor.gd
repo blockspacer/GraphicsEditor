@@ -136,6 +136,8 @@ func _input(event):
 				Tools.BUCKET:
 					if event.button_index == BUTTON_LEFT:
 						if event.pressed:
+							if _current_action == null:
+								_current_action = get_action()
 							do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 					
 				Tools.COLORPICKER:
