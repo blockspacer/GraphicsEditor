@@ -7,6 +7,8 @@ func do_action(canvas, data: Array):
 	
 	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
 	for pixel in pixels:
+		if canvas.get_pixel_v(pixel) == null:
+			continue
 		if pixel in action_data.undo.cells:
 			var color = GEUtils.random_color()
 			canvas.set_pixel_v(pixel, color)

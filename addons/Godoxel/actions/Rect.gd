@@ -26,6 +26,8 @@ func do_action(canvas, data: Array):
 	pixels += GEUtils.get_pixels_in_line(p + s, p + s  + Vector2(-s.x, 0))
 	
 	for pixel in pixels:
+		if canvas.get_pixel_v(pixel) == null:
+			continue
 		canvas.set_preview_pixel_v(pixel, data[2])
 		action_data.undo.cells.append(pixel)
 		action_data.undo.colors.append(canvas.get_pixel_v(pixel))

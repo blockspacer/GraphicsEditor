@@ -26,6 +26,8 @@ func commit_action(canvas):
 	var cells = action_data.preview.cells
 	var colors = action_data.preview.colors
 	for idx in range(cells.size()):
+		if canvas.get_pixel_v(cells[idx]) == null:
+			continue
 		action_data.undo.cells.append(cells[idx])
 		action_data.undo.colors.append(canvas.get_pixel_v(cells[idx]))
 		
