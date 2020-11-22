@@ -74,11 +74,15 @@ const current_layer_highlight = Color(0.354706, 0.497302, 0.769531)
 const other_layer_highlight = Color(0.180392, 0.176471, 0.176471)
 const locked_layer_highlight = Color(0.098039, 0.094118, 0.094118)
 
+var big_grid_pixels = 4 # 1 grid-box is big_grid_pixels big
 
-func _enter_tree():
+
+
+func _ready():
 	#--------------------
 	#Setup nodes
 	#--------------------
+	
 	paint_canvas_container_node = find_node("PaintCanvasContainer")
 	textinfo = find_node("DebugTextDisplay")
 	selected_color = find_node("ColorPicker").color
@@ -97,13 +101,15 @@ func _enter_tree():
 	
 	if not is_connected("visibility_changed", self, "_on_Editor_visibility_changed"):
 		connect("visibility_changed", self, "_on_Editor_visibility_changed")
-
-
-func _ready():
+	
+	# ready
+	
 	set_brush(Tools.PAINT)
 	_layer_button_ref[layer_buttons.get_child(0).name] = layer_buttons.get_child(0) #ugly
 	_connect_layer_buttons()
 	highlight_layer(paint_canvas.get_active_layer().name)
+	
+	paint_canvas.update()
 
 
 func _input(event):
@@ -259,6 +265,8 @@ func _handle_zoom(event):
 			if px == paint_canvas.pixel_size:
 				return
 			paint_canvas.set_pixel_size(px)
+			find_node("CanvasBackground").material.set_shader_param(
+					"pixel_size", 8 * pow(0.5, big_grid_pixels)/paint_canvas.pixel_size)
 			paint_canvas.rect_position -= paint_canvas.get_local_mouse_position()
 			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, -paint_canvas.rect_size.x * 0.8, rect_size.x)
 			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
@@ -267,6 +275,9 @@ func _handle_zoom(event):
 			if px == paint_canvas.pixel_size:
 				return
 			paint_canvas.set_pixel_size(px)
+			find_node("CanvasBackground").material.set_shader_param(
+					# 4 2 1
+					"pixel_size", 8 * pow(0.5, big_grid_pixels)/paint_canvas.pixel_size)
 			paint_canvas.rect_position += paint_canvas.get_local_mouse_position() / 2
 			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, -paint_canvas.rect_size.x * 0.8, rect_size.x)
 			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
