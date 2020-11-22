@@ -25,6 +25,7 @@ func create(texture_rect_ref, width: int, height: int):
 	
 	image = Image.new()
 	image.create(width, height, false, Image.FORMAT_RGBA8)
+	image.fill(Color.transparent)
 	update_texture()
 
 
