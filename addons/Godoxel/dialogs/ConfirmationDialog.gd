@@ -2,6 +2,7 @@ extends ConfirmationDialog
 tool
 
 func _ready():
+	yield(owner, "ready")
 	find_node("Width").value = owner.paint_canvas.canvas_width
 	find_node("Height").value = owner.paint_canvas.canvas_height
 

@@ -2,6 +2,7 @@ extends AcceptDialog
 tool
 
 func _ready():
+	yield(owner, "ready")
 	find_node("GridValue").value = owner.paint_canvas.grid_size
 	find_node("BigGridValue").value = owner.paint_canvas.big_grid_size
 
