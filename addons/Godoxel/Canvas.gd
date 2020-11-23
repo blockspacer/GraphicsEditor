@@ -363,17 +363,14 @@ func get_preview_pixel(x: int, y: int):
 
 
 func toggle_grid():
-	$BigGrid.visible = not $BigGrid.visible
 	$Grid.visible = not $Grid.visible
 
 
 func show_grid():
-	$BigGrid.show()
 	$Grid.show()
 
 
 func hide_grid():
-	$BigGrid.hide()
 	$Grid.hide()
 
 
