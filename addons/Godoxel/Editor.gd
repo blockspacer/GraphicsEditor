@@ -102,6 +102,9 @@ func _ready():
 	if not is_connected("visibility_changed", self, "_on_Editor_visibility_changed"):
 		connect("visibility_changed", self, "_on_Editor_visibility_changed")
 	
+	find_node("CanvasBackground").material.set_shader_param(
+			"pixel_size", 8 * pow(0.5, big_grid_pixels)/paint_canvas.pixel_size)
+	
 	# ready
 	
 	set_brush(Tools.PAINT)
@@ -113,6 +116,8 @@ func _ready():
 
 
 func _input(event):
+	if is_any_menu_open():
+		return
 	if not is_visible_in_tree():
 		return
 	if paint_canvas_container_node == null or paint_canvas == null:
@@ -172,16 +177,21 @@ func _process(delta):
 		return
 	if paint_canvas_container_node == null or paint_canvas == null:
 		return
+	if is_any_menu_open():
+		return
+	
 	if is_mouse_in_canvas():
 		_handle_scroll()
 	
 	#Update commonly used variables
 	var grid_size = paint_canvas.pixel_size
-	mouse_position = paint_canvas.get_local_mouse_position()
-	canvas_position = paint_canvas_container_node.rect_position
+	mouse_position = get_global_mouse_position() #paint_canvas.get_local_mouse_position()
+	canvas_position = paint_canvas.rect_global_position
 	canvas_mouse_position = Vector2(mouse_position.x - canvas_position.x, mouse_position.y - canvas_position.y)
 	if is_mouse_in_canvas():
-		cell_mouse_position = Vector2(floor(canvas_mouse_position.x / grid_size), floor(canvas_mouse_position.y / grid_size))
+		cell_mouse_position = Vector2(
+				floor(canvas_mouse_position.x / grid_size), 
+				floor(canvas_mouse_position.y / grid_size))
 		cell_color = paint_canvas.get_pixel(cell_mouse_position.x, cell_mouse_position.y)
 	update_text_info()
 	
@@ -192,7 +202,7 @@ func _process(delta):
 #	else:
 	if is_mouse_in_canvas():
 		if not paint_canvas.is_active_layer_locked():
-			if is_position_in_canvas(paint_canvas_container_node.get_local_mouse_position()) or \
+			if is_position_in_canvas(get_global_mouse_position()) or \
 					is_position_in_canvas(_last_mouse_pos_canvas_area):
 				brush_process()
 			else:
@@ -207,7 +217,7 @@ func _process(delta):
 	last_canvas_mouse_position = canvas_mouse_position
 	last_cell_mouse_position = cell_mouse_position
 	last_cell_color = cell_color
-	_last_mouse_pos_canvas_area = paint_canvas_container_node.get_local_mouse_position()
+	_last_mouse_pos_canvas_area = get_global_mouse_position() #paint_canvas_container_node.get_local_mouse_position()
 
 
 func _draw_tool_brush():
@@ -705,13 +715,23 @@ func _on_ColorPicker_popup_closed():
 ############################################
 
 func is_position_in_canvas(pos):
-	if Rect2(Vector2(), paint_canvas_container_node.rect_size).has_point(pos):
+	if Rect2(paint_canvas_container_node.rect_global_position, 
+			 paint_canvas_container_node.rect_global_position + paint_canvas_container_node.rect_size).has_point(pos):
 		return true
 	return false
 
 
 func is_mouse_in_canvas() -> bool:
-	if is_position_in_canvas(paint_canvas_container_node.get_local_mouse_position()):
+	if is_position_in_canvas(get_global_mouse_position()):
 		return true #mouse_on_top # check if mouse is inside canvas
 	else:
 		return false
+
+
+func is_any_menu_open() -> bool:
+	return $ChangeCanvasSize.visible or \
+			$ChangeGridSizeDialog.visible or \
+			$Settings.visible or \
+			$LoadFileDialog.visible or \
+			$SaveFileDialog.visible
+	
