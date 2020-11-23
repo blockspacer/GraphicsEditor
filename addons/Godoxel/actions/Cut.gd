@@ -13,7 +13,7 @@ func can_commit() -> bool:
 func do_action(canvas, data: Array):
 	.do_action(canvas, data)
 	
-	if not mouse_start_pos:
+	if mouse_start_pos == null:
 		mouse_start_pos = data[0]
 	mouse_end_pos = data[0]
 	
