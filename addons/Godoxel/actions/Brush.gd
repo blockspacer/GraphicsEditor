@@ -6,7 +6,7 @@ func do_action(canvas: GECanvas, data: Array):
 	.do_action(canvas, data)
 	
 	for pixel in GEUtils.get_pixels_in_line(data[0], data[1]):
-		for off in BrushPrefabs.list[data[3]]:
+		for off in BrushPrefabs.get_brush(data[3], data[4]):
 			var p = pixel + off
 			
 			if p in action_data.undo.cells or canvas.get_pixel_v(p) == null:

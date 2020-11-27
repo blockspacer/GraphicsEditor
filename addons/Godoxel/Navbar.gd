@@ -70,6 +70,7 @@ func handle_layer_menu(pressed_item: String, id):
 		"Toggle Alpha Locked":
 			owner.paint_canvas.active_layer.toggle_alpha_locked()
 			$Buttons/Layer.get_popup().set_item_checked(id, not $Buttons/Layer.get_popup().is_item_checked(id))
+			owner.find_node("LockAlpha").pressed = $Buttons/Layer.get_popup().is_item_checked(id)
 
 
 func handle_grid_menu(pressed_item: String, id):

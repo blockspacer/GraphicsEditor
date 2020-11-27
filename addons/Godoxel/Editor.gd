@@ -112,6 +112,8 @@ func _ready():
 	_connect_layer_buttons()
 	highlight_layer(paint_canvas.get_active_layer().name)
 	
+	find_node("BrushSizeLabel").text = str(int(find_node("BrushSize").value))
+	
 	paint_canvas.update()
 
 
@@ -233,6 +235,12 @@ func _draw_tool_brush():
 				pixel -= _cut_pos + _cut_size / 2
 				pixel += cell_mouse_position
 				paint_canvas._set_pixel_v(paint_canvas.tool_layer, pixel, color)
+		Tools.BRUSH:
+			var pixels = BrushPrefabs.get_brush(selected_brush_prefab, find_node("BrushSize").value)
+			for pixel in pixels:
+				
+				paint_canvas._set_pixel(paint_canvas.tool_layer, 
+						cell_mouse_position.x + pixel.x, cell_mouse_position.y + pixel.y, selected_color)
 		
 		Tools.RAINBOW:
 			paint_canvas._set_pixel(paint_canvas.tool_layer, 
@@ -326,11 +334,13 @@ func brush_process():
 			_current_action = get_action()
 		if brush_mode == Tools.COLORPICKER:
 			_current_action = null
+		
 		match brush_mode:
 			Tools.PAINT:
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 			Tools.BRUSH:
-				do_action([cell_mouse_position, last_cell_mouse_position, selected_color, selected_brush_prefab])
+				do_action([cell_mouse_position, last_cell_mouse_position, selected_color, 
+						selected_brush_prefab, find_node("BrushSize").value])
 			Tools.LINE:
 				do_action([cell_mouse_position, last_cell_mouse_position, selected_color])
 			Tools.RECT:
@@ -360,7 +370,8 @@ func brush_process():
 			Tools.PAINT:
 				do_action([cell_mouse_position, last_cell_mouse_position, Color.transparent])
 			Tools.BRUSH:
-				do_action([cell_mouse_position, last_cell_mouse_position, Color.transparent, selected_brush_prefab])
+				do_action([cell_mouse_position, last_cell_mouse_position, Color.transparent, 
+						selected_brush_prefab, find_node("BrushSize").value])
 	else:
 		if _current_action and _current_action.can_commit():
 			commit_action()
@@ -533,15 +544,7 @@ func _on_RainbowTool_pressed():
 
 
 func _on_BrushTool_pressed():
-	var prev_mode = brush_mode 
 	set_brush(Tools.BRUSH)
-	if prev_mode != brush_mode:
-		return
-	selected_brush_prefab += 1 
-	selected_brush_prefab = selected_brush_prefab % BrushPrefabs.list.size()
-	var value = float(selected_brush_prefab) / BrushPrefabs.list.size()
-	
-	find_node("BrushTool").get("custom_styles/normal").set("bg_color", Color(value, value, value, 1.0))
 
 
 func _on_LineTool_pressed():
@@ -736,3 +739,39 @@ func is_any_menu_open() -> bool:
 			$SaveFileDialog.visible or \
 			find_node("Navbar").is_any_menu_open()
 	
+
+
+func _on_LockAlpha_pressed():
+	var checked = find_node("LockAlpha").pressed
+	paint_canvas.active_layer.toggle_alpha_locked()
+	for i in range(find_node("Layer").get_popup().get_item_count()):
+		if find_node("Layer").get_popup().get_item_text(i) == "Toggle Alpha Locked":
+			find_node("Layer").get_popup().set_item_checked(i, not find_node("Layer").get_popup().is_item_checked(i))
+
+
+func _on_BrushRect_pressed():
+	if brush_mode != Tools.BRUSH:
+		set_brush(Tools.BRUSH)
+	selected_brush_prefab = BrushPrefabs.Type.RECT
+
+
+func _on_BrushCircle_pressed():
+	if brush_mode != Tools.BRUSH:
+		set_brush(Tools.BRUSH)
+	selected_brush_prefab = BrushPrefabs.Type.CIRCLE
+
+
+func _on_BrushVLine_pressed():
+	if brush_mode != Tools.BRUSH:
+		set_brush(Tools.BRUSH)
+	selected_brush_prefab = BrushPrefabs.Type.V_LINE
+
+
+func _on_BrushHLine_pressed():
+	if brush_mode != Tools.BRUSH:
+		set_brush(Tools.BRUSH)
+	selected_brush_prefab = BrushPrefabs.Type.H_LINE
+
+
+func _on_BrushSize_value_changed(value: float):
+	find_node("BrushSizeLabel").text = str(int(value))
