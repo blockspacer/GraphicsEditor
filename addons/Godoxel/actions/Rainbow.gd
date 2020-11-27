@@ -9,6 +9,10 @@ func do_action(canvas, data: Array):
 	for pixel in pixels:
 		if canvas.get_pixel_v(pixel) == null:
 			continue
+		
+		if canvas.is_alpha_locked() and canvas.get_pixel_v(pixel) == Color.transparent:
+			continue
+		
 		if pixel in action_data.undo.cells:
 			var color = GEUtils.random_color()
 			canvas.set_pixel_v(pixel, color)

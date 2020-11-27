@@ -13,6 +13,9 @@ func do_action(canvas, data: Array):
 		if canvas.get_pixel_v(pixel) == null:
 			continue
 		
+		if canvas.is_alpha_locked() and canvas.get_pixel_v(pixel) == Color.transparent:
+			continue
+		
 		if pixel in action_data.undo.cells:
 			var brightened_color = canvas.get_pixel_v(pixel).lightened(0.1)
 			canvas.set_pixel_v(pixel, brightened_color)

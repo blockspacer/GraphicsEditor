@@ -7,6 +7,7 @@ var layer_width
 var layer_height
 var visible = true setget set_visible
 var locked = false
+var alpha_locked = false
 
 var texture: ImageTexture
 var image: Image
@@ -90,3 +91,8 @@ func set_visible(vis: bool):
 
 func toggle_lock():
 	locked = not locked
+
+
+func toggle_alpha_locked():
+	alpha_locked = not alpha_locked
+

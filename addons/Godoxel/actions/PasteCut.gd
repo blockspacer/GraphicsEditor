@@ -19,6 +19,9 @@ func do_action(canvas, data: Array):
 			if canvas.get_pixel_v(pixel) == null:
 				continue
 			
+			if canvas.is_alpha_locked() and canvas.get_pixel_v(pixel) == Color.transparent:
+				continue
+			
 			var found = action_data.redo.cells.find(pixel)
 			if found == -1:
 				action_data.redo.cells.append(pixel)

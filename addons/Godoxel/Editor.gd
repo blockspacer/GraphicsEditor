@@ -358,9 +358,9 @@ func brush_process():
 		
 		match brush_mode:
 			Tools.PAINT:
-				do_action([cell_mouse_position, last_cell_mouse_position, Color(0, 0, 0, 0)])
+				do_action([cell_mouse_position, last_cell_mouse_position, Color.transparent])
 			Tools.BRUSH:
-				do_action([cell_mouse_position, last_cell_mouse_position, Color(0, 0, 0, 0), selected_brush_prefab])
+				do_action([cell_mouse_position, last_cell_mouse_position, Color.transparent, selected_brush_prefab])
 	else:
 		if _current_action and _current_action.can_commit():
 			commit_action()
@@ -733,5 +733,6 @@ func is_any_menu_open() -> bool:
 			$ChangeGridSizeDialog.visible or \
 			$Settings.visible or \
 			$LoadFileDialog.visible or \
-			$SaveFileDialog.visible
+			$SaveFileDialog.visible or \
+			find_node("Navbar").is_any_menu_open()
 	

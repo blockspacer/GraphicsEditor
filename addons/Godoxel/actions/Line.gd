@@ -16,6 +16,9 @@ func do_action(canvas, data: Array):
 	
 	var pixels = GEUtils.get_pixels_in_line(data[0], mouse_start_pos)
 	for pixel in pixels:
+		if canvas.is_alpha_locked() and canvas.get_pixel_v(pixel) == Color.transparent:
+			continue
+		
 		canvas.set_preview_pixel_v(pixel, data[2])
 		action_data.preview.cells.append(pixel)
 		action_data.preview.colors.append(data[2])

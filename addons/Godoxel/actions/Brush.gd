@@ -12,6 +12,9 @@ func do_action(canvas: GECanvas, data: Array):
 			if p in action_data.undo.cells or canvas.get_pixel_v(p) == null:
 				continue
 			
+			if canvas.is_alpha_locked() and canvas.get_pixel_v(p) == Color.transparent:
+				continue
+			
 			action_data.undo.colors.append(canvas.get_pixel_v(p))
 			action_data.undo.cells.append(p)
 			

@@ -126,6 +126,15 @@ func set_canvas_height(val: int):
 
 
 
+func toggle_alpha_locked(layer_name: String):
+	var layer = find_layer_by_name(layer_name)
+	layer.toggle_alpha_locked()
+
+
+func is_alpha_locked() -> bool:
+	return active_layer.alpha_locked
+
+
 func get_content_margin() -> Rect2:
 	var rect = Rect2(999999, 999999, -999999, -999999)
 	
