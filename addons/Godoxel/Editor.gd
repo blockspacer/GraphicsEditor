@@ -15,6 +15,20 @@ enum Tools {
 	PASTECUT,
 }
 
+# Keyboard shortcuts
+const K_UNDO = KEY_Z
+const K_REDO = KEY_Y
+const K_PENCIL = KEY_Q
+const K_BRUSH = KEY_W
+const K_BUCKET = KEY_F
+const K_RAINBOW = KEY_R
+const K_LINE = KEY_L
+const K_DARK = KEY_D
+const K_BRIGHT = KEY_B
+const K_CUT = KEY_C
+const K_PICK = KEY_P
+
+
 var layer_buttons: Control
 var paint_canvas_container_node
 var paint_canvas: GECanvas
@@ -125,11 +139,8 @@ func _input(event):
 	if paint_canvas_container_node == null or paint_canvas == null:
 		return
 	
-	if event is InputEventKey:
-		if event.scancode == KEY_Z and event.is_pressed() and not event.is_echo():
-			undo_action()
-		elif event.scancode == KEY_Y and event.is_pressed() and not event.is_echo():
-			redo_action()
+	if event is InputEventKey and event.is_pressed() and not event.is_echo():
+		_handle_shortcuts(event.scancode)
 	
 	if is_mouse_in_canvas():
 		_handle_zoom(event)
@@ -220,6 +231,42 @@ func _process(delta):
 	last_cell_mouse_position = cell_mouse_position
 	last_cell_color = cell_color
 	_last_mouse_pos_canvas_area = get_global_mouse_position() #paint_canvas_container_node.get_local_mouse_position()
+
+
+func _handle_shortcuts(scancode):
+	match scancode:
+		K_UNDO:
+			undo_action()
+			
+		K_REDO:
+			redo_action()
+			
+		K_PENCIL:
+			set_brush(Tools.PAINT)
+			
+		K_BRUSH:
+			set_brush(Tools.BRUSH)
+			
+		K_BUCKET:
+			set_brush(Tools.BUCKET)
+			
+		K_RAINBOW:
+			set_brush(Tools.RAINBOW)
+			
+		K_LINE:
+			set_brush(Tools.LINE)
+			
+		K_DARK:
+			set_brush(Tools.DARKEN)
+			
+		K_BRIGHT:
+			set_brush(Tools.BRIGHTEN)
+			
+		K_CUT:
+			set_brush(Tools.CUT)
+			
+		K_PICK:
+			set_brush(Tools.COLORPICKER)
 
 
 func _draw_tool_brush():
@@ -775,3 +822,11 @@ func _on_BrushHLine_pressed():
 
 func _on_BrushSize_value_changed(value: float):
 	find_node("BrushSizeLabel").text = str(int(value))
+
+
+func _on_XSymmetry_pressed():
+	paint_canvas.symmetry_x = not paint_canvas.symmetry_x
+
+
+func _on_YSymmetry_pressed():
+	paint_canvas.symmetry_y = not paint_canvas.symmetry_y

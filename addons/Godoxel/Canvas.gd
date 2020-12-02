@@ -23,6 +23,8 @@ var grid
 var big_grid
 var selected_pixels = []
 
+var symmetry_x = false
+var symmetry_y = false
 
 
 func _enter_tree():

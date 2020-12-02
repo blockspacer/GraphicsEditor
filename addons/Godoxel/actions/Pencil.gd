@@ -7,18 +7,17 @@ func do_action(canvas, data: Array):
 	
 	var pixels = GEUtils.get_pixels_in_line(data[0], data[1])
 	for pixel in pixels:
-		if pixel in action_data.undo.cells or canvas.get_pixel_v(pixel) == null:
-			continue
-		
-		if canvas.is_alpha_locked() and canvas.get_pixel_v(pixel) == Color.transparent:
-			continue
-		
-		action_data.undo.colors.append(canvas.get_pixel_v(pixel))
-		action_data.undo.cells.append(pixel)
-		canvas.set_pixel_v(pixel, data[2])
+		for p in get_points(canvas, pixel):
+			_set_pixel(canvas, p, data[2])
+
+
+func _set_pixel(canvas, pixel, color):
+	action_data.undo.colors.append(canvas.get_pixel_v(pixel))
+	action_data.undo.cells.append(pixel)
+	canvas.set_pixel_v(pixel, color)
 	
-		action_data.redo.cells.append(pixel)
-		action_data.redo.colors.append(data[2])
+	action_data.redo.cells.append(pixel)
+	action_data.redo.colors.append(color)
 
 
 func commit_action(canvas):
