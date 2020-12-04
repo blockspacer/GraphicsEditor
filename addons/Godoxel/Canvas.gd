@@ -154,7 +154,7 @@ func get_content_margin() -> Rect2:
 		if r.size.y > rect.size.y:
 			rect.size.y = r.size.y
 		
-	return rect 
+	return rect
 
 
 func crop_to_content():
@@ -286,7 +286,7 @@ func select_layer(layer_name: String):
 
 
 #-------------------------------
-# Check 
+# Check
 #-------------------------------
 
 func _on_mouse_entered():
@@ -311,7 +311,7 @@ func is_inside_canvas(x, y):
 #-------------------------------
 
 
-#Note: Arrays are always passed by reference. To get a copy of an array which 
+#Note: Arrays are always passed by reference. To get a copy of an array which
 #      can be modified independently of the original array, use duplicate.
 # (https://docs.godotengine.org/en/stable/classes/class_array.html)
 func set_pixel_arr(pixels: Array, color: Color):
@@ -362,7 +362,7 @@ func get_preview_pixel_v(pos: Vector2):
 
 
 func get_preview_pixel(x: int, y: int):
-	if not preview_layer: 
+	if not preview_layer:
 		return null
 	return preview_layer.get_pixel(x, y)
 
@@ -407,7 +407,7 @@ func select_same_color(x, y):
 
 
 # returns array of Vector2
-# yoinked from 
+# yoinked from
 # https://www.geeksforgeeks.org/flood-fill-algorithm-implement-fill-paint/
 func get_neighbouring_pixels(pos_x: int, pos_y: int) -> Array:
 	var pixels = []

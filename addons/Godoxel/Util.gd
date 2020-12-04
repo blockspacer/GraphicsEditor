@@ -39,7 +39,7 @@ static func to_2D(idx, w) -> Vector2:
 	var p = Vector2()
 	p.x = int(idx) % int(w)
 	p.y = int(idx / w)
-	return p 
+	return p
 
 
 
