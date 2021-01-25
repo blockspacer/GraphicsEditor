@@ -45,6 +45,7 @@ func resize(width: int, height: int):
 	layer_height = height
 	
 	image.create(width, height, false, Image.FORMAT_RGBA8)
+	image.fill(Color.transparent)
 	
 	image.lock()
 	for x in range(prev_width):
