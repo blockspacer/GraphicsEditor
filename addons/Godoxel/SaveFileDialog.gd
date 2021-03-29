@@ -39,20 +39,23 @@ func save_file():
 	var image = Image.new()
 	image.create(canvas.canvas_width, canvas.canvas_height, true, Image.FORMAT_RGBA8)
 	image.lock()
+	image.fill(Color.transparent)
+	image.unlock()
+	image.lock()
 	
 	for layer in canvas.layers:
-		var idx = 0
 		if not layer.visible:
 			continue
+		
 		for x in range(layer.layer_width):
 			for y in range(layer.layer_height):
 				var color = layer.get_pixel(x, y)
 				var image_color = image.get_pixel(x, y)
 				
 				if color.a != 0:
-					image.set_pixel(x, y, image_color.blend(color))
-				else:
 					image.set_pixel(x, y, color)
+				else:
+					image.set_pixel(x, y, image_color.blend(color))
 	image.unlock()
 	
 	var dir = Directory.new()
