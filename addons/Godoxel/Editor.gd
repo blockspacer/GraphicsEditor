@@ -29,6 +29,7 @@ const K_CUT = KEY_C
 const K_PICK = KEY_P
 
 
+var right_panel : Panel
 var layer_buttons: Control
 var paint_canvas_container_node
 var paint_canvas: GECanvas
@@ -104,6 +105,7 @@ func _ready():
 	paint_canvas = paint_canvas_container_node.find_node("Canvas")
 	layer_buttons = find_node("LayerButtons")
 	canvas_background = find_node("CanvasBackground")
+	right_panel = find_node("RightPanel")
 	
 	set_process(true)
 	
@@ -766,7 +768,7 @@ func _on_ColorPicker_popup_closed():
 
 func is_position_in_canvas(pos):
 	if Rect2(paint_canvas_container_node.rect_global_position,
-			 paint_canvas_container_node.rect_global_position + paint_canvas_container_node.rect_size).has_point(pos):
+			paint_canvas_container_node.rect_size).has_point(pos):
 		return true
 	return false
 
