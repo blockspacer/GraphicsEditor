@@ -98,76 +98,76 @@ size = Vector2( 64, 64 )
 bg_color = Color( 0.2, 0.2, 0.2, 1 )
 
 [sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.915836, 0.125716, 0.054465, 1 )
+bg_color = Color( 0.452144, 0.397716, 0.0538159, 1 )
 
 [sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.679581, 0.431101, 0.537047, 1 )
+bg_color = Color( 0.114134, 0.989919, 0.990908, 1 )
 
 [sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 0.290244, 0.387148, 0.254063, 1 )
+bg_color = Color( 0.315986, 0.563746, 0.536825, 1 )
 
 [sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.336022, 0.738563, 0.357228, 1 )
+bg_color = Color( 0.218219, 0.336323, 0.0659741, 1 )
 
 [sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.169133, 0.867529, 0.240623, 1 )
+bg_color = Color( 0.163289, 0.240192, 0.37346, 1 )
 
 [sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.50967, 0.125499, 0.848642, 1 )
+bg_color = Color( 0.330661, 0.369256, 0.97379, 1 )
 
 [sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.120286, 0.231576, 0.673167, 1 )
+bg_color = Color( 0.216537, 0.755049, 0.491349, 1 )
 
 [sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.11166, 0.492133, 0.465689, 1 )
+bg_color = Color( 0.826652, 0.848742, 0.0115273, 1 )
 
 [sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0.0907945, 0.141401, 0.511169, 1 )
+bg_color = Color( 0.122094, 0.920589, 0.44931, 1 )
 
 [sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 0.536262, 0.101007, 0.11351, 1 )
+bg_color = Color( 0.150271, 0.325517, 0.694568, 1 )
 
 [sub_resource type="StyleBoxFlat" id=18]
-bg_color = Color( 0.352407, 0.325235, 0.957181, 1 )
+bg_color = Color( 0.703849, 0.926427, 0.334865, 1 )
 
 [sub_resource type="StyleBoxFlat" id=19]
-bg_color = Color( 0.895298, 0.336273, 0.0474954, 1 )
+bg_color = Color( 0.471709, 0.00867083, 0.188914, 1 )
 
 [sub_resource type="StyleBoxFlat" id=20]
-bg_color = Color( 0.0929223, 0.741185, 0.76887, 1 )
+bg_color = Color( 0.300704, 0.501144, 0.687167, 1 )
 
 [sub_resource type="StyleBoxFlat" id=21]
-bg_color = Color( 0.667039, 0.768369, 0.277743, 1 )
+bg_color = Color( 0.52919, 0.953225, 0.374313, 1 )
 
 [sub_resource type="StyleBoxFlat" id=22]
-bg_color = Color( 0.273882, 0.826421, 0.00988631, 1 )
+bg_color = Color( 0.443307, 0.0121565, 0.599621, 1 )
 
 [sub_resource type="StyleBoxFlat" id=23]
-bg_color = Color( 0.0489926, 0.877844, 0.843529, 1 )
+bg_color = Color( 0.868357, 0.245633, 0.583044, 1 )
 
 [sub_resource type="StyleBoxFlat" id=24]
-bg_color = Color( 0.965286, 0.47287, 0.212457, 1 )
+bg_color = Color( 0.20955, 0.510868, 0.721501, 1 )
 
 [sub_resource type="StyleBoxFlat" id=25]
-bg_color = Color( 0.0876951, 0.249316, 0.302781, 1 )
+bg_color = Color( 0.544154, 0.786819, 0.162435, 1 )
 
 [sub_resource type="StyleBoxFlat" id=26]
-bg_color = Color( 0.469468, 0.670208, 0.227656, 1 )
+bg_color = Color( 0.309762, 0.772837, 0.467272, 1 )
 
 [sub_resource type="StyleBoxFlat" id=27]
-bg_color = Color( 0.5991, 0.0480284, 0.178726, 1 )
+bg_color = Color( 0.0682784, 0.753402, 0.362869, 1 )
 
 [sub_resource type="StyleBoxFlat" id=28]
-bg_color = Color( 0.49333, 0.233915, 0.86538, 1 )
+bg_color = Color( 0.343818, 0.0699588, 0.589297, 1 )
 
 [sub_resource type="StyleBoxFlat" id=29]
-bg_color = Color( 0.449058, 0.796082, 0.699641, 1 )
+bg_color = Color( 0.290648, 0.443224, 0.249702, 1 )
 
 [sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0.56116, 0.657619, 0.18806, 1 )
+bg_color = Color( 0.838284, 0.660357, 0.11075, 1 )
 
 [sub_resource type="StyleBoxFlat" id=31]
-bg_color = Color( 0.217709, 0.994218, 0.85277, 1 )
+bg_color = Color( 0.876227, 0.296861, 0.400053, 1 )
 
 [sub_resource type="StyleBoxFlat" id=32]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
@@ -210,6 +210,7 @@ __meta__ = {
 [node name="PaintCanvasContainer" type="Control" parent="Panel/NoBCViewportsnotworking26181/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_clip_content = true
 focus_mode = 1
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -224,10 +225,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -128.0
-margin_top = -128.0
-margin_right = 128.0
-margin_bottom = 128.0
+margin_left = -51.8907
+margin_top = 133.626
+margin_right = 204.109
+margin_bottom = 389.626
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1010,8 +1011,8 @@ __meta__ = {
 [node name="DebugTextDisplay" type="RichTextLabel" parent="Panel/NoBCViewportsnotworking26181/BottomPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "FPS 60	Mouse Position (687, 263)	Canvas Mouse Position (433.288025, -250.794983) 	Canvas Position (253.71199, 513.794983)	
-Cell Position (108, -63) 	Cell Color 0,0,0,0	"
+text = "FPS 60	Mouse Position (449.027802, 86.347183)	Canvas Mouse Position (-11.081512, -351.278442) 	Canvas Position (460.109314, 437.625641)	
+Cell Position (-3, -88) 	Cell Color 0,0,0,0	"
 scroll_active = false
 script = ExtResource( 11 )
 __meta__ = {

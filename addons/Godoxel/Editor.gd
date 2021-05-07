@@ -133,7 +133,7 @@ func _ready():
 	paint_canvas.update()
 
 
-func _input(event):
+func _input(event:InputEvent):
 	if is_any_menu_open():
 		return
 	if not is_visible_in_tree():
@@ -315,6 +315,10 @@ func _handle_scroll():
 		
 		paint_canvas.rect_position = _middle_mouse_pressed_start_pos
 		paint_canvas.rect_position += get_global_mouse_position() - _middle_mouse_pressed_pos
+		if paint_canvas.rect_position.y < 0:
+			paint_canvas.rect_position.y = 0
+		if paint_canvas.rect_position.x < 0:
+			paint_canvas.rect_position.x = 0
 		
 	elif _middle_mouse_pressed_start_pos != null:
 		_middle_mouse_pressed_start_pos = null
