@@ -225,10 +225,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -51.8907
-margin_top = 133.626
-margin_right = 204.109
-margin_bottom = 389.626
+margin_left = -136.891
+margin_top = -60.374
+margin_right = 119.109
+margin_bottom = 195.626
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1011,8 +1011,8 @@ __meta__ = {
 [node name="DebugTextDisplay" type="RichTextLabel" parent="Panel/NoBCViewportsnotworking26181/BottomPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "FPS 60	Mouse Position (449.027802, 86.347183)	Canvas Mouse Position (-11.081512, -351.278442) 	Canvas Position (460.109314, 437.625641)	
-Cell Position (-3, -88) 	Cell Color 0,0,0,0	"
+text = "FPS 60	Mouse Position (519, 133)	Canvas Mouse Position (143.890686, -110.626022) 	Canvas Position (375.109314, 243.626022)	
+Cell Position (35, -28) 	Cell Color 0,0,0,0	"
 scroll_active = false
 script = ExtResource( 11 )
 __meta__ = {
