@@ -2,7 +2,7 @@ extends Control
 class_name GECanvas
 tool
 
-export var pixel_size: int = 16 setget set_pixel_size
+export var pixel_size: float = 16 setget set_pixel_size
 export(int, 1, 2500) var canvas_width = 48 setget set_canvas_width # == pixels
 export(int, 1, 2500) var canvas_height = 28 setget set_canvas_height # == pixels
 export var grid_size = 16 setget set_grid_size
@@ -90,7 +90,7 @@ func resize(width: int, height: int):
 # Export
 #-------------------------------
 
-func set_pixel_size(size: int):
+func set_pixel_size(size: float):
 	pixel_size = size
 	set_grid_size(grid_size)
 	set_big_grid_size(big_grid_size)

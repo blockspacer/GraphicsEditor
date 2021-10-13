@@ -315,16 +315,16 @@ func _handle_scroll():
 		
 		paint_canvas.rect_position = _middle_mouse_pressed_start_pos
 		paint_canvas.rect_position += get_global_mouse_position() - _middle_mouse_pressed_pos
-		if paint_canvas.rect_position.y < 0:
-			paint_canvas.rect_position.y = 0
-		if paint_canvas.rect_position.x < 0:
-			paint_canvas.rect_position.x = 0
+		if paint_canvas.rect_position.y < -paint_canvas.rect_size.y:
+			paint_canvas.rect_position.y = -paint_canvas.rect_size.y
+		if paint_canvas.rect_position.x < -paint_canvas.rect_size.x:
+			paint_canvas.rect_position.x = -paint_canvas.rect_size.x
 		
 	elif _middle_mouse_pressed_start_pos != null:
 		_middle_mouse_pressed_start_pos = null
 
 
-const max_zoom_out = 1
+const max_zoom_out = 0.25
 const max_zoom_in = 50
 
 func _handle_zoom(event):
@@ -339,8 +339,13 @@ func _handle_zoom(event):
 			find_node("CanvasBackground").material.set_shader_param(
 					"pixel_size", 8 * pow(0.5, big_grid_pixels)/paint_canvas.pixel_size)
 			paint_canvas.rect_position -= paint_canvas.get_local_mouse_position()
-			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, -paint_canvas.rect_size.x * 0.8, rect_size.x)
-			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
+			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, 
+					-paint_canvas.rect_size.x * 0.8, 
+					rect_size.x)
+			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, 
+					-paint_canvas.rect_size.y * 0.8, 
+					rect_size.y)
+					
 		elif event.button_index == BUTTON_WHEEL_DOWN:
 			var px = max(paint_canvas.pixel_size / 2.0, max_zoom_out)
 			if px == paint_canvas.pixel_size:
@@ -350,8 +355,12 @@ func _handle_zoom(event):
 					# 4 2 1
 					"pixel_size", 8 * pow(0.5, big_grid_pixels)/paint_canvas.pixel_size)
 			paint_canvas.rect_position += paint_canvas.get_local_mouse_position() / 2
-			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, -paint_canvas.rect_size.x * 0.8, rect_size.x)
-			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, -paint_canvas.rect_size.y * 0.8, rect_size.y)
+			paint_canvas.rect_position.x = clamp(paint_canvas.rect_position.x, 
+					-paint_canvas.rect_size.x * 0.8, 
+					rect_size.x)
+			paint_canvas.rect_position.y = clamp(paint_canvas.rect_position.y, 
+					-paint_canvas.rect_size.y * 0.8, 
+					rect_size.y)
 
 
 func _handle_cut():
