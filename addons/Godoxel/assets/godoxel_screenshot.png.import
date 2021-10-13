@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/godoxel_screenshot.png-79225dc895ef6acfaad7190a653fda93.stex"
+path="res://.import/godoxel_screenshot.png-43fb83f678511237490ee7f96939d8cd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/godoxel_screenshot.png"
-dest_files=[ "res://.import/godoxel_screenshot.png-79225dc895ef6acfaad7190a653fda93.stex" ]
+source_file="res://addons/Godoxel/assets/godoxel_screenshot.png"
+dest_files=[ "res://.import/godoxel_screenshot.png-43fb83f678511237490ee7f96939d8cd.stex" ]
 
 [params]
 

@@ -5,7 +5,7 @@
 Godoxel is an image editor for Godot, that can be used inside the editor.
 
 
-![Godoxel Screenshot Image](./images/godoxel_screenshot.png)
+![Godoxel Screenshot Image](./addons/Godoxel/assets/godoxel_screenshot.png)
 
 ## Features
 
